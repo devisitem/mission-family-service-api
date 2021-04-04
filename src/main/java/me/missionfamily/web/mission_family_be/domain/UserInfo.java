@@ -1,7 +1,10 @@
 package me.missionfamily.web.mission_family_be.domain;
 
-import lombok.Getter;
+import com.mysema.commons.lang.Assert;
+import lombok.*;
 
+import javax.jdo.annotations.Join;
+import javax.jdo.annotations.PrimaryKey;
 import javax.persistence.*;
 
 @Entity
@@ -14,14 +17,16 @@ import javax.persistence.*;
                 )
         }
 )
+@ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserInfo {
 
-    @Id @GeneratedValue
+    @Id
     @Column(name = "mf_info_key")
     private Long infoId;
 
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "mf_info_user")
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
     private Account account;
 
     @Column(name = "mf_user_name",length = 30)
@@ -35,6 +40,22 @@ public class UserInfo {
 
     @Column(name = "mf_auth_key",length = 500)
     private String authKey;
+
+    @Builder
+    public UserInfo(String userName,String userPhone,String userBirth,Account account){
+        Assert.hasText(userName,"사용자 이름은 빈값일 수 없습니다.");
+        Assert.hasText(userPhone,"사용자 연락처는 빈값일 수 없습니다.");
+        Assert.hasText(userBirth,"사용자 생년월일은 빈값일 수 없습니다.");
+
+        this.userName = userName;
+        this.userPhone = userPhone;
+        this.userBirth = userBirth;
+        this.account = account;
+    }
+    public void setAccount(Account account){
+        this.account = account;
+        account.setUserInfo(this);
+    }
 
 
 }

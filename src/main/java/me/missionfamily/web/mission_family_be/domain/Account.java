@@ -1,5 +1,6 @@
 package me.missionfamily.web.mission_family_be.domain;
 
+import com.mysema.commons.lang.Assert;
 import lombok.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -18,6 +19,7 @@ import java.util.List;
             )
         }
     )
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Account {
 
@@ -26,7 +28,7 @@ public class Account {
     @Column(name = "mf_user_key")
     private Long userKey;
 
-    @Column(name = "mf_user_id",length = 50)
+    @Column(name = "mf_user_id",length = 50, nullable = false)
     private String userId;
 
     @Column(name = "mf_user_password",length = 800)
@@ -38,7 +40,7 @@ public class Account {
     @Column(name = "mf_signup_date")
     private LocalDateTime signUpDate;
 
-    @OneToOne(mappedBy = "account",fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "account",fetch = FetchType.LAZY)
     private UserInfo userInfo;
 
     @OneToMany(mappedBy = "account",cascade = CascadeType.ALL)
@@ -47,14 +49,23 @@ public class Account {
     @OneToMany(mappedBy = "familyKey",cascade = CascadeType.ALL)
     private List<Family> belongFamily = new ArrayList<>();
 
+    @Builder
+    public Account(String userId,UserInfo userInfo,String deleteYn){
+        Assert.hasText(userId,"아이디는 빈 값일 수 없습니다.");
 
-    public Account(String userId,UserInfo userInfo){
         this.userId = userId;
         this.userInfo = userInfo;
+        this.deleteYn = "N";
+        this.signUpDate = LocalDateTime.now();
     }
 
     public void setPassword(String password){
         this.userPassword = password;
+    }
+
+    public void setUserInfo(UserInfo userInfo){
+        this.userInfo = userInfo;
+        userInfo.setAccount(this);
     }
 
 
