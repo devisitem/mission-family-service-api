@@ -1,10 +1,8 @@
 package me.missionfamily.web.mission_family_be.domain;
 
-import com.mysema.commons.lang.Assert;
 import lombok.*;
+import org.springframework.util.Assert;
 
-import javax.jdo.annotations.Join;
-import javax.jdo.annotations.PrimaryKey;
 import javax.persistence.*;
 
 @Entity
