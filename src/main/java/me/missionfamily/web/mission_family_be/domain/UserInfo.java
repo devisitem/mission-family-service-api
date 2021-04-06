@@ -42,8 +42,8 @@ public class UserInfo {
     @Builder
     public UserInfo(String userName,String userPhone,String userBirth,Account account){
         Assert.hasText(userName,"사용자 이름은 빈값일 수 없습니다.");
-        Assert.hasText(userPhone,"사용자 연락처는 빈값일 수 없습니다.");
-        Assert.hasText(userBirth,"사용자 생년월일은 빈값일 수 없습니다.");
+        /* Assert.hasText(userPhone,"사용자 연락처는 빈값일 수 없습니다.");
+        Assert.hasText(userBirth,"사용자 생년월일은 빈값일 수 없습니다."); */
 
         this.userName = userName;
         this.userPhone = userPhone;

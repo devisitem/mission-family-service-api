@@ -18,16 +18,10 @@ public class UserController {
 
     private final AccountService accountService;
 
-    @GetMapping("/hello")
-    public String testHello (HttpServletRequest request){
-        return "hello";
-    }
 
     @PostMapping("/dupCheck")
-    public Map<String,Object> dupCheck (HttpServletResponse response, HttpServletRequest request,@RequestBody Map<String,Object> clientMap){
+    public Map<String,Object> dupCheck (@RequestBody Map<String,Object> clientMap) throws Exception {
         String checkId = (String) clientMap.get("checkId");
-
-        System.out.println("checkId = " + checkId);
 
         if(accountService.dupCheckById(checkId)) {
             clientMap.put("serviceCode", "code_no_user");
@@ -37,5 +31,29 @@ public class UserController {
 
 
         return clientMap;
+    }
+
+    @PostMapping("/regist")
+    public Map<String,Object> registerAccount (HttpServletResponse response,@RequestBody Map<String,Object> clientMap) throws Exception {
+        log.info("clientMap = {} ",clientMap);
+        String serviceCode = accountService.accountRegister(clientMap);
+
+        clientMap.put("serviceCode",serviceCode);
+
+
+        return clientMap;
+    }
+
+    @PostMapping("/login")
+    public String loginAccount(@RequestBody Map<String,Object> clientMap ) throws Exception {
+
+        String result = "";
+        if(accountService.loginProcess(clientMap)){
+            result = "ok";
+        } else {
+            result = "Not_ok";
+        }
+
+        return result;
     }
 }
