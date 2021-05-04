@@ -13,7 +13,7 @@ public class MissionService {
 
     public void createMission(MissionDto dto){
 
-
+        missionRepository.saveMission();
 
     }
 
