@@ -21,6 +21,9 @@ public class Mission {
     @JoinColumn(name = "mf_parent_mission")
     private  Mission parent;
 
+    @Column(name = "mf_type", length = 50)
+    private String missionType;
+
     @Column(name = "mf_mission_name",length = 200)
     private String missionName;
 

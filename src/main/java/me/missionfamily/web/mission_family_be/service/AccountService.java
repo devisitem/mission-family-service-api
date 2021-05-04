@@ -71,6 +71,7 @@ public class AccountService {
             return false;
         }
         if(encoder.matches((String) clientMap.get("password"), account.getUserPassword())){
+            System.out.println("Password 일치");
            return true;
         } else {
            return false;

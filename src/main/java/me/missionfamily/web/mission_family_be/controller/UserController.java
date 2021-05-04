@@ -2,7 +2,10 @@ package me.missionfamily.web.mission_family_be.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.missionfamily.web.mission_family_be.domain.ServerResponse;
 import me.missionfamily.web.mission_family_be.service.AccountService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,31 +20,29 @@ import java.util.Map;
 public class UserController {
 
     private final AccountService accountService;
-
+    private ServerResponse serverResponse;
 
     @PostMapping("/dupCheck")
-    public Map<String,Object> dupCheck (@RequestBody Map<String,Object> clientMap) throws Exception {
-        String checkId = (String) clientMap.get("checkId");
+    public ResponseEntity dupCheck (@RequestBody String checkId) throws Exception {
 
         if(accountService.dupCheckById(checkId)) {
-            clientMap.put("serviceCode", "code_no_user");
+            serverResponse = new ServerResponse("code_no_user","not found of user");
         } else {
-            clientMap.put("serviceCode", "already_exist_user");
+            serverResponse = new ServerResponse("already_exist_user","not found of user");
         }
 
 
-        return clientMap;
+        return new ResponseEntity<>(serverResponse,HttpStatus.OK);
     }
 
     @PostMapping("/regist")
-    public Map<String,Object> registerAccount (HttpServletResponse response,@RequestBody Map<String,Object> clientMap) throws Exception {
+    public ResponseEntity registerAccount (HttpServletResponse response,@RequestBody Map<String,Object> clientMap) throws Exception {
         log.info("clientMap = {} ",clientMap);
         String serviceCode = accountService.accountRegister(clientMap);
+        serverResponse = new ServerResponse("create_success","유저 생성에 성공하였습니다.");
 
-        clientMap.put("serviceCode",serviceCode);
 
-
-        return clientMap;
+        return new ResponseEntity<>(serverResponse,HttpStatus.OK);
     }
 
     @PostMapping("/login")
@@ -56,4 +57,6 @@ public class UserController {
 
         return result;
     }
+
+
 }
