@@ -30,7 +30,6 @@ public class WebMvcConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-<<<<<<< HEAD
                 .csrf()
                 .disable()
                 .authorizeRequests()
@@ -39,19 +38,7 @@ public class WebMvcConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .disable()
                 .logout();
-
-
-=======
-                .csrf().disable().authorizeRequests()
-                .antMatchers("/dupCheck","/regist","/login").permitAll()
-                .antMatchers("/admin").hasRole("ADMIN")
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .disable();
-
     }
->>>>>>> ed8bac2f95f31b4a0317caf8c6ca2c83b460259a
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider(){
