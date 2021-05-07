@@ -32,7 +32,7 @@ public class UserController {
         }
 
 
-        return new ResponseEntity<>(serverResponse,HttpStatus.OK);
+        return new ResponseEntity<ServerResponse>(serverResponse,HttpStatus.OK);
     }
 
     @PostMapping("/regist")
