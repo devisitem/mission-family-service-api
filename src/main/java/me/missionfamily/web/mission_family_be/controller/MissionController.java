@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-// import javax.validation.Valid;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/missions")
@@ -20,12 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class MissionController {
 
     private final MissionService missionService;
-    private final ServerResponse serverResponse;
 
     @PostMapping("/create")
-    public ResponseEntity createMission(@RequestBody
-                                            //@Valid gradle dependency error
-                                                    MissionDto dto, Errors erros) throws Exception{
+    public ResponseEntity createMission(@RequestBody @Valid MissionDto dto, Errors erros) throws Exception{
         if(erros.hasErrors()){
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }

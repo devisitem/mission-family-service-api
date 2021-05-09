@@ -20,12 +20,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class WebMvcConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailsService userDetailsService;
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
-    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -40,13 +34,6 @@ public class WebMvcConfig extends WebSecurityConfigurerAdapter {
                 .logout();
     }
 
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailsService);
-
-        return authenticationProvider;
-    }
 
     @Bean
     public CustomBasicAuthenticationEntryPoint authenticationEntryPoint(){
