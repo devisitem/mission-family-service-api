@@ -1,7 +1,7 @@
 package me.missionfamily.web.mission_family_be.controller;
 
 import lombok.RequiredArgsConstructor;
-import me.missionfamily.web.mission_family_be.domain.ServerResponse;
+import me.missionfamily.web.mission_family_be.domain.Mission;
 import me.missionfamily.web.mission_family_be.dto.MissionDto;
 import me.missionfamily.web.mission_family_be.service.MissionService;
 import org.springframework.http.HttpStatus;
@@ -25,8 +25,11 @@ public class MissionController {
         if(erros.hasErrors()){
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
+        //mission converting as dto
+        Mission newMission = dto.getMissionConvertor();
 
-        missionService.createMission(dto);
+        //persistence of mission
+        missionService.createMission(newMission);
 
 
 
