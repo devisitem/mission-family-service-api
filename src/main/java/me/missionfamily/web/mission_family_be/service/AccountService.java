@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.missionfamily.web.mission_family_be.domain.Account;
 import me.missionfamily.web.mission_family_be.domain.UserInfo;
+import me.missionfamily.web.mission_family_be.dto.UserDto;
 import me.missionfamily.web.mission_family_be.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -34,21 +35,21 @@ public class AccountService {
 
     /**
      *
-     * @param clientMap
+     * @param dto
      * @return serviceCode
      */
     @Transactional
-    public String accountRegister(Map<String,Object> clientMap) {
-        String userId = (String) clientMap.get("userId");
+    public String accountRegister(UserDto dto) {
 
-        if(dupCheckById(userId)){
+
+        if(dupCheckById(dto.getUserId())){
             Account account = Account.builder()
-                    .userId(userId)
+                    .userId(dto.getUserId())
                     .build();
-            account.setPassword(encoder.encode((String) clientMap.get("userPassword")));
+            account.setPassword(encoder.encode(dto.getUserPassword()));
 
             accountRepository.save(UserInfo.builder()
-                .userName((String) clientMap.get("userName"))
+                .userName(dto.getUserName())
                 .account(account)
                 .build());
 

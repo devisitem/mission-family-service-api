@@ -3,6 +3,7 @@ package me.missionfamily.web.mission_family_be.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.missionfamily.web.mission_family_be.domain.ServerResponse;
+import me.missionfamily.web.mission_family_be.dto.UserDto;
 import me.missionfamily.web.mission_family_be.service.AccountService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.Map;
 
 
@@ -36,9 +38,9 @@ public class UserController {
     }
 
     @PostMapping("/regist")
-    public ResponseEntity registerAccount (HttpServletResponse response,@RequestBody Map<String,Object> clientMap) throws Exception {
-        log.info("clientMap = {} ",clientMap);
-        String serviceCode = accountService.accountRegister(clientMap);
+    public ResponseEntity registerAccount (HttpServletResponse response, @RequestBody @Valid UserDto dto) throws Exception {
+
+        String serviceCode = accountService.accountRegister(dto);
         serverResponse = new ServerResponse("create_success","유저 생성에 성공하였습니다.");
 
 
@@ -49,11 +51,11 @@ public class UserController {
     public String loginAccount(@RequestBody Map<String,Object> clientMap ) throws Exception {
 
         String result = "";
-        if(accountService.loginProcess(clientMap)){
-            result = "ok";
-        } else {
-            result = "Not_ok";
-        }
+            if(accountService.loginProcess(clientMap)){
+                result = "ok";
+            } else {
+                result = "Not_ok";
+            }
 
         return result;
     }
