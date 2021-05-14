@@ -1,6 +1,7 @@
 package me.missionfamily.web.mission_family_be.domain;
 
 import lombok.*;
+import me.missionfamily.web.mission_family_be.dto.UserRole;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
@@ -35,6 +36,10 @@ public class Account {
 
     @Column(name = "mf_delete_yn",length = 1)
     private String deleteYn;
+
+    @Column(name = "mf_role")
+    @Enumerated(EnumType.STRING)
+    private UserRole role = UserRole.ROLE_NOT_PERMITTED;
 
     @Column(name = "mf_signup_date")
     private LocalDateTime signUpDate;
