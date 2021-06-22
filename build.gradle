@@ -37,11 +37,6 @@ dependencies {
 	// QueryDSL
 	implementation 'com.querydsl:querydsl-jpa'
 
-	//jwt
-	compile group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
-	runtime group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
-	runtime group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
-
 	// https://mvnrepository.com/artifact/org.modelmapper/modelmapper
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.2'
 
