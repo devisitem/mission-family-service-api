@@ -22,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebMvcConfig extends WebSecurityConfigurerAdapter {
 
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -41,6 +42,7 @@ public class WebMvcConfig extends WebSecurityConfigurerAdapter {
 
                 .authorizeRequests()
                 .antMatchers("/api/users/login").permitAll()
+                .antMatchers("/api/users/regist").permitAll()
                 .anyRequest()
                 .authenticated();
 
@@ -55,7 +57,8 @@ public class WebMvcConfig extends WebSecurityConfigurerAdapter {
             web
                     .ignoring()
                     .antMatchers("/h2-console/**",
-                            "/favicon.ico");
+                            "/favicon.ico"
+                    );
     }
 
     @Bean

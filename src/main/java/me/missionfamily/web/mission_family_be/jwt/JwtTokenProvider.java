@@ -2,29 +2,83 @@ package me.missionfamily.web.mission_family_be.jwt;
 
 
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-import java.util.Base64;
-import java.util.List;
+import java.security.Key;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.stream.Collectors;
 
 
-@RequiredArgsConstructor
+@Slf4j
 @Component
-public class JwtTokenProvider {
-    @Value("spring.jwt.secret")
-    private String secretKey;
+@RequiredArgsConstructor
+@ConfigurationProperties(prefix = "jwt")
+public class JwtTokenProvider implements InitializingBean {
 
-    private long tokenValidMillisecond = 1000L * 60 * 60;
+    private static String AUTHORITIES_KEY = "auth";
 
-    private final UserDetailsService userDetailsService;
+    private final String secret;
+    private final long tokenValidityInSeconds;
 
-    @PostConstruct //의존성 주입후 초기화 수행 메서드
-    protected void init(){
-        secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
+    private Key key;
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        byte [] keyByte = Decoders.BASE64.decode(secret);
+        this.key = Keys.hmacShaKeyFor(keyByte);
     }
+
+    public String createToken(Authentication authentication){
+        String authorities = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+
+        long now = System.currentTimeMillis();
+        Date validity = new Date(now + this.tokenValidityInSeconds);
+
+        return Jwts.builder()
+                .setSubject(authentication.getName())
+                .claim(AUTHORITIES_KEY, authorities)
+                .signWith(key, SignatureAlgorithm.HS512)
+                .setExpiration(validity)
+                .compact();
+    }
+
+    public Authentication getAuthentication(String token){
+        Claims claims = Jwts
+                .parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        Collection<? extends GrantedAuthority> authorities =
+                Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
+                        .map(SimpleGrantedAuthority::new)
+                        .collect(Collectors.toList());
+        User principal = new User(claims.getSubject(), "", authorities);
+
+        return new UsernamePasswordAuthenticationToken(principal, token, authorities);
+    }
+
+
 
 }
