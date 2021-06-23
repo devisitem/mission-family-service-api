@@ -2,11 +2,10 @@ package me.missionfamily.web.mission_family_be.jwt;
 
 
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SecurityException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
@@ -79,6 +78,22 @@ public class JwtTokenProvider implements InitializingBean {
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
 
+    public boolean validateToken(String token) {
+        try{
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            return true;
+        }catch(SecurityException | MalformedJwtException e){
+            log.info("invalid Signature for JWT");
+        }catch(ExpiredJwtException e){
+            log.info("exprired JWT token");
+        }catch(UnsupportedJwtException e){
+            log.info("Unsupported JWT token");
+        }catch(IllegalArgumentException e){
+            log.info("illegal JWT token");
+        }
 
+        return false;
+
+    }
 
 }
