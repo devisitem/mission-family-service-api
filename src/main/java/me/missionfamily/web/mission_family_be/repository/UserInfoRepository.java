@@ -25,6 +25,8 @@ public class UserInfoRepository {
         return em.find(UserInfo.class,infoId);
     }
 
+
+
     public List<UserInfo> findAll(){
         return queryFactory
                 .selectFrom(userInfo)

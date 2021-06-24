@@ -2,6 +2,10 @@ package me.missionfamily.web.mission_family_be.config;
 
 
 import lombok.RequiredArgsConstructor;
+import me.missionfamily.web.mission_family_be.jwt.JwtAccessDeniedHandler;
+import me.missionfamily.web.mission_family_be.jwt.JwtAuthenticationEntryPoint;
+import me.missionfamily.web.mission_family_be.jwt.JwtSecurityConfig;
+import me.missionfamily.web.mission_family_be.jwt.JwtTokenProvider;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +25,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class WebMvcConfig extends WebSecurityConfigurerAdapter {
 
+    private final JwtTokenProvider tokenProvider;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+
 
 
     @Override
@@ -29,6 +37,8 @@ public class WebMvcConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
 
                 .exceptionHandling()
+                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .accessDeniedHandler(jwtAccessDeniedHandler)
                 .and()
 
                 .headers()
@@ -44,9 +54,10 @@ public class WebMvcConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/users/login").permitAll()
                 .antMatchers("/api/users/regist").permitAll()
                 .anyRequest()
-                .authenticated();
+                .authenticated()
+                .and()
 
-
+                .apply(new JwtSecurityConfig(tokenProvider));
     }
 
 

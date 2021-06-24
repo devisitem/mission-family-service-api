@@ -7,7 +7,9 @@ import org.springframework.util.Assert;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -38,8 +40,12 @@ public class Account {
     private String deleteYn;
 
     @Column(name = "mf_role")
-    @Enumerated(EnumType.STRING)
-    private UserRole role = UserRole.ROLE_NOT_PERMITTED;
+    @ManyToMany
+    @JoinTable(
+            name = "user_role",
+            joinColumns = {@JoinColumn(name = "mf_user_id", referencedColumnName = "mf_user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "mf_role_name",referencedColumnName = "role_name")})
+    private Set<UserRole> roles;
 
     @Column(name = "mf_signup_date")
     private LocalDateTime signUpDate;
@@ -54,13 +60,15 @@ public class Account {
     private List<Family> belongFamily = new ArrayList<>();
 
     @Builder
-    public Account(String userId,UserInfo userInfo,String deleteYn){
+    public Account(String userId,String userPassword,UserInfo userInfo,String deleteYn,Set<UserRole> userRole){
         Assert.hasText(userId,"아이디는 빈 값일 수 없습니다.");
 
         this.userId = userId;
+        this.userPassword = userPassword;
         this.userInfo = userInfo;
         this.deleteYn = "N";
         this.signUpDate = LocalDateTime.now();
+        this.roles = userRole;
     }
 
     public void setPassword(String password){

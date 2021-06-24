@@ -6,15 +6,20 @@ import lombok.extern.slf4j.Slf4j;
 import me.missionfamily.web.mission_family_be.domain.Account;
 import me.missionfamily.web.mission_family_be.domain.UserInfo;
 import me.missionfamily.web.mission_family_be.dto.UserDto;
+import me.missionfamily.web.mission_family_be.dto.UserRole;
 import me.missionfamily.web.mission_family_be.repository.AccountRepository;
+import me.missionfamily.web.mission_family_be.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.util.Collections;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -39,26 +44,27 @@ public class AccountService {
      * @return serviceCode
      */
     @Transactional
-    public String accountRegister(UserDto dto) {
+    public Account accountRegister(UserDto dto) {
 
-
-        if(dupCheckById(dto.getUserId())){
-            Account account = Account.builder()
-                    .userId(dto.getUserId())
-                    .build();
-            account.setPassword(encoder.encode(dto.getUserPassword()));
-
-            accountRepository.save(UserInfo.builder()
-                .userName(dto.getUserName())
-                .account(account)
-                .build());
-
-            return "create_success";
-        } else {
-
-
-            return "create_fail";
+        if(accountRepository.findOneByUserId(dto.getUserId()).orElse(null) != null){
+            throw new RuntimeException("this user id is already exist");
         }
+
+        UserRole userRole = UserRole.builder()
+                .roleName("USER")
+                .build();
+
+        Account account = Account.builder()
+                .userId(dto.getUserId())
+                .userRole(Collections.singleton(userRole))
+                .userPassword(encoder.encode(dto.getUserPassword()))
+                .build();
+
+        return accountRepository.save(UserInfo.builder()
+            .userName(dto.getUserName())
+            .account(account)
+            .build());
+
     }
 
     /**
@@ -79,4 +85,15 @@ public class AccountService {
         }
 
     }
+
+    @Transactional(readOnly = true)
+    public Optional<Account> getAccountWithAuthorities(String userId) {
+        return accountRepository.findOneByUserId(userId);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<Account> getAccountWithRoles(){
+        return SecurityUtil.getCurrentUsername().flatMap(accountRepository::findOneByUserId);
+    }
+
 }

@@ -2,6 +2,7 @@ package me.missionfamily.web.mission_family_be.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.missionfamily.web.mission_family_be.domain.Account;
 import me.missionfamily.web.mission_family_be.domain.ServerResponse;
 import me.missionfamily.web.mission_family_be.dto.UserDto;
 import me.missionfamily.web.mission_family_be.service.AccountService;
@@ -40,7 +41,7 @@ public class UserController {
     @PostMapping("/regist")
     public ResponseEntity registerAccount (HttpServletResponse response, @RequestBody @Valid UserDto dto) throws Exception {
 
-        String serviceCode = accountService.accountRegister(dto);
+        Account account = accountService.accountRegister(dto);
         serverResponse = new ServerResponse("create_success","유저 생성에 성공하였습니다.");
 
 

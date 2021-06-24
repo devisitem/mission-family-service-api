@@ -7,12 +7,14 @@ import me.missionfamily.web.mission_family_be.domain.Account;
 import me.missionfamily.web.mission_family_be.domain.QAccount;
 import me.missionfamily.web.mission_family_be.domain.QUserInfo;
 import me.missionfamily.web.mission_family_be.domain.UserInfo;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -25,8 +27,16 @@ public class AccountRepository {
     QAccount account = QAccount.account;
 
 
-    public void save(UserInfo userInfo){
+    public Account save(UserInfo userInfo){
         em.persist(userInfo);
+        return userInfo.getAccount();
+    }
+
+    @EntityGraph(attributePaths = "roles")
+    public Optional<Account> findOneByUserId(String userId){
+        return Optional.ofNullable(queryFactory.selectFrom(account)
+                .where(account.userId.eq(userId))
+                .fetchOne());
     }
 
     public Account findById(String id){
