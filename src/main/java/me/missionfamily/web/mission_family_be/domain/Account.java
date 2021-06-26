@@ -59,6 +59,8 @@ public class Account {
     @OneToMany(mappedBy = "familyKey",cascade = CascadeType.ALL)
     private List<Family> belongFamily = new ArrayList<>();
 
+    private boolean activated;
+
     @Builder
     public Account(String userId,String userPassword,UserInfo userInfo,String deleteYn,Set<UserRole> userRole){
         Assert.hasText(userId,"아이디는 빈 값일 수 없습니다.");
@@ -70,7 +72,6 @@ public class Account {
         this.signUpDate = LocalDateTime.now();
         this.roles = userRole;
     }
-
     public void setPassword(String password){
         this.userPassword = password;
     }
