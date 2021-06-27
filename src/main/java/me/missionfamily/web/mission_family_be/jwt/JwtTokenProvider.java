@@ -6,9 +6,11 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SecurityException;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -29,15 +31,18 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-@ConfigurationProperties(prefix = "jwt")
 public class JwtTokenProvider implements InitializingBean {
 
-    private static String AUTHORITIES_KEY = "auth";
+    private static final String AUTHORITIES_KEY = "auth";
 
+    @Value("${jwt.secret}")
     private final String secret;
+
+    @Value("${jwt.token-validity-in-seconds}")
     private final long tokenValidityInSeconds;
 
     private Key key;
+
 
     @Override
     public void afterPropertiesSet() throws Exception {
