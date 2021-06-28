@@ -30,19 +30,22 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-@RequiredArgsConstructor
 public class JwtTokenProvider implements InitializingBean {
 
     private static final String AUTHORITIES_KEY = "auth";
 
-    @Value("${jwt.secret}")
     private final String secret;
 
-    @Value("${jwt.token-validity-in-seconds}")
     private final long tokenValidityInSeconds;
 
     private Key key;
 
+    public JwtTokenProvider(
+            @Value("${jwt.secret}") String secret,
+            @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds){
+        this.secret = secret;
+        this.tokenValidityInSeconds = tokenValidityInSeconds * 1000;
+    }
 
     @Override
     public void afterPropertiesSet() throws Exception {
