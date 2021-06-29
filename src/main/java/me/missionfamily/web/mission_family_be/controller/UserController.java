@@ -38,7 +38,7 @@ public class UserController {
         return new ResponseEntity<ServerResponse>(serverResponse,HttpStatus.OK);
     }
 
-    @PostMapping("/regist")
+    @PostMapping("/register")
     public ResponseEntity registerAccount (HttpServletResponse response, @RequestBody @Valid UserDto dto) throws Exception {
 
         Account account = accountService.accountRegister(dto);
@@ -46,19 +46,6 @@ public class UserController {
 
 
         return new ResponseEntity<>(serverResponse,HttpStatus.OK);
-    }
-
-    @PostMapping("/login")
-    public String loginAccount(@RequestBody Map<String,Object> clientMap ) throws Exception {
-
-        String result = "";
-            if(accountService.loginProcess(clientMap)){
-                result = "ok";
-            } else {
-                result = "Not_ok";
-            }
-
-        return result;
     }
 
 
