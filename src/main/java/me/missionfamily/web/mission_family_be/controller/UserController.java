@@ -27,7 +27,7 @@ public class UserController {
 
     @PostMapping("/dupCheck")
     public ResponseEntity dupCheck (@RequestBody String checkId) throws Exception {
-
+        System.out.println("checkId = " + checkId);
         if(accountService.dupCheckById(checkId)) {
             serverResponse = new ServerResponse("code_no_user","not found of user");
         } else {

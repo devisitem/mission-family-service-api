@@ -19,6 +19,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -53,10 +56,13 @@ public class WebMvcConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/users/login").permitAll()
                 .antMatchers("/api/users/register").permitAll()
+                .antMatchers("/api/users/dupCheck").permitAll()
                 .antMatchers("/api/authenticate").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
+
+                .cors().disable()
 
                 .apply(new JwtSecurityConfig(tokenProvider));
     }
@@ -77,4 +83,24 @@ public class WebMvcConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+
+    public CorsConfigurationSource corsConfigurationSource(){
+        System.out.println("--------------cors config start---------------");
+
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.addAllowedHeader("*");
+        configuration.addAllowedMethod("*");
+        configuration.addAllowedOrigin("*");
+        configuration.setAllowCredentials(true);
+        configuration.setMaxAge(360L);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+
+
+        System.out.println("--------------cors config end---------------");
+
+        return source;
+    }
+
 }
