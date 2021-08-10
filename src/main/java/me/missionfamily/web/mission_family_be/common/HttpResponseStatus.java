@@ -2,7 +2,8 @@ package me.missionfamily.web.mission_family_be.common;
 
 public enum HttpResponseStatus {
 
-    USER_DUPLICATE (200,"001","already exist user id");
+    USER_ID_DUPLICATE (200,001,"이미 존재하는 아이디"),
+    ;
 
 
 
@@ -11,13 +12,15 @@ public enum HttpResponseStatus {
 
 
     int status;
-    String code;
+    int code;
     String message;
 
 
-    HttpResponseStatus(int status, String code, String message) {
+    HttpResponseStatus(int status, int code, String message) {
         this.status = status;
         this.code = code;
         this.message = message;
     }
+
+
 }

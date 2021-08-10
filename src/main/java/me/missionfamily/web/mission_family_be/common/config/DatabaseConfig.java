@@ -1,4 +1,4 @@
-package me.missionfamily.web.mission_family_be.config;
+package me.missionfamily.web.mission_family_be.common.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.context.annotation.Bean;

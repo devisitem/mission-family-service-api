@@ -1,4 +1,4 @@
-package me.missionfamily.web.mission_family_be.config;
+package me.missionfamily.web.mission_family_be.common.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

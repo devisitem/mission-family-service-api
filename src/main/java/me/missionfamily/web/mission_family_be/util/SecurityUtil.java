@@ -16,7 +16,7 @@ public class SecurityUtil {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if(authentication == null){
-            log.debug("There is no Authrization in Security Context");
+            log.debug("There is no Authorization in Security Context");
             return Optional.empty();
         }
 

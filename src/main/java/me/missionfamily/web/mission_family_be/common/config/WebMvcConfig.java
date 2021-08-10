@@ -1,4 +1,4 @@
-package me.missionfamily.web.mission_family_be.config;
+package me.missionfamily.web.mission_family_be.common.config;
 
 
 import lombok.RequiredArgsConstructor;
@@ -6,17 +6,13 @@ import me.missionfamily.web.mission_family_be.jwt.JwtAccessDeniedHandler;
 import me.missionfamily.web.mission_family_be.jwt.JwtAuthenticationEntryPoint;
 import me.missionfamily.web.mission_family_be.jwt.JwtSecurityConfig;
 import me.missionfamily.web.mission_family_be.jwt.JwtTokenProvider;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
@@ -32,31 +28,29 @@ public class WebMvcConfig extends WebSecurityConfigurerAdapter {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
-
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
 
-                .exceptionHandling()
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                .accessDeniedHandler(jwtAccessDeniedHandler)
-                .and()
-
-                .headers()
-                .frameOptions()
-                .sameOrigin()
-                .and()
-
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+//                .exceptionHandling()
+//                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+//                .accessDeniedHandler(jwtAccessDeniedHandler)
+//                .and()
+//
+//                .headers()
+//                .frameOptions()
+//                .sameOrigin()
+//                .and()
+//
+//                .sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
 
                 .authorizeRequests()
                 .antMatchers("/api/users/login").permitAll()
                 .antMatchers("/api/users/register").permitAll()
-                .antMatchers("/api/users/dupCheck").permitAll()
+                .antMatchers("/api/users/duplicateCheck").permitAll()
                 .antMatchers("/api/authenticate").permitAll()
                 .anyRequest()
                 .authenticated()
@@ -64,7 +58,8 @@ public class WebMvcConfig extends WebSecurityConfigurerAdapter {
 
                 .cors().disable()
 
-                .apply(new JwtSecurityConfig(tokenProvider));
+//                .apply(new JwtSecurityConfig(tokenProvider))
+        ;
     }
 
 
@@ -84,8 +79,8 @@ public class WebMvcConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
     public CorsConfigurationSource corsConfigurationSource(){
-        System.out.println("--------------cors config start---------------");
 
         CorsConfiguration configuration = new CorsConfiguration();
 
@@ -96,9 +91,6 @@ public class WebMvcConfig extends WebSecurityConfigurerAdapter {
         configuration.setMaxAge(360L);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
-
-
-        System.out.println("--------------cors config end---------------");
 
         return source;
     }

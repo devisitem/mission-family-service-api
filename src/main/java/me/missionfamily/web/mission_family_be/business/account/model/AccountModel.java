@@ -1,17 +1,18 @@
-package me.missionfamily.web.mission_family_be.dto;
+package me.missionfamily.web.mission_family_be.business.account.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
-@Data
+@ToString
 @Builder
-public class UserDto {
+@NoArgsConstructor
+@AllArgsConstructor
+public class AccountModel {
 
     @NotNull
     private String userId;

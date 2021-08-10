@@ -1,21 +1,19 @@
 package me.missionfamily.web.mission_family_be.service;
 
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import me.missionfamily.web.mission_family_be.business.account.dxo.AccountDxo;
+import me.missionfamily.web.mission_family_be.common.data_transfer.ResponseModel;
+import me.missionfamily.web.mission_family_be.common.util.MissionUtil;
 import me.missionfamily.web.mission_family_be.domain.Account;
+import me.missionfamily.web.mission_family_be.domain.Mission;
 import me.missionfamily.web.mission_family_be.domain.UserInfo;
-import me.missionfamily.web.mission_family_be.dto.UserDto;
+import me.missionfamily.web.mission_family_be.business.account.dxo.UserDxo;
 import me.missionfamily.web.mission_family_be.dto.UserRole;
 import me.missionfamily.web.mission_family_be.repository.AccountRepository;
 import me.missionfamily.web.mission_family_be.util.SecurityUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import java.util.Collections;
 import java.util.Map;
@@ -29,24 +27,40 @@ public class AccountService {
     private final AccountRepository accountRepository;
     private final PasswordEncoder encoder;
 
-    public boolean dupCheckById(String checkId){
-        Account findAccount = accountRepository.findById(checkId);
-        if(null != findAccount){
-            return false;
-        } else {
-            return true;
+    public AccountDxo.Response dupCheckById(String checkId){
+
+        Account findAccount = accountRepository.findAccountById(checkId);
+
+        if(MissionUtil.isNotNull(findAccount)) {
+
+//            throw new RuntimeException("이미 존재하는 아이디입니다.");
+            System.out.println("이미 존재하는 아이디입니다.");
         }
+        System.out.println("중복된 아이디 없음");
+
+        return AccountDxo.Response.builder()
+                .result(ResponseModel.builder()
+                        .resultCode(0)
+                        .build())
+                .build();
     }
 
     /**
      *
-     * @param dto
+     * @param accountDxo
      * @return serviceCode
      */
     @Transactional
-    public Account accountRegister(UserDto dto) {
+    public AccountDxo.Response registerForAccount (final AccountDxo.Request accountDxo) throws Exception {
 
-        if(accountRepository.findOneByUserId(dto.getUserId()).orElse(null) != null){
+        Account foundAccount = accountRepository.findAccountById(accountDxo.getUserId());
+
+        if(MissionUtil.isNotNull(foundAccount)) {
+            System.out.println("이미 존재하는 아이디입니다.");
+        }
+
+
+/*     if(accountRepository.findOneByUserId(dto.getUserId()).orElse(null) != null){
             throw new RuntimeException("this user id is already exist");
         }
 
@@ -63,8 +77,8 @@ public class AccountService {
         return accountRepository.save(UserInfo.builder()
             .userName(dto.getUserName())
             .account(account)
-            .build());
-
+            .build());*/
+        return null;
     }
 
     /**
@@ -73,7 +87,7 @@ public class AccountService {
      * @return
      */
     public boolean loginProcess(Map<String,Object> clientMap){
-        Account account = accountRepository.findById((String) clientMap.get("id"));
+        Account account = accountRepository.findAccountById((String) clientMap.get("id"));
         if(account == null){
             return false;
         }

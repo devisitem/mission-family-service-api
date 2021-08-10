@@ -7,14 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@Table(
-        name = "mf_user_info",
-        uniqueConstraints = {
-                @UniqueConstraint(
-                        columnNames = "mf_user_phone"
-                )
-        }
-)
+@Table(name = "mf_user_info")
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserInfo {
@@ -30,7 +23,7 @@ public class UserInfo {
     @Column(name = "mf_user_name",length = 30)
     private String userName;
 
-    @Column(name = "mf_user_phone",length = 30)
+    @Column(name = "mf_user_phone",length = 30, unique = true)
     private String userPhone;
 
     @Column(name = "mf_user_birth",length = 12)
@@ -50,6 +43,7 @@ public class UserInfo {
         this.userBirth = userBirth;
         this.account = account;
     }
+
     public void setAccount(Account account){
         this.account = account;
         account.setUserInfo(this);

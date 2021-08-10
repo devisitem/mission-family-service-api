@@ -1,6 +1,7 @@
 package me.missionfamily.web.mission_family_be.domain;
 
 import lombok.*;
+import me.missionfamily.web.mission_family_be.business.account.dxo.AccountDxo;
 import me.missionfamily.web.mission_family_be.dto.UserRole;
 import org.springframework.util.Assert;
 
@@ -61,19 +62,13 @@ public class Account {
 
     private boolean activated;
 
-    @Builder
-    public Account(String userId,String userPassword,UserInfo userInfo,String deleteYn,Set<UserRole> userRole){
-        Assert.hasText(userId,"아이디는 빈 값일 수 없습니다.");
-
-        this.userId = userId;
-        this.userPassword = userPassword;
-        this.userInfo = userInfo;
-        this.deleteYn = "N";
-        this.signUpDate = LocalDateTime.now();
-        this.roles = userRole;
-    }
     public void setPassword(String password){
         this.userPassword = password;
+    }
+
+    public void signUpAccount(AccountDxo.Request dxo){
+        this.userId = dxo.getUserId();
+        this.userPassword = dxo.getPassword();
     }
 
     public void setUserInfo(UserInfo userInfo){

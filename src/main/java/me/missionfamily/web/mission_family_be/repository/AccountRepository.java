@@ -39,7 +39,7 @@ public class AccountRepository {
                 .fetchOne());
     }
 
-    public Account findById(String id){
+    public Account findAccountById(String id){
         return queryFactory.selectFrom(account)
                 .where(account.userId.eq(id))
                 .fetchOne();
