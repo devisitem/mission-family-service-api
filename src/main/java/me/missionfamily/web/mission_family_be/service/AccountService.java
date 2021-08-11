@@ -1,6 +1,7 @@
 package me.missionfamily.web.mission_family_be.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import me.missionfamily.web.mission_family_be.business.account.dxo.AccountDxo;
 import me.missionfamily.web.mission_family_be.common.data_transfer.ResponseModel;
 import me.missionfamily.web.mission_family_be.common.util.MissionUtil;
@@ -15,21 +16,27 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class AccountService {
 
-    private final AccountRepository accountRepository;
+    private final AccountRepository accountRepo;
     private final PasswordEncoder encoder;
+    private final PasswordEncoder passwordEncoder;
 
     public AccountDxo.Response dupCheckById(String checkId){
-
-        Account findAccount = accountRepository.findAccountById(checkId);
+        Optional<Account> optionalAccount = accountRepo.findAccountById(checkId);
+        log.info("optionalAccount = [{}]", optionalAccount);
+        Account findAccount = optionalAccount.get();
 
         if(MissionUtil.isNotNull(findAccount)) {
 
@@ -42,6 +49,7 @@ public class AccountService {
                 .result(ResponseModel.builder()
                         .resultCode(0)
                         .build())
+                .checkedId(checkId)
                 .build();
     }
 
@@ -51,34 +59,41 @@ public class AccountService {
      * @return serviceCode
      */
     @Transactional
-    public AccountDxo.Response registerForAccount (final AccountDxo.Request accountDxo) throws Exception {
+    public AccountDxo.Response registerForAccount (AccountDxo.Request accountDxo) throws Exception {
+        Optional<Account> optionalAccount = accountRepo.findAccountById(accountDxo.getUserId());
 
-        Account foundAccount = accountRepository.findAccountById(accountDxo.getUserId());
+        log.info("optionalAccount = [{}]", optionalAccount);
+        Account foundAccount = optionalAccount.get();
+        if( ! optionalAccount.isPresent()) {
 
-        if(MissionUtil.isNotNull(foundAccount)) {
-            System.out.println("이미 존재하는 아이디입니다.");
+            if(MissionUtil.isNotNull(foundAccount)) {
+                log.info("this id is already exist. id = [{}]",accountDxo.getUserId());
+            }
         }
 
+        accountDxo.setPassword(passwordEncoder.encode(accountDxo.getPassword()));
 
-/*     if(accountRepository.findOneByUserId(dto.getUserId()).orElse(null) != null){
-            throw new RuntimeException("this user id is already exist");
-        }
-
-        UserRole userRole = UserRole.builder()
-                .roleName("USER")
+        foundAccount = Account.builder()
+                .dxo(accountDxo)
                 .build();
 
-        Account account = Account.builder()
-                .userId(dto.getUserId())
-                .userRole(Collections.singleton(userRole))
-                .userPassword(encoder.encode(dto.getUserPassword()))
+        UserInfo newerUser = UserInfo.builder()
+                .userName(accountDxo.getUserName())
+                .userBirth(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                .account(foundAccount)
                 .build();
 
-        return accountRepository.save(UserInfo.builder()
-            .userName(dto.getUserName())
-            .account(account)
-            .build());*/
-        return null;
+
+        Long newerId = accountRepo.save(newerUser);
+
+        log.info("The saved Id is [{}]", newerId);
+        log.info("created new User for id is = [{}]", foundAccount.getUserId());
+
+        return AccountDxo.Response.builder()
+                .result(ResponseModel.builder()
+                        .resultCode(0)
+                        .build())
+                .build();
     }
 
     /**
@@ -87,7 +102,11 @@ public class AccountService {
      * @return
      */
     public boolean loginProcess(Map<String,Object> clientMap){
-        Account account = accountRepository.findAccountById((String) clientMap.get("id"));
+        Optional<Account> optionalAccount = accountRepo.findAccountById((String) clientMap.get("id"));
+
+        log.info("optionalAccount = [{}]", optionalAccount);
+
+        Account account = optionalAccount.get();
         if(account == null){
             return false;
         }
@@ -100,14 +119,12 @@ public class AccountService {
 
     }
 
-    @Transactional(readOnly = true)
     public Optional<Account> getAccountWithAuthorities(String userId) {
-        return accountRepository.findOneByUserId(userId);
+        return accountRepo.findOneByUserId(userId);
     }
 
-    @Transactional(readOnly = true)
     public Optional<Account> getAccountWithRoles(){
-        return SecurityUtil.getCurrentUsername().flatMap(accountRepository::findOneByUserId);
+        return SecurityUtil.getCurrentUsername().flatMap(accountRepo::findOneByUserId);
     }
 
 }

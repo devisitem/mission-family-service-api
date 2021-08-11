@@ -13,10 +13,10 @@ import javax.persistence.*;
 public class UserInfo {
 
     @Id
-    @Column(name = "mf_info_key")
+    @Column(name = "user_info_key")
     private Long infoId;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @MapsId
     private Account account;
 
@@ -33,7 +33,7 @@ public class UserInfo {
     private String authKey;
 
     @Builder
-    public UserInfo(String userName,String userPhone,String userBirth,Account account){
+    public UserInfo(String userName,String userPhone,String userBirth, Account account){
         Assert.hasText(userName,"사용자 이름은 빈값일 수 없습니다.");
         /* Assert.hasText(userPhone,"사용자 연락처는 빈값일 수 없습니다.");
         Assert.hasText(userBirth,"사용자 생년월일은 빈값일 수 없습니다."); */
@@ -46,7 +46,7 @@ public class UserInfo {
 
     public void setAccount(Account account){
         this.account = account;
-        account.setUserInfo(this);
+        account.addUserInfo(this);
     }
 
 

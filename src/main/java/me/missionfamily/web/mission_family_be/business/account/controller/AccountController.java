@@ -24,7 +24,7 @@ public class AccountController {
 
     private final AccountService accountService;
 
-    @PostMapping("/duplicateCheck")
+    @GetMapping("/duplicateCheck")
     public ResponseEntity<Response> dupCheck (@RequestBody @Valid AccountDxo.Request request) throws Exception {
         String userId = request.getUserId();
 
@@ -36,9 +36,9 @@ public class AccountController {
     @PostMapping("/register")
     public ResponseEntity registerAccount (@RequestBody @Valid AccountDxo.Request request) throws Exception {
 
-        accountService.registerForAccount(request);
+        AccountDxo.Response response = accountService.registerForAccount(request);
 
-        return ResponseEntity.ok().body(null);
+        return ResponseEntity.ok().body(response);
     }
 
 

@@ -3,6 +3,7 @@ package me.missionfamily.web.mission_family_be.domain;
 import lombok.*;
 import me.missionfamily.web.mission_family_be.business.account.dxo.AccountDxo;
 import me.missionfamily.web.mission_family_be.dto.UserRole;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
@@ -27,11 +28,12 @@ import java.util.Set;
 public class Account {
 
 
-    @Id @GeneratedValue
-    @Column(name = "mf_user_key")
-    private Long userKey;
+    @Id
+    @GeneratedValue
+    @Column(name = "account_key")
+    private Long id;
 
-    @Column(name = "mf_user_id",length = 50, nullable = false)
+    @Column(name = "mf_user_id",length = 50, nullable = false, unique = true)
     private String userId;
 
     @Column(name = "mf_user_password",length = 800)
@@ -51,7 +53,7 @@ public class Account {
     @Column(name = "mf_signup_date")
     private LocalDateTime signUpDate;
 
-    @OneToOne(cascade = CascadeType.ALL,mappedBy = "account",fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "account",fetch = FetchType.LAZY)
     private UserInfo userInfo;
 
     @OneToMany(mappedBy = "account",cascade = CascadeType.ALL)
@@ -66,12 +68,17 @@ public class Account {
         this.userPassword = password;
     }
 
-    public void signUpAccount(AccountDxo.Request dxo){
+    @Builder
+    public Account(AccountDxo.Request dxo, UserInfo userInfo){
         this.userId = dxo.getUserId();
         this.userPassword = dxo.getPassword();
+        this.userInfo = userInfo;
+        this.deleteYn = "N";
+        this.activated = true;
+        this.signUpDate = LocalDateTime.now();
     }
 
-    public void setUserInfo(UserInfo userInfo){
+    public void addUserInfo(UserInfo userInfo){
         this.userInfo = userInfo;
         userInfo.setAccount(this);
     }

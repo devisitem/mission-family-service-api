@@ -20,16 +20,13 @@ public class AccountDxo {
     @AllArgsConstructor
     public static class Request implements me.missionfamily.web.mission_family_be.common.data_transfer.Request {
 
-        @NotEmpty
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @JsonProperty("user_id")
         private String userId;
 
-        @NotEmpty
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private String password;
 
-        @NotEmpty
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @JsonProperty("user_name")
         private String userName;
@@ -47,7 +44,9 @@ public class AccountDxo {
         @JsonProperty("result")
         private ResponseModel result;
 
-
+        @JsonProperty("checked_id")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String checkedId;
 
     }
 }

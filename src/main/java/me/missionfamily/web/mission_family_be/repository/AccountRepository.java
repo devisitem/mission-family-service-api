@@ -21,15 +21,20 @@ import java.util.Optional;
 public class AccountRepository {
 
     @PersistenceContext
-    private final EntityManager em;
+    private final EntityManager entityManager;
     private final JPAQueryFactory queryFactory;
     QUserInfo userInfo = QUserInfo.userInfo;
     QAccount account = QAccount.account;
 
+    /**
+     *
+     * @param userInfo
+     * @return 저장된 객체 키
+     */
+    public Long save(UserInfo userInfo){
 
-    public Account save(UserInfo userInfo){
-        em.persist(userInfo);
-        return userInfo.getAccount();
+        entityManager.persist(userInfo);
+        return userInfo.getInfoId();
     }
 
     @EntityGraph(attributePaths = "roles")
@@ -39,10 +44,11 @@ public class AccountRepository {
                 .fetchOne());
     }
 
-    public Account findAccountById(String id){
-        return queryFactory.selectFrom(account)
+    public Optional<Account> findAccountById(String id){
+        return Optional.ofNullable(queryFactory
+                .selectFrom(account)
                 .where(account.userId.eq(id))
-                .fetchOne();
+                .fetchOne());
     }
 
 
