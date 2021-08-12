@@ -13,11 +13,12 @@ import javax.persistence.*;
 public class UserInfo {
 
     @Id
+    @GeneratedValue
     @Column(name = "user_info_key")
     private Long infoId;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @MapsId
+    @JoinColumn(name = "account_Key")
     private Account account;
 
     @Column(name = "mf_user_name",length = 30)

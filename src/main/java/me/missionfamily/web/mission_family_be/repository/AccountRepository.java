@@ -1,6 +1,7 @@
 package me.missionfamily.web.mission_family_be.repository;
 
 import com.querydsl.core.QueryFactory;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import me.missionfamily.web.mission_family_be.domain.Account;
@@ -44,11 +45,13 @@ public class AccountRepository {
                 .fetchOne());
     }
 
-    public Optional<Account> findAccountById(String id){
-        return Optional.ofNullable(queryFactory
-                .selectFrom(account)
-                .where(account.userId.eq(id))
-                .fetchOne());
+    public Account findAccountById(String id){
+        Account account = queryFactory
+                .selectFrom(this.account)
+                .where(this.account.userId.eq(id))
+                .fetchOne();
+
+        return account;
     }
 
 

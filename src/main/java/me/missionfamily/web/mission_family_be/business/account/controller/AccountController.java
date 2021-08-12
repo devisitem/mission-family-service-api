@@ -34,9 +34,9 @@ public class AccountController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity registerAccount (@RequestBody @Valid AccountDxo.Request request) throws Exception {
+    public ResponseEntity<Response> registerAccount (@RequestBody @Valid AccountDxo.Request request) throws Exception {
 
-        AccountDxo.Response response = accountService.registerForAccount(request);
+        Response response = accountService.registerForAccount(request);
 
         return ResponseEntity.ok().body(response);
     }

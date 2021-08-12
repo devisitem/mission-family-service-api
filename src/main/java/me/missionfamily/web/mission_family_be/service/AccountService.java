@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -34,11 +35,10 @@ public class AccountService {
     private final PasswordEncoder passwordEncoder;
 
     public AccountDxo.Response dupCheckById(String checkId){
-        Optional<Account> optionalAccount = accountRepo.findAccountById(checkId);
-        log.info("optionalAccount = [{}]", optionalAccount);
-        Account findAccount = optionalAccount.get();
+        Account foundAccount = accountRepo.findAccountById(checkId);
+        log.info("optionalAccount = [{}]", foundAccount);
 
-        if(MissionUtil.isNotNull(findAccount)) {
+        if(MissionUtil.isNotNull(foundAccount)) {
 
 //            throw new RuntimeException("이미 존재하는 아이디입니다.");
             System.out.println("이미 존재하는 아이디입니다.");
@@ -60,15 +60,12 @@ public class AccountService {
      */
     @Transactional
     public AccountDxo.Response registerForAccount (AccountDxo.Request accountDxo) throws Exception {
-        Optional<Account> optionalAccount = accountRepo.findAccountById(accountDxo.getUserId());
+        Account foundAccount = accountRepo.findAccountById(accountDxo.getUserId());
 
-        log.info("optionalAccount = [{}]", optionalAccount);
-        Account foundAccount = optionalAccount.get();
-        if( ! optionalAccount.isPresent()) {
+        log.info("optionalAccount = [{}]", foundAccount);
 
-            if(MissionUtil.isNotNull(foundAccount)) {
-                log.info("this id is already exist. id = [{}]",accountDxo.getUserId());
-            }
+        if(MissionUtil.isNotNull(foundAccount)) {
+            log.info("this id is already exist. id = [{}]",accountDxo.getUserId());
         }
 
         accountDxo.setPassword(passwordEncoder.encode(accountDxo.getPassword()));
@@ -96,35 +93,35 @@ public class AccountService {
                 .build();
     }
 
-    /**
+    /*
      * 로그인 검사
      * @param clientMap
      * @return
      */
-    public boolean loginProcess(Map<String,Object> clientMap){
-        Optional<Account> optionalAccount = accountRepo.findAccountById((String) clientMap.get("id"));
-
-        log.info("optionalAccount = [{}]", optionalAccount);
-
-        Account account = optionalAccount.get();
-        if(account == null){
-            return false;
-        }
-        if(encoder.matches((String) clientMap.get("password"), account.getUserPassword())){
-            System.out.println("Password 일치");
-           return true;
-        } else {
-           return false;
-        }
-
-    }
-
-    public Optional<Account> getAccountWithAuthorities(String userId) {
-        return accountRepo.findOneByUserId(userId);
-    }
-
-    public Optional<Account> getAccountWithRoles(){
-        return SecurityUtil.getCurrentUsername().flatMap(accountRepo::findOneByUserId);
-    }
+//    public boolean loginProcess(Map<String,Object> clientMap){
+//        List<Account> optionalAccount = accountRepo.findAccountById((String) clientMap.get("id"));
+//
+//        log.info("optionalAccount = [{}]", optionalAccount);
+//
+//        Account account = optionalAccount.get();
+//        if(account == null){
+//            return false;
+//        }
+//        if(encoder.matches((String) clientMap.get("password"), account.getUserPassword())){
+//            System.out.println("Password 일치");
+//           return true;
+//        } else {
+//           return false;
+//        }
+//
+//    }
+//
+//    public Optional<Account> getAccountWithAuthorities(String userId) {
+//        return accountRepo.findOneByUserId(userId);
+//    }
+//
+//    public Optional<Account> getAccountWithRoles(){
+//        return SecurityUtil.getCurrentUsername().flatMap(accountRepo::findOneByUserId);
+//    }
 
 }

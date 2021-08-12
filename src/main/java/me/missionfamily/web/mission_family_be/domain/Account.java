@@ -15,14 +15,7 @@ import java.util.Set;
 
 @Entity
 @Getter
-@Table(
-        name = "mf_account",
-        uniqueConstraints = {
-            @UniqueConstraint(
-                    columnNames = {"mf_user_id"}
-            )
-        }
-    )
+@Table(name = "mf_account")
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Account {
