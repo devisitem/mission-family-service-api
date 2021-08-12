@@ -1,14 +1,13 @@
 package me.missionfamily.web.mission_family_be.common;
 
+import lombok.Data;
+import lombok.Getter;
+
+@Getter
 public enum HttpResponseStatus {
 
-    USER_ID_DUPLICATE (200,001,"이미 존재하는 아이디"),
+    USER_ID_DUPLICATE (200,001,"이미 존재하는 아이디입니다."),
     ;
-
-
-
-
-
 
 
     int status;
@@ -21,6 +20,7 @@ public enum HttpResponseStatus {
         this.code = code;
         this.message = message;
     }
+
 
 
 }

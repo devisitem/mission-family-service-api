@@ -2,27 +2,21 @@ package me.missionfamily.web.mission_family_be.domain;
 
 import lombok.*;
 import me.missionfamily.web.mission_family_be.business.account.dxo.AccountDxo;
-import me.missionfamily.web.mission_family_be.dto.UserRole;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
 @Table(name = "mf_account")
-@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Account {
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_key")
     private Long id;
 
@@ -34,14 +28,6 @@ public class Account {
 
     @Column(name = "mf_delete_yn",length = 1)
     private String deleteYn;
-
-    @Column(name = "mf_role")
-    @ManyToMany
-    @JoinTable(
-            name = "user_role",
-            joinColumns = {@JoinColumn(name = "mf_user_id", referencedColumnName = "mf_user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "mf_role_name",referencedColumnName = "role_name")})
-    private Set<UserRole> roles;
 
     @Column(name = "mf_signup_date")
     private LocalDateTime signUpDate;

@@ -2,17 +2,12 @@ package me.missionfamily.web.mission_family_be.common.config;
 
 
 import lombok.RequiredArgsConstructor;
-import me.missionfamily.web.mission_family_be.jwt.JwtAccessDeniedHandler;
-import me.missionfamily.web.mission_family_be.jwt.JwtAuthenticationEntryPoint;
-import me.missionfamily.web.mission_family_be.jwt.JwtSecurityConfig;
-import me.missionfamily.web.mission_family_be.jwt.JwtTokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
@@ -24,9 +19,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @RequiredArgsConstructor
 public class WebMvcConfig extends WebSecurityConfigurerAdapter {
 
-    private final JwtTokenProvider tokenProvider;
-    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -69,9 +61,7 @@ public class WebMvcConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
             web
                     .ignoring()
-                    .antMatchers("/h2-console/**",
-                            "/favicon.ico"
-                    );
+                    .antMatchers("/favicon.ico");
     }
 
     @Bean

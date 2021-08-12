@@ -1,5 +1,6 @@
 package me.missionfamily.web.mission_family_be.domain;
 
+import com.sun.javafx.geom.transform.Identity;
 import lombok.*;
 import org.springframework.util.Assert;
 
@@ -8,12 +9,11 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Table(name = "mf_user_info")
-@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserInfo {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_info_key")
     private Long infoId;
 

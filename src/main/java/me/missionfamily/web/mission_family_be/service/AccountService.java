@@ -3,26 +3,19 @@ package me.missionfamily.web.mission_family_be.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.missionfamily.web.mission_family_be.business.account.dxo.AccountDxo;
+import me.missionfamily.web.mission_family_be.common.HttpResponseStatus;
 import me.missionfamily.web.mission_family_be.common.data_transfer.ResponseModel;
+import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
 import me.missionfamily.web.mission_family_be.common.util.MissionUtil;
 import me.missionfamily.web.mission_family_be.domain.Account;
-import me.missionfamily.web.mission_family_be.domain.Mission;
 import me.missionfamily.web.mission_family_be.domain.UserInfo;
-import me.missionfamily.web.mission_family_be.business.account.dxo.UserDxo;
-import me.missionfamily.web.mission_family_be.dto.UserRole;
 import me.missionfamily.web.mission_family_be.repository.AccountRepository;
-import me.missionfamily.web.mission_family_be.util.SecurityUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -66,6 +59,7 @@ public class AccountService {
 
         if(MissionUtil.isNotNull(foundAccount)) {
             log.info("this id is already exist. id = [{}]",accountDxo.getUserId());
+            throw new ServiceException(HttpResponseStatus.USER_ID_DUPLICATE);
         }
 
         accountDxo.setPassword(passwordEncoder.encode(accountDxo.getPassword()));
