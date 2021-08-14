@@ -62,8 +62,8 @@ public class AccountService {
             throw new ServiceException(HttpResponseStatus.USER_ID_DUPLICATE);
         }
 
+        log.info("encoding this password = [{}]",accountDxo.getPassword());
         accountDxo.setPassword(passwordEncoder.encode(accountDxo.getPassword()));
-
         foundAccount = Account.builder()
                 .dxo(accountDxo)
                 .build();

@@ -17,6 +17,7 @@ public class MissionExceptionHandler {
     @ExceptionHandler(ServiceException.class)
     protected ResponseEntity<MissionErrorResponse> handleServiceException(ServiceException e) {
         log.error("The error occurred, which message is = [{}]", e.getMessage());
+
         return ResponseEntity.badRequest()
                 .body(MissionErrorResponse.builder()
                         .exception(ExceptionModel.builder()
