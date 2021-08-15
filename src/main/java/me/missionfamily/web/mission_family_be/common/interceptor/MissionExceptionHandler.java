@@ -18,12 +18,11 @@ public class MissionExceptionHandler {
     protected ResponseEntity<MissionErrorResponse> handleServiceException(ServiceException e) {
         log.error("The error occurred, which message is = [{}]", e.getMessage());
 
-        return ResponseEntity.badRequest()
-                .body(MissionErrorResponse.builder()
-                        .exception(ExceptionModel.builder()
-                                .statusCode(e.getStatus().getCode())
-                                .serverMessage(e.getStatus().getMessage())
-                                .build())
-                        .build());
+        return ResponseEntity.status(e.getStatus().getStatus()).body(MissionErrorResponse.builder()
+                .exception(ExceptionModel.builder()
+                        .errorCode(e.getStatus().getCode())
+                        .serverMessage(e.getStatus().getMessage())
+                        .build())
+                .build());
     }
 }

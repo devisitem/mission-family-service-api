@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ExceptionModel {
 
-    @JsonProperty("status_code")
-    private int statusCode;
+    @JsonProperty("internal_error_code")
+    private String errorCode;
 
     @JsonProperty("server_message")
     private String serverMessage;
