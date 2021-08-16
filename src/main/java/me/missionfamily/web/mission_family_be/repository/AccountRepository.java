@@ -39,13 +39,13 @@ public class AccountRepository {
     }
 
     @EntityGraph(attributePaths = "roles")
-    public Optional<Account> findOneByUserId(String userId){
+    public Optional<Account> findOneByUserId(String userId) {
         return Optional.ofNullable(queryFactory.selectFrom(account)
                 .where(account.userId.eq(userId))
                 .fetchOne());
     }
 
-    public Account findAccountById(String id){
+    public Account findAccountById(String id) {
         Account account = queryFactory
                 .selectFrom(this.account)
                 .where(this.account.userId.eq(id))
@@ -54,7 +54,14 @@ public class AccountRepository {
         return account;
     }
 
+    public UserInfo findUserInfoByUserId(String userId) {
+        UserInfo userInfo = queryFactory
+                .selectFrom(this.userInfo)
+                .where(this.userInfo.account.userId.eq(userId))
+                .fetchOne();
 
+        return userInfo;
+    }
 
 
 

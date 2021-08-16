@@ -1,9 +1,11 @@
-package me.missionfamily.web.mission_family_be.service;
+package me.missionfamily.web.mission_family_be.business.account.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.missionfamily.web.mission_family_be.business.account.dxo.AccountDxo;
+import me.missionfamily.web.mission_family_be.business.account.model.AccountModel;
 import me.missionfamily.web.mission_family_be.common.HttpResponseStatus;
+import me.missionfamily.web.mission_family_be.common.data_transfer.MissionResponse;
 import me.missionfamily.web.mission_family_be.common.data_transfer.ResponseModel;
 import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
 import me.missionfamily.web.mission_family_be.common.util.MissionUtil;
@@ -16,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -55,13 +58,12 @@ public class AccountService {
     public AccountDxo.Response registerForAccount (AccountDxo.Request accountDxo) throws Exception {
         Account foundAccount = accountRepo.findAccountById(accountDxo.getUserId());
 
-        log.info("optionalAccount = [{}]", foundAccount);
 
         if(MissionUtil.isNotNull(foundAccount)) {
             log.info("this id is already exist. id = [{}]",accountDxo.getUserId());
             throw new ServiceException(HttpResponseStatus.USER_ID_DUPLICATE);
         }
-
+        log.info("there is no id founds, which is duplicated. by = [{}]", accountDxo.getUserId());
         log.info("encoding this password = [{}]",accountDxo.getPassword());
         accountDxo.setPassword(passwordEncoder.encode(accountDxo.getPassword()));
         foundAccount = Account.builder()
@@ -87,35 +89,60 @@ public class AccountService {
                 .build();
     }
 
+    @Transactional
+    public MissionResponse signInForAccount(AccountDxo.Request accountDxo) {
+
+        Account foundAccount = accountRepo.findAccountById(accountDxo.getUserId());
+        if(MissionUtil.isNull(foundAccount)){
+
+            log.info("no account data founds ,which is be registered. id = [{}]",accountDxo.getUserId());
+            throw new ServiceException(HttpResponseStatus.NO_ACCOUNT_DATA_FOUNDS);
+        }
+
+        if( ! passwordEncoder.matches(accountDxo.getPassword(), foundAccount.getUserPassword())){
+            log.info("found 1 account and proceeded verification but It didn't matched with password.");
+            throw new ServiceException(HttpResponseStatus.NO_ACCOUNT_DATA_FOUNDS);
+        }
+
+        String missionKey = UUID.randomUUID().toString().replaceAll("-", "");
+        foundAccount.getUserInfo().signInService(missionKey);
+
+        log.info("create auth key for sign-in this service. auth-key = [{}]",missionKey);
+
+
+
+        return AccountDxo.Response.builder()
+                .result(ResponseModel.builder()
+                        .resultCode(0)
+                        .build())
+                .account(AccountModel.builder()
+                        .missionSignature(missionKey)
+                        .build())
+                .build();
+    }
+
     /*
-     * 로그인 검사
-     * @param clientMap
+     * 유저정보 인증
+     * @param reuqest
      * @return
      */
-//    public boolean loginProcess(Map<String,Object> clientMap){
-//        List<Account> optionalAccount = accountRepo.findAccountById((String) clientMap.get("id"));
-//
-//        log.info("optionalAccount = [{}]", optionalAccount);
-//
-//        Account account = optionalAccount.get();
-//        if(account == null){
-//            return false;
-//        }
-//        if(encoder.matches((String) clientMap.get("password"), account.getUserPassword())){
-//            System.out.println("Password 일치");
-//           return true;
-//        } else {
-//           return false;
-//        }
-//
-//    }
-//
-//    public Optional<Account> getAccountWithAuthorities(String userId) {
-//        return accountRepo.findOneByUserId(userId);
-//    }
-//
-//    public Optional<Account> getAccountWithRoles(){
-//        return SecurityUtil.getCurrentUsername().flatMap(accountRepo::findOneByUserId);
-//    }
+    public void authenticationProcess(AccountDxo.Request request){
+
+        AccountModel account = request.getAccount();
+        UserInfo fountUserInfo = accountRepo.findUserInfoByUserId(account.getLoginId());
+
+        String signature = account.getMissionSignature();
+
+        if(MissionUtil.isNotEmptyAndNull(signature)){
+            log.error("the auth key is null in request");
+            throw new ServiceException(HttpResponseStatus.AUTHKEY_MUST_BE_NON_NULL);
+        }
+
+        if( ! signature.equals(fountUserInfo.getAuthKey())){
+            log.error("failed authenticate to this process.");
+            throw new ServiceException(HttpResponseStatus.FAILED_AUTHENTICATE_PROCESS);
+        }
+
+    }
 
 }

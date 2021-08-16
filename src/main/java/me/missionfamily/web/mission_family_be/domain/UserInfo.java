@@ -2,12 +2,14 @@ package me.missionfamily.web.mission_family_be.domain;
 
 import com.sun.javafx.geom.transform.Identity;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@DynamicUpdate
 @Table(name = "mf_user_info")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserInfo {
@@ -48,6 +50,13 @@ public class UserInfo {
     public void setAccount(Account account){
         this.account = account;
         account.addUserInfo(this);
+    }
+
+
+    public void signInService(String authKey) {
+        Assert.hasText(authKey,"인증키는 빈값 일 수 없습니다.");
+
+        this.authKey = authKey;
     }
 
 

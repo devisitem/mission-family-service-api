@@ -40,7 +40,7 @@ public class WebMvcConfig extends WebSecurityConfigurerAdapter {
 //                .and()
 
                 .authorizeRequests()
-                .antMatchers("/api/users/login").permitAll()
+                .antMatchers("/api/users/signin").permitAll()
                 .antMatchers("/api/users/register").permitAll()
                 .antMatchers("/api/users/duplicateCheck").permitAll()
                 .antMatchers("/api/authenticate").permitAll()

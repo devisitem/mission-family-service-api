@@ -6,16 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Min;
+import javax.validation.Valid;
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class ResponseModel {
 
-    @Min(0)
-    @JsonProperty("code")
-    int resultCode;
+public interface MissionResponse {
 
 }

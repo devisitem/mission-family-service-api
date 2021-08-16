@@ -1,11 +1,10 @@
 package me.missionfamily.web.mission_family_be.domain;
 
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import me.missionfamily.web.mission_family_be.dto.MissionDto;
-import org.apache.tomcat.jni.Local;
+import me.missionfamily.web.mission_family_be.business.mission.dxo.MissionDxo;
+import me.missionfamily.web.mission_family_be.business.mission.model.MissionModel;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -64,17 +63,17 @@ public class Mission {
     private List<ClearProof> proofs = new ArrayList<>();
 
 
-    public static Mission createMission(MissionDto dto){
+    public static Mission createMission(MissionModel model){
 
         //미션생성하는 유저 정보 필요
 
         Mission mission = new Mission();
 
-        mission.missionName = dto.getMissionTitle();
-        mission.content = dto.getMissionContent();
-        mission.startDate = dto.getMissionStartDate() != null ? LocalDateTime.parse(dto.getMissionStartDate(), DateTimeFormatter.ISO_DATE) : null;
-        mission.endDate = dto.getMissionEndDate() != null ? LocalDateTime.parse(dto.getMissionEndDate(), DateTimeFormatter.ISO_DATE) : null;
-        mission.missionType = dto.getMissionType();
+        mission.missionName = model.getMissionTitle();
+        mission.content = model.getMissionContent();
+        mission.startDate = model.getMissionStartDate() != null ? LocalDateTime.parse(model.getMissionStartDate(), DateTimeFormatter.ISO_DATE) : null;
+        mission.endDate = model.getMissionEndDate() != null ? LocalDateTime.parse(model.getMissionEndDate(), DateTimeFormatter.ISO_DATE) : null;
+        mission.missionType = model.getMissionType();
 
         mission.createDate = LocalDateTime.now();
 

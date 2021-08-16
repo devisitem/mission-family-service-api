@@ -1,38 +1,34 @@
-package me.missionfamily.web.mission_family_be.business.account.dxo;
+package me.missionfamily.web.mission_family_be.business.mission.dxo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import me.missionfamily.web.mission_family_be.business.account.model.AccountModel;
+import me.missionfamily.web.mission_family_be.business.mission.model.MissionModel;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionRequest;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionResponse;
 import me.missionfamily.web.mission_family_be.common.data_transfer.ResponseModel;
-import me.missionfamily.web.mission_family_be.domain.Account;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
+@Setter
+@Getter
+@ToString
 @Builder
 @NoArgsConstructor
-public class AccountDxo {
+public class MissionDxo {
+
 
     @Data
-    @Builder
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Request implements MissionRequest {
 
+        @Valid
+        @JsonProperty("mission")
         @JsonInclude(Include.NON_NULL)
-        @JsonProperty("user_id")
-        private String userId;
-
-        @JsonInclude(Include.NON_NULL)
-        private String password;
-
-        @JsonInclude(Include.NON_NULL)
-        @JsonProperty("user_name")
-        private String userName;
+        private MissionModel mission;
 
         @Valid
         @JsonProperty("account")
@@ -41,23 +37,17 @@ public class AccountDxo {
     }
 
     @Builder
+    @Data
     @NoArgsConstructor
-    @AllArgsConstructor
     public static class Response implements MissionResponse {
 
         @Valid
-        @NotNull
         @JsonProperty("result")
-        private ResponseModel result;
-
-        @JsonProperty("checked_id")
-        @JsonInclude(Include.NON_NULL)
-        private String checkedId;
-
-        @Valid
-        @JsonProperty("account")
-        @JsonInclude(Include.NON_NULL)
-        private AccountModel account;
-
+        ResponseModel result;
     }
+
+
+
+
+
 }

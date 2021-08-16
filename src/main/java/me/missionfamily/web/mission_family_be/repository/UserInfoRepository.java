@@ -4,7 +4,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import me.missionfamily.web.mission_family_be.domain.QUserInfo;
 import me.missionfamily.web.mission_family_be.domain.UserInfo;
-import me.missionfamily.web.mission_family_be.service.AccountService;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

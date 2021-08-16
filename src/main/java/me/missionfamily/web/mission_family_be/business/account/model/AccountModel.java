@@ -1,24 +1,27 @@
 package me.missionfamily.web.mission_family_be.business.account.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @ToString
 @Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccountModel {
 
-    @NotNull
-    private String userId;
-    @NotNull
-    private String userPassword;
     @NotEmpty
-    private String userName;
+    @JsonProperty("mission_signature")
+    private String missionSignature;
+
+    @NotEmpty
+    @JsonInclude(Include.NON_NULL)
+    @JsonProperty("login_id")
+    private String loginId;
 
 }
