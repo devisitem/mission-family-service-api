@@ -34,6 +34,10 @@ public class MissionDxo {
         @JsonProperty("account")
         private AccountModel account;
 
+        @Override
+        public AccountModel account() {
+            return this.account;
+        }
     }
 
     @Builder

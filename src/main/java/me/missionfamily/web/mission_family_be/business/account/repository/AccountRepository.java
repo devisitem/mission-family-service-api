@@ -1,4 +1,4 @@
-package me.missionfamily.web.mission_family_be.repository;
+package me.missionfamily.web.mission_family_be.business.account.repository;
 
 import com.querydsl.core.QueryFactory;
 import com.querydsl.jpa.impl.JPAQuery;

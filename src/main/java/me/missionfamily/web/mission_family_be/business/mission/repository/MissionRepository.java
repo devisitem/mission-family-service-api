@@ -1,4 +1,4 @@
-package me.missionfamily.web.mission_family_be.repository;
+package me.missionfamily.web.mission_family_be.business.mission.repository;
 
 import lombok.RequiredArgsConstructor;
 import me.missionfamily.web.mission_family_be.domain.Mission;

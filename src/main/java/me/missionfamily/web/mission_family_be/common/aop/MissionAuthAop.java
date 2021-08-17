@@ -1,23 +1,24 @@
 package me.missionfamily.web.mission_family_be.common.aop;
 
 import lombok.extern.slf4j.Slf4j;
-import me.missionfamily.web.mission_family_be.business.account.dxo.AccountDxo;
-import me.missionfamily.web.mission_family_be.business.account.service.AccountService;
-import me.missionfamily.web.mission_family_be.business.family.dxo.FamilyDxo;
+import me.missionfamily.web.mission_family_be.business.account.model.AccountModel;
+import me.missionfamily.web.mission_family_be.common.HttpResponseStatus;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionRequest;
+import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
+import me.missionfamily.web.mission_family_be.common.util.MissionUtil;
+import me.missionfamily.web.mission_family_be.domain.UserInfo;
+import me.missionfamily.web.mission_family_be.business.account.repository.AccountRepository;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
-
-import java.util.Arrays;
 
 @Slf4j
 @Aspect
 @Component
 public class MissionAuthAop {
 
-    private AccountService accountService;
+    private AccountRepository accountRepository;
 
     @Around("@annotation(LoginService)")
     public Object checkLoginService(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -26,7 +27,22 @@ public class MissionAuthAop {
         for (Object arg : joinPoint.getArgs()){
 
             if(arg instanceof MissionRequest){
+                AccountModel account = ((MissionRequest) arg).account();
 
+                String loginId = account.getLoginId();
+                String missionSignature = account.getMissionSignature();
+
+                UserInfo loginUser = accountRepository.findUserInfoByUserId(loginId);
+
+                if(MissionUtil.isEmptyOrNull(missionSignature)){
+
+                    throw new ServiceException(HttpResponseStatus.AUTHKEY_MUST_BE_NON_NULL);
+                }
+
+                if(missionSignature.equals(loginUser)) {
+
+                    return joinPoint.proceed();
+                }
             }
         }
 

@@ -7,4 +7,5 @@ import javax.validation.Valid;
 
 public interface MissionRequest {
 
+    AccountModel account();
 }

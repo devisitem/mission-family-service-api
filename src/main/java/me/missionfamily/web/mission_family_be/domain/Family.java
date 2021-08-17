@@ -31,11 +31,8 @@ public class Family {
     private Account account;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "mf_family_key")
+    @JoinColumn(name = "account_key")
     private Account familyKey;
-
-    @Column(name = "mf_like_yn",length = 1)
-    private String likeYn;
 
     @Column(name = "mf_delete_yn",length = 1)
     private String deleteYn;
@@ -52,5 +49,12 @@ public class Family {
     @OneToMany(mappedBy = "creater",cascade = CascadeType.ALL)
     private List<Mission> myMissions = new ArrayList<>();
 
+    public static Family createGroup(String familyName, Account leader) {
+        Family newerGroup = new Family();
+        newerGroup.account = leader;
+        newerGroup.role = "GROUP";
+        newerGroup.parant = null;
 
+
+    }
 }

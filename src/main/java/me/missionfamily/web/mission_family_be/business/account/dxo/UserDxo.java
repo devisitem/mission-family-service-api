@@ -23,7 +23,10 @@ public class UserDxo {
         @NotNull
         private AccountModel account;
 
-
+        @Override
+        public AccountModel account() {
+            return this.account;
+        }
     }
 
     @Builder

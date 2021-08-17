@@ -6,7 +6,7 @@ import me.missionfamily.web.mission_family_be.business.mission.model.MissionMode
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionResponse;
 import me.missionfamily.web.mission_family_be.common.data_transfer.ResponseModel;
 import me.missionfamily.web.mission_family_be.domain.Mission;
-import me.missionfamily.web.mission_family_be.repository.MissionRepository;
+import me.missionfamily.web.mission_family_be.business.mission.repository.MissionRepository;
 import org.springframework.stereotype.Service;
 
 @Service
