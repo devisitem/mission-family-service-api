@@ -42,6 +42,7 @@ public class MissionDxo {
 
     @Builder
     @Data
+    @AllArgsConstructor
     @NoArgsConstructor
     public static class Response implements MissionResponse {
 

@@ -3,6 +3,7 @@ package me.missionfamily.web.mission_family_be.domain;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,12 +50,21 @@ public class Family {
     @OneToMany(mappedBy = "creater",cascade = CascadeType.ALL)
     private List<Mission> myMissions = new ArrayList<>();
 
+    /**
+     * 패밀리 "그룹" 생성
+     * @param familyName 패밀리명
+     * @param leader 생성자 (리더)
+     * @return
+     */
     public static Family createGroup(String familyName, Account leader) {
         Family newerGroup = new Family();
         newerGroup.account = leader;
         newerGroup.role = "GROUP";
         newerGroup.parant = null;
+        newerGroup.familyKey = null;
+        newerGroup.deleteYn = "Y";
+        newerGroup.joinDate = LocalDateTime.now();
 
-
+        return newerGroup;
     }
 }

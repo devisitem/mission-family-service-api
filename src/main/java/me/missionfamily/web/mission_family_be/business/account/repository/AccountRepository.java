@@ -38,26 +38,29 @@ public class AccountRepository {
         return userInfo.getInfoId();
     }
 
-    @EntityGraph(attributePaths = "roles")
-    public Optional<Account> findOneByUserId(String userId) {
-        return Optional.ofNullable(queryFactory.selectFrom(account)
-                .where(account.userId.eq(userId))
-                .fetchOne());
-    }
-
-    public Account findAccountById(String id) {
+    /**
+     *
+     * @param loginId
+     * @return account
+     */
+    public Account findAccountById(String loginId) {
         Account account = queryFactory
                 .selectFrom(this.account)
-                .where(this.account.userId.eq(id))
+                .where(this.account.userId.eq(loginId))
                 .fetchOne();
 
         return account;
     }
 
-    public UserInfo findUserInfoByUserId(String userId) {
+    /**
+     *
+     * @param loginId
+     * @return userInfo
+     */
+    public UserInfo findUserInfoByUserId(String loginId) {
         UserInfo userInfo = queryFactory
                 .selectFrom(this.userInfo)
-                .where(this.userInfo.account.userId.eq(userId))
+                .where(this.userInfo.account.userId.eq(loginId))
                 .fetchOne();
 
         return userInfo;

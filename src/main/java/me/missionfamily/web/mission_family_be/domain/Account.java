@@ -48,10 +48,9 @@ public class Account {
     }
 
     @Builder
-    public Account(AccountDxo.Request dxo, UserInfo userInfo){
+    public Account(AccountDxo.Request dxo){
         this.userId = dxo.getUserId();
         this.userPassword = dxo.getPassword();
-        this.userInfo = userInfo;
         this.deleteYn = "N";
         this.activated = true;
         this.signUpDate = LocalDateTime.now();

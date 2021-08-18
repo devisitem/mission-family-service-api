@@ -1,4 +1,4 @@
-package me.missionfamily.web.mission_family_be.repository;
+package me.missionfamily.web.mission_family_be.business.user.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;

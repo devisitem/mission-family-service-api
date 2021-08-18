@@ -24,8 +24,10 @@ public class FamilyController {
 
         FamilyModel family = request.getFamily();
 
-        MissionResponse response = familyService.createFamily(family);
+        MissionResponse response = familyService.createFamilyGroup(family, request.getAccount().getLoginId());
 
         return ResponseEntity.ok().body(response);
     }
+
+
 }

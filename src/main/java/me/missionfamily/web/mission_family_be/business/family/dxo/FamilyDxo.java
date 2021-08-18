@@ -36,6 +36,7 @@ public class FamilyDxo {
     @Data
     @Builder
     @NoArgsConstructor
+    @AllArgsConstructor
     public static class Response implements MissionResponse {
 
         @Valid
