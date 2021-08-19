@@ -2,7 +2,7 @@ package me.missionfamily.web.mission_family_be.common.aop;
 
 import lombok.extern.slf4j.Slf4j;
 import me.missionfamily.web.mission_family_be.business.account.model.AccountModel;
-import me.missionfamily.web.mission_family_be.common.HttpResponseStatus;
+import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatus;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionRequest;
 import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
 import me.missionfamily.web.mission_family_be.common.util.MissionUtil;

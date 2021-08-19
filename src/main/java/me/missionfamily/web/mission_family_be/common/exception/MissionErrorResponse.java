@@ -16,4 +16,8 @@ public class MissionErrorResponse implements MissionResponse {
     @JsonProperty("error")
     private ExceptionModel exception;
 
+    @Override
+    public int getResultCode() {
+        return exception.getErrorCode();
+    }
 }

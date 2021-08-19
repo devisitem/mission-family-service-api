@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.missionfamily.web.mission_family_be.business.account.repository.AccountRepository;
 import me.missionfamily.web.mission_family_be.business.family.dxo.FamilyDxo;
 import me.missionfamily.web.mission_family_be.business.family.model.FamilyModel;
-import me.missionfamily.web.mission_family_be.common.HttpResponseStatus;
+import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatus;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionResponse;
 import me.missionfamily.web.mission_family_be.business.family.repository.FamilyRepository;
 import me.missionfamily.web.mission_family_be.common.data_transfer.ResponseModel;

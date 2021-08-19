@@ -43,5 +43,9 @@ public class FamilyDxo {
         @JsonProperty("result")
         private ResponseModel result;
 
+        @Override
+        public int getResultCode() {
+            return result.getResultCode();
+        }
     }
 }

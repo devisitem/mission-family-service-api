@@ -44,6 +44,7 @@ public class AccountDxo {
         }
     }
 
+    @Data
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
@@ -63,5 +64,9 @@ public class AccountDxo {
         @JsonInclude(Include.NON_NULL)
         private AccountModel account;
 
+        @Override
+        public int getResultCode() {
+            return result.getResultCode();
+        }
     }
 }

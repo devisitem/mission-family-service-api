@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.missionfamily.web.mission_family_be.business.account.dxo.AccountDxo;
 import me.missionfamily.web.mission_family_be.business.account.model.AccountModel;
-import me.missionfamily.web.mission_family_be.common.HttpResponseStatus;
+import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatus;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionResponse;
 import me.missionfamily.web.mission_family_be.common.data_transfer.ResponseModel;
 import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
@@ -35,11 +35,10 @@ public class AccountService {
         log.info("optionalAccount = [{}]", foundAccount);
 
         if(MissionUtil.isNotNull(foundAccount)) {
-
-//            throw new RuntimeException("이미 존재하는 아이디입니다.");
-            System.out.println("이미 존재하는 아이디입니다.");
+            throw new ServiceException(HttpResponseStatus.USER_ID_DUPLICATE);
         }
-        System.out.println("중복된 아이디 없음");
+
+        log.info("there is no this identification. usable identification = [{}]",checkId);
 
         return AccountDxo.Response.builder()
                 .result(ResponseModel.builder()

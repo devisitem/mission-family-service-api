@@ -36,10 +36,12 @@ public class UserDxo {
 
         @Valid
         @NotNull
-        private ResponseModel responseModel;
+        private ResponseModel result;
 
-
-
+        @Override
+        public int getResultCode() {
+            return result.getResultCode();
+        }
     }
 
 

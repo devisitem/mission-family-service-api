@@ -60,6 +60,8 @@ class AccountRepositoryTest {
     public void 유저_저장후_아이디로_회원정보조회() throws Exception {
         //given
         UserInfo userInfo = testUser;
+        UserInfo secondUserInfo = testUser;
+        secondUserInfo.getAccount().setPassword("wqeqw21312");
 
         //when
         accountRepository.save(userInfo);

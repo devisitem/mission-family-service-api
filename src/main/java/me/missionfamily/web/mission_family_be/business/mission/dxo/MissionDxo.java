@@ -49,6 +49,11 @@ public class MissionDxo {
         @Valid
         @JsonProperty("result")
         ResponseModel result;
+
+        @Override
+        public int getResultCode() {
+            return result.getResultCode();
+        }
     }
 
 
