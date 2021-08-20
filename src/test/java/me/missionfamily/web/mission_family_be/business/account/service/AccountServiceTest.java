@@ -139,5 +139,16 @@ class AccountServiceTest {
         assertEquals("등록된 계정이 없거나, 정보가 일치하지 않습니다.", thrown.getMessage());
 
     }
+    
+    @Test
+    public void () throws Exception {
+        //given
+        
+        //when
+        
+        //then
+    
+    }
+    
 
 }
