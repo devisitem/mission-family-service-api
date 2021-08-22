@@ -91,20 +91,19 @@ public class AccountService {
     @Transactional
     public MissionResponse signInForAccount(AccountDxo.Request accountDxo) {
 
-        Account foundAccount = accountRepo.findAccountById(accountDxo.getUserId());
-        if(MissionUtil.isNull(foundAccount)){
+        UserInfo foundUser = accountRepo.findUserInfoByUserId(accountDxo.getUserId());
+        if(MissionUtil.isNull(foundUser)){
 
             log.info("no account data founds ,which is be registered. id = [{}]",accountDxo.getUserId());
             throw new ServiceException(HttpResponseStatus.NO_ACCOUNT_DATA_FOUNDS);
         }
 
-        if( ! passwordEncoder.matches(accountDxo.getPassword(), foundAccount.getUserPassword())){
+        if( ! passwordEncoder.matches(accountDxo.getPassword(), foundUser.getAccount().getUserPassword())){
             log.info("found 1 account and proceeded verification but It didn't matched with password.");
             throw new ServiceException(HttpResponseStatus.NO_ACCOUNT_DATA_FOUNDS);
         }
 
-        String missionKey = UUID.randomUUID().toString().replaceAll("-", "");
-        foundAccount.getUserInfo().signInService(missionKey);
+
 
         log.info("create auth key for sign-in this service. auth-key = [{}]",missionKey);
 

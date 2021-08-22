@@ -2,6 +2,8 @@ package me.missionfamily.web.mission_family_be.business.account.service;
 
 import me.missionfamily.web.mission_family_be.business.account.dxo.AccountDxo;
 import me.missionfamily.web.mission_family_be.business.account.repository.AccountRepository;
+import me.missionfamily.web.mission_family_be.common.data_transfer.MissionResponse;
+import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatus;
 import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
 import me.missionfamily.web.mission_family_be.domain.Account;
 import me.missionfamily.web.mission_family_be.domain.UserInfo;
@@ -141,12 +143,26 @@ class AccountServiceTest {
     }
     
     @Test
-    public void () throws Exception {
+    public void 일반_계정_로그인_성공() throws Exception {
         //given
-        
+        AccountDxo.Request signUp = AccountDxo.Request.builder()
+                .userId("Kimchi-dev")
+                .password("1q2w3e4r")
+                .userName("김치전")
+                .build();
+
+        AccountDxo.Request signIn = AccountDxo.Request.builder()
+                .userId("Kimchi-dev")
+                .password("1q2w3e4r")
+                .build();
+
+
         //when
-        
+        AccountDxo.Response response = accountService.registerForAccount(signUp);
+        MissionResponse signInResponse = accountService.signInForAccount(signIn);
+
         //then
+        assertEquals(HttpResponseStatus.SUCCESS.getCode(), signInResponse.getResultCode());
     
     }
     
