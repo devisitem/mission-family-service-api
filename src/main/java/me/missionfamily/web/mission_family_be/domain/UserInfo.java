@@ -57,23 +57,15 @@ public class UserInfo {
     }
 
     /**
-     * 인증키 생성 및 검증
-     * @param authKey
+     * 인증키 생성 및 변경
+     * @param
      * @return
      */
-    public String confirmOrGenerateAuthKey(String authKey) {
+    public String generateAndRefreshAuthKey() {
         Assert.hasText(authKey,"인증키는 빈값 일 수 없습니다.");
 
-        //최초 로그인시
-        if(MissionUtil.isEmptyOrNull(this.authKey)) {
-
-            this.authKey = UUID.randomUUID().toString().replaceAll("-", "");
-            return this.authKey;
-        } else {
-
-        }
-
-        this.authKey = authKey;
+        this.authKey = UUID.randomUUID().toString().replaceAll("-", "");
+        return this.authKey;
     }
 
 

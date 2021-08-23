@@ -103,7 +103,7 @@ public class AccountService {
             throw new ServiceException(HttpResponseStatus.NO_ACCOUNT_DATA_FOUNDS);
         }
 
-
+        String missionKey = foundUser.generateAndRefreshAuthKey();
 
         log.info("create auth key for sign-in this service. auth-key = [{}]",missionKey);
 
