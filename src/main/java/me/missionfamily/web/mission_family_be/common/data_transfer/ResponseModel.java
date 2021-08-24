@@ -14,8 +14,6 @@ import javax.validation.constraints.Min;
 @AllArgsConstructor
 public class ResponseModel {
 
-    @Min(0)
-    @JsonProperty("code")
-    int resultCode;
+    int code;
 
 }

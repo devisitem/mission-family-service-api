@@ -30,7 +30,7 @@ public class AccountService {
     private final PasswordEncoder encoder;
     private final PasswordEncoder passwordEncoder;
 
-    public AccountDxo.Response dupCheckById(String checkId){
+    public MissionResponse dupCheckById(String checkId){
         Account foundAccount = accountRepo.findAccountById(checkId);
         log.info("optionalAccount = [{}]", foundAccount);
 
@@ -38,11 +38,11 @@ public class AccountService {
             throw new ServiceException(HttpResponseStatus.USER_ID_DUPLICATE);
         }
 
-        log.info("there is no this identification. usable identification = [{}]",checkId);
+        log.info("there is no this identification. usable identification = [{}]", checkId);
 
         return AccountDxo.Response.builder()
                 .result(ResponseModel.builder()
-                        .resultCode(0)
+                        .code(0)
                         .build())
                 .checkedId(checkId)
                 .build();
@@ -54,7 +54,7 @@ public class AccountService {
      * @return serviceCode
      */
     @Transactional
-    public AccountDxo.Response registerForAccount (AccountDxo.Request accountDxo) throws Exception {
+    public MissionResponse registerForAccount (AccountDxo.Request accountDxo) throws Exception {
         Account foundAccount = accountRepo.findAccountById(accountDxo.getUserId());
 
 
@@ -83,7 +83,7 @@ public class AccountService {
 
         return AccountDxo.Response.builder()
                 .result(ResponseModel.builder()
-                        .resultCode(0)
+                        .code(0)
                         .build())
                 .build();
     }
@@ -111,7 +111,7 @@ public class AccountService {
 
         return AccountDxo.Response.builder()
                 .result(ResponseModel.builder()
-                        .resultCode(0)
+                        .code(0)
                         .build())
                 .account(AccountModel.builder()
                         .missionSignature(missionKey)

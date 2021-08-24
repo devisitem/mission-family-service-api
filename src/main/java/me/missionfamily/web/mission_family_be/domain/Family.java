@@ -1,5 +1,6 @@
 package me.missionfamily.web.mission_family_be.domain;
 
+import io.jsonwebtoken.lang.Assert;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -50,6 +51,15 @@ public class Family {
     @OneToMany(mappedBy = "creater",cascade = CascadeType.ALL)
     private List<Mission> myMissions = new ArrayList<>();
 
+    @OneToMany(mappedBy = "parant", cascade = CascadeType.ALL)
+    private List<Family> familyMembers = new ArrayList<>();
+
+    public void addMember(Family member){
+        Assert.isTrue(member.getFamilyKey() == null,"멤버만 추가가 가능합니다.");
+        this.familyMembers.add(member);
+        member.parant = this;
+    }
+
     /**
      * 패밀리 "그룹" 생성
      * @param familyName 패밀리명
@@ -62,9 +72,26 @@ public class Family {
         newerGroup.role = "GROUP";
         newerGroup.parant = null;
         newerGroup.familyKey = null;
-        newerGroup.deleteYn = "Y";
+        newerGroup.deleteYn = "N";
         newerGroup.joinDate = LocalDateTime.now();
 
         return newerGroup;
+    }
+
+    /**
+     * 패밀리 "멤버" 생성
+     * @param group 소속될 그룹
+     * @param member 연결 계정
+     * @return
+     */
+    public static Family createFamilyMember(Family group, Account member) {
+        Family newerMember = new Family();
+        newerMember.familyKey = member;
+        newerMember.parant = group;
+        newerMember.role = "MEMBER";
+        newerMember.deleteYn = "N";
+        newerMember.joinDate = LocalDateTime.now();
+
+        return newerMember;
     }
 }

@@ -65,8 +65,8 @@ public class AccountDxo {
         private AccountModel account;
 
         @Override
-        public int getResultCode() {
-            return result.getResultCode();
+        public int getCode() {
+            return result.getCode();
         }
     }
 }

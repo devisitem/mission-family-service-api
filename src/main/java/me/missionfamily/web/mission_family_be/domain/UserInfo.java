@@ -62,7 +62,6 @@ public class UserInfo {
      * @return
      */
     public String generateAndRefreshAuthKey() {
-        Assert.hasText(authKey,"인증키는 빈값 일 수 없습니다.");
 
         this.authKey = UUID.randomUUID().toString().replaceAll("-", "");
         return this.authKey;

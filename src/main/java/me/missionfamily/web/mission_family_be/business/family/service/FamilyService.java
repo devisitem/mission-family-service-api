@@ -42,13 +42,16 @@ public class FamilyService {
         log.info("The family group has leader, which id by = [{}]", leader.getUserId());
 
         Family familyGroup = Family.createGroup(groupName, leader);
-
         familyRepository.save(familyGroup);
+
+        Family member = Family.createFamilyMember(familyGroup, leader);
+        familyRepository.save(member);
+
         log.info("Created new family group by [{}]",leader.getUserId());
 
         return FamilyDxo.Response.builder()
                 .result(ResponseModel.builder()
-                        .resultCode(0)
+                        .code(0)
                         .build())
                 .build();
     }

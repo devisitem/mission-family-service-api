@@ -31,7 +31,7 @@ public class MissionService {
 
         return MissionDxo.Response.builder()
                 .result(ResponseModel.builder()
-                        .resultCode(0)
+                        .code(0)
                         .build())
                 .build();
     }

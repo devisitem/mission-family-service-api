@@ -65,10 +65,10 @@ class AccountServiceTest {
         String targetID = "Kimchi-dev";
 
         //when
-        AccountDxo.Response response = accountService.dupCheckById(targetID);
+        AccountDxo.Response response = (AccountDxo.Response) accountService.dupCheckById(targetID);
 
         //then
-        assertEquals(0, response.getResultCode());
+        assertEquals(0, response.getCode());
         assertEquals("KkackDdugy-dev", response.getCheckedId());
 
     }
@@ -83,10 +83,10 @@ class AccountServiceTest {
                 .build();
 
         //when
-        AccountDxo.Response response = accountService.registerForAccount(request);
+        AccountDxo.Response response = (AccountDxo.Response) accountService.registerForAccount(request);
 
         //then
-        assertEquals(0, response.getResultCode());
+        assertEquals(0, response.getCode());
     }
 
     @Test
@@ -107,7 +107,7 @@ class AccountServiceTest {
 
 
         //when
-        AccountDxo.Response response = accountService.registerForAccount(signUp);
+        AccountDxo.Response response = (AccountDxo.Response) accountService.registerForAccount(signUp);
         ServiceException thrown = assertThrows(ServiceException.class, () -> accountService.signInForAccount(signIn));
 
         //then
@@ -133,7 +133,7 @@ class AccountServiceTest {
 
 
         //when
-        AccountDxo.Response response = accountService.registerForAccount(signUp);
+        AccountDxo.Response response = (AccountDxo.Response) accountService.registerForAccount(signUp);
         ServiceException thrown = assertThrows(ServiceException.class, () -> accountService.signInForAccount(signIn));
 
         //then
@@ -158,11 +158,11 @@ class AccountServiceTest {
 
 
         //when
-        AccountDxo.Response response = accountService.registerForAccount(signUp);
+        AccountDxo.Response response = (AccountDxo.Response) accountService.registerForAccount(signUp);
         MissionResponse signInResponse = accountService.signInForAccount(signIn);
 
         //then
-        assertEquals(HttpResponseStatus.SUCCESS.getCode(), signInResponse.getResultCode());
+        assertEquals(HttpResponseStatus.SUCCESS.getCode(), signInResponse.getCode());
     
     }
     

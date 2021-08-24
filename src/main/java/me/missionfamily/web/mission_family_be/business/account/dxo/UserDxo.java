@@ -39,8 +39,8 @@ public class UserDxo {
         private ResponseModel result;
 
         @Override
-        public int getResultCode() {
-            return result.getResultCode();
+        public int getCode() {
+            return result.getCode();
         }
     }
 
