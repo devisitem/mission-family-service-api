@@ -18,6 +18,7 @@ public class FamilyRepository {
 
     @PersistenceContext
     private final EntityManager entityManager;
+
     private final JPAQueryFactory queryFactory;
 
     QFamily family = QFamily.family;

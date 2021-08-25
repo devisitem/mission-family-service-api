@@ -27,10 +27,9 @@ import java.util.UUID;
 public class AccountService {
 
     private final AccountRepository accountRepo;
-    private final PasswordEncoder encoder;
     private final PasswordEncoder passwordEncoder;
 
-    public MissionResponse dupCheckById(String checkId){
+    public MissionResponse dupCheckById(String checkId) throws ServiceException{
         Account foundAccount = accountRepo.findAccountById(checkId);
         log.info("optionalAccount = [{}]", foundAccount);
 
@@ -54,7 +53,7 @@ public class AccountService {
      * @return serviceCode
      */
     @Transactional
-    public MissionResponse registerForAccount (AccountDxo.Request accountDxo) throws Exception {
+    public MissionResponse registerForAccount (AccountDxo.Request accountDxo) throws ServiceException {
         Account foundAccount = accountRepo.findAccountById(accountDxo.getUserId());
 
 
@@ -89,7 +88,7 @@ public class AccountService {
     }
 
     @Transactional
-    public MissionResponse signInForAccount(AccountDxo.Request accountDxo) {
+    public MissionResponse signInForAccount(AccountDxo.Request accountDxo) throws ServiceException {
 
         UserInfo foundUser = accountRepo.findUserInfoByUserId(accountDxo.getUserId());
         if(MissionUtil.isNull(foundUser)){
@@ -124,7 +123,7 @@ public class AccountService {
      * @param reuqest
      * @return
      */
-    public void authenticationProcess(AccountDxo.Request request){
+    public void authenticationProcess(AccountDxo.Request request) throws ServiceException {
 
         AccountModel account = request.getAccount();
         UserInfo fountUserInfo = accountRepo.findUserInfoByUserId(account.getLoginId());

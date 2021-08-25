@@ -14,10 +14,12 @@ import me.missionfamily.web.mission_family_be.common.util.MissionUtil;
 import me.missionfamily.web.mission_family_be.domain.Account;
 import me.missionfamily.web.mission_family_be.domain.Family;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class FamilyService {
 
     private final FamilyRepository familyRepository;
@@ -30,6 +32,7 @@ public class FamilyService {
      * @param loginId
      * @return
      */
+    @Transactional
     public MissionResponse createFamilyGroup(FamilyModel family, String loginId) {
 
         String groupName = family.getFamilyName();

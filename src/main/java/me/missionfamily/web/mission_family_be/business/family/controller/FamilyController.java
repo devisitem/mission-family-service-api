@@ -8,8 +8,11 @@ import me.missionfamily.web.mission_family_be.common.aop.LoginService;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/families")
@@ -19,8 +22,7 @@ public class FamilyController {
     private final FamilyService familyService;
 
     @PostMapping("/create")
-    @LoginService
-    public ResponseEntity<MissionResponse> createNewFamily(FamilyDxo.Request request) {
+    public ResponseEntity<MissionResponse> createNewFamily(@RequestBody @Valid FamilyDxo.Request request) {
 
         FamilyModel family = request.getFamily();
 

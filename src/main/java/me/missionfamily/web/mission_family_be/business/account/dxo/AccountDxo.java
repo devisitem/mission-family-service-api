@@ -44,13 +44,11 @@ public class AccountDxo {
         }
     }
 
-    @Data
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Response implements MissionResponse {
 
-        @Valid
         @NotNull
         @JsonProperty("result")
         private ResponseModel result;

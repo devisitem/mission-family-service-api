@@ -1,5 +1,7 @@
 package me.missionfamily.web.mission_family_be.business.family.dxo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,13 +15,18 @@ import me.missionfamily.web.mission_family_be.common.data_transfer.ResponseModel
 
 import javax.validation.Valid;
 
+@Builder
+@NoArgsConstructor
 public class FamilyDxo {
 
     @Data
+    @Builder
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Request implements MissionRequest {
+
         @Valid
+        @JsonInclude(Include.NON_NULL)
         @JsonProperty("family")
         private FamilyModel family;
 
