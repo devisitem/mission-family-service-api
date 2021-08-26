@@ -1,5 +1,6 @@
 package me.missionfamily.web.mission_family_be.common.aop;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.missionfamily.web.mission_family_be.business.account.model.AccountModel;
 import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatus;
@@ -16,9 +17,10 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Aspect
 @Component
+@RequiredArgsConstructor
 public class MissionAuthAop {
 
-    private AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
 
     @Around("@annotation(LoginService)")
     public Object checkLoginService(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -39,11 +41,12 @@ public class MissionAuthAop {
                     throw new ServiceException(HttpResponseStatus.AUTHKEY_MUST_BE_NON_NULL);
                 }
 
-                if(missionSignature.equals(loginUser)) {
+                if(missionSignature.equals(loginUser.getAuthKey())) {
 
                     return joinPoint.proceed();
                 }else {
-                    log.error("Failed Authorization. Please check your token.");
+
+                    log.error("Failed Authorization. Please check your token. login");
                     throw new ServiceException(HttpResponseStatus.FAILED_AUTHENTICATE_PROCESS);
                 }
             }

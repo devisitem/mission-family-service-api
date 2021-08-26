@@ -20,8 +20,8 @@ public class FamilyController {
 
     private final FamilyService familyService;
 
-    @PostMapping("/create")
     @LoginService
+    @PostMapping("/create")
     public ResponseEntity<MissionResponse> createNewFamily(@RequestBody @Valid FamilyDxo.Request request) throws ServiceException {
 
         FamilyModel family = request.getFamily();

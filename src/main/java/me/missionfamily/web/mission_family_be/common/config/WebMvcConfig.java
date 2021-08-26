@@ -40,13 +40,7 @@ public class WebMvcConfig extends WebSecurityConfigurerAdapter {
 //                .and()
 
                 .authorizeRequests()
-                .antMatchers("/api/users/signin").permitAll()
-                .antMatchers("/api/users/register").permitAll()
-                .antMatchers("/api/users/duplicateCheck").permitAll()
-                .antMatchers("/api/authenticate").permitAll()
-                .antMatchers("/api/families/create").permitAll()
-                .anyRequest()
-                .authenticated()
+                .anyRequest().permitAll()
                 .and()
 
                 .cors().disable()
