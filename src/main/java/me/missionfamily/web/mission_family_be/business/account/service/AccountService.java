@@ -34,6 +34,7 @@ public class AccountService {
         log.info("optionalAccount = [{}]", foundAccount);
 
         if(MissionUtil.isNotNull(foundAccount)) {
+            log.error("This Login ID is Already registered. ID = [ {} ]", checkId);
             throw new ServiceException(HttpResponseStatus.USER_ID_DUPLICATE);
         }
 

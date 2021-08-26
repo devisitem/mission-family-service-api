@@ -43,7 +43,7 @@ public class AccountDxo {
             return this.account;
         }
     }
-
+    @Data
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
@@ -63,7 +63,7 @@ public class AccountDxo {
         private AccountModel account;
 
         @Override
-        public int getCode() {
+        public int code() {
             return result.getCode();
         }
     }

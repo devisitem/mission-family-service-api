@@ -51,7 +51,7 @@ public class MissionDxo {
         ResponseModel result;
 
         @Override
-        public int getCode() {
+        public int code() {
             return result.getCode();
         }
     }

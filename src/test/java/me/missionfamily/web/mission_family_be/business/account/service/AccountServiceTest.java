@@ -68,7 +68,7 @@ class AccountServiceTest {
         AccountDxo.Response response = (AccountDxo.Response) accountService.dupCheckById(targetID);
 
         //then
-        assertEquals(0, response.getCode());
+        assertEquals(0, response.code());
         assertEquals("KkackDdugy-dev", response.getCheckedId());
 
     }
@@ -86,7 +86,7 @@ class AccountServiceTest {
         AccountDxo.Response response = (AccountDxo.Response) accountService.registerForAccount(request);
 
         //then
-        assertEquals(0, response.getCode());
+        assertEquals(0, response.code());
     }
 
     @Test
@@ -162,7 +162,7 @@ class AccountServiceTest {
         MissionResponse signInResponse = accountService.signInForAccount(signIn);
 
         //then
-        assertEquals(HttpResponseStatus.SUCCESS.getCode(), signInResponse.getCode());
+        assertEquals(HttpResponseStatus.SUCCESS.getCode(), signInResponse.code());
     
     }
     

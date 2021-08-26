@@ -42,6 +42,9 @@ public class MissionAuthAop {
                 if(missionSignature.equals(loginUser)) {
 
                     return joinPoint.proceed();
+                }else {
+                    log.error("Failed Authorization. Please check your token.");
+                    throw new ServiceException(HttpResponseStatus.FAILED_AUTHENTICATE_PROCESS);
                 }
             }
         }

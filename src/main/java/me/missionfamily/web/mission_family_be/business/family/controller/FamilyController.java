@@ -1,16 +1,15 @@
 package me.missionfamily.web.mission_family_be.business.family.controller;
 
 import lombok.RequiredArgsConstructor;
+import me.missionfamily.web.mission_family_be.business.account.model.AccountModel;
 import me.missionfamily.web.mission_family_be.business.family.dxo.FamilyDxo;
 import me.missionfamily.web.mission_family_be.business.family.model.FamilyModel;
 import me.missionfamily.web.mission_family_be.business.family.service.FamilyService;
 import me.missionfamily.web.mission_family_be.common.aop.LoginService;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionResponse;
+import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -22,11 +21,23 @@ public class FamilyController {
     private final FamilyService familyService;
 
     @PostMapping("/create")
-    public ResponseEntity<MissionResponse> createNewFamily(@RequestBody @Valid FamilyDxo.Request request) {
+    @LoginService
+    public ResponseEntity<MissionResponse> createNewFamily(@RequestBody @Valid FamilyDxo.Request request) throws ServiceException {
 
         FamilyModel family = request.getFamily();
 
         MissionResponse response = familyService.createFamilyGroup(family, request.getAccount().getLoginId());
+
+        return ResponseEntity.ok(response);
+    }
+
+    @LoginService
+    @GetMapping("/find")
+    public ResponseEntity<MissionResponse> findMyFamilies(@RequestBody @Valid FamilyDxo.Request request) throws ServiceException {
+
+        AccountModel account = request.getAccount();
+
+        MissionResponse response = familyService.findFamiliesAsAccount(account);
 
         return ResponseEntity.ok(response);
     }

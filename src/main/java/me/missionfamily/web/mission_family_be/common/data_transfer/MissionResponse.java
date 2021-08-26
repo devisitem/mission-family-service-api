@@ -11,6 +11,6 @@ import javax.validation.Valid;
 
 public interface MissionResponse {
 
-    int getCode();
+    int code();
 
 }

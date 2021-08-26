@@ -17,7 +17,7 @@ public class MissionErrorResponse implements MissionResponse {
     private ExceptionModel exception;
 
     @Override
-    public int getCode() {
+    public int code() {
         return exception.getErrorCode();
     }
 }

@@ -12,8 +12,10 @@ import me.missionfamily.web.mission_family_be.business.family.model.FamilyModel;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionRequest;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionResponse;
 import me.missionfamily.web.mission_family_be.common.data_transfer.ResponseModel;
+import me.missionfamily.web.mission_family_be.domain.Family;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Builder
 @NoArgsConstructor
@@ -50,8 +52,11 @@ public class FamilyDxo {
         @JsonProperty("result")
         private ResponseModel result;
 
+        @JsonProperty("my_families")
+        private List<Family> myFamilies;
+
         @Override
-        public int getCode() {
+        public int code() {
             return result.getCode();
         }
     }
