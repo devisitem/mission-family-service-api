@@ -78,7 +78,9 @@ public class FamilyService {
 
         Account foundAccount = accountRepository.findAccountById(account.getLoginId());
 
-        List<Family> myFamilies = foundAccount.getMyFamilies();
+
+        List<Family> families = familyRepository.findFamiliesByAccount(foundAccount);
+
         log.info("found {} families. It is [ {} ]", myFamilies.size(), myFamilies);
 
         return FamilyDxo.Response.builder()

@@ -33,4 +33,15 @@ public class FamilyRepository {
         return newerFamily.getFamilyId();
     }
 
+    /**
+     *
+     * @param foundAccount
+     * @return
+     */
+    public List<Family> findFamiliesByAccount(Account foundAccount) {
+
+
+
+        return null;
+    }
 }
