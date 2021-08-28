@@ -1,10 +1,7 @@
 package me.missionfamily.web.mission_family_be.business.family.service;
 
 import me.missionfamily.web.mission_family_be.business.account.dxo.AccountDxo;
-import me.missionfamily.web.mission_family_be.business.account.model.AccountModel;
 import me.missionfamily.web.mission_family_be.business.account.repository.AccountRepository;
-import me.missionfamily.web.mission_family_be.business.account.service.AccountService;
-import me.missionfamily.web.mission_family_be.business.family.dxo.FamilyDxo;
 import me.missionfamily.web.mission_family_be.business.family.model.FamilyModel;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionResponse;
 import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatus;
@@ -17,7 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @Transactional
@@ -25,6 +23,7 @@ class FamilyServiceTest {
 
     @Autowired
     private FamilyService familyService;
+
     @Autowired
     private AccountRepository accountRepository;
 
@@ -36,13 +35,13 @@ class FamilyServiceTest {
                         .password("1q2w3e4r")
                         .build())
                 .build();
-
-        accountRepository.save(UserInfo.builder()
+        UserInfo userInfo = UserInfo.builder()
                 .userBirth("1994-02-11")
                 .account(account)
                 .userName("김깍뚝")
                 .userPhone("010-0000-0000")
-                .build());
+                .build();
+        accountRepository.save(userInfo);
 
 
     }
@@ -78,4 +77,5 @@ class FamilyServiceTest {
         assertEquals(HttpResponseStatus.SUCCESS.getCode(), response.code());
 
     }
+
 }

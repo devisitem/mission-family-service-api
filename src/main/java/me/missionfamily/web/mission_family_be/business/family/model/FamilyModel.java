@@ -1,5 +1,7 @@
 package me.missionfamily.web.mission_family_be.business.family.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +16,19 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class FamilyModel {
 
-    @NotNull
+    @JsonInclude(Include.NON_NULL)
+    private int order;
+
+    @JsonInclude(Include.NON_EMPTY)
     @JsonProperty("name")
     private String familyName;
+
+    @JsonInclude(Include.NON_EMPTY)
+    @JsonProperty("join_date")
+    private String joinDate;
+
+    @JsonInclude(Include.NON_EMPTY)
+    @JsonProperty("delete_yn")
+    private String deleteYn;
+
 }

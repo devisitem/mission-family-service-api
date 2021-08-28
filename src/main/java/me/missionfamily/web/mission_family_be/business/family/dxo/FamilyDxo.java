@@ -53,8 +53,9 @@ public class FamilyDxo {
         private ResponseModel result;
 
         @JsonInclude(Include.NON_NULL)
+
         @JsonProperty("my_families")
-        private List<Family> myFamilies;
+        private List<FamilyModel> myFamilies;
 
         @Override
         public int code() {

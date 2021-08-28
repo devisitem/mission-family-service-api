@@ -1,13 +1,16 @@
 package me.missionfamily.web.mission_family_be.business.family.repository;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.missionfamily.web.mission_family_be.business.family.model.FamilyModel;
+import me.missionfamily.web.mission_family_be.common.util.MissionUtil;
 import me.missionfamily.web.mission_family_be.domain.Account;
 import me.missionfamily.web.mission_family_be.domain.Family;
 import me.missionfamily.web.mission_family_be.domain.QFamily;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +18,6 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-@Slf4j
 public class FamilyRepository {
 
     @PersistenceContext
@@ -40,8 +42,19 @@ public class FamilyRepository {
      */
     public List<Family> findFamiliesByAccount(Account foundAccount) {
 
-
+        queryFactory
+                .selectFrom(family)
+                .where(family.familyKey.eq(foundAccount),
+                        eqRole("MEMBER"))
+                .fetch();
 
         return null;
+    }
+
+    private BooleanExpression eqRole(String role){
+        if(MissionUtil.isEmptyOrNull(role)){
+            return null;
+        }
+        return family.role.eq(role);
     }
 }

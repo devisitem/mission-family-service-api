@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@ToString
 @Entity
 @Getter
 @Table(name = "mf_account")

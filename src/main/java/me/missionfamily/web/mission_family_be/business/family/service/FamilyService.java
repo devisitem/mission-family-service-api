@@ -14,11 +14,16 @@ import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
 import me.missionfamily.web.mission_family_be.common.util.MissionUtil;
 import me.missionfamily.web.mission_family_be.domain.Account;
 import me.missionfamily.web.mission_family_be.domain.Family;
+import me.missionfamily.web.mission_family_be.domain.Mission;
 import me.missionfamily.web.mission_family_be.domain.UserInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -72,22 +77,40 @@ public class FamilyService {
      *                "login_id": "Login Id",
      *                "mission_signature": "21mNlsSYla..."
      * }
-     * @return 내가 속한 패밀리 그룹 전체
+     * @return 내가 속한 패밀리 목록조회
      */
     public MissionResponse findFamiliesAsAccount(AccountModel account) throws ServiceException {
 
         Account foundAccount = accountRepository.findAccountById(account.getLoginId());
+        log.info("found 1 account is = [ {} ]", foundAccount);
 
+        List<Family> belongFamily = foundAccount.getBelongFamily();
 
-        List<Family> families = familyRepository.findFamiliesByAccount(foundAccount);
+        if(MissionUtil.isNull(belongFamily)){
+            belongFamily = new ArrayList<>();
+            log.info("there are no your families. [ {} ]", belongFamily);
+        } else {
 
-        log.info("found {} families. It is [ {} ]", myFamilies.size(), myFamilies);
+            log.info("found {} families. It is [ {} ]", belongFamily.size(), belongFamily);
+        }
+        AtomicInteger index = new AtomicInteger();
+
+        List<FamilyModel>  groupFamilies = belongFamily.stream()
+                .map(member ->
+                        FamilyModel.builder()
+                                .order(index.incrementAndGet())
+                                .familyName(member.getParant().getFamilyName())
+                                .joinDate(member.getParant().getJoinDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                                .deleteYn(member.getParant().getDeleteYn())
+                                .build()
+                )
+                .collect(Collectors.toList());
 
         return FamilyDxo.Response.builder()
                 .result(ResponseModel.builder()
                         .code(0)
                         .build())
-                .myFamilies(myFamilies)
+                .myFamilies(groupFamilies)
                 .build();
     }
 }

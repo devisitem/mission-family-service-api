@@ -2,6 +2,7 @@ package me.missionfamily.web.mission_family_be.domain;
 
 import io.jsonwebtoken.lang.Assert;
 import lombok.Getter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -69,6 +70,7 @@ public class Family {
     public static Family createGroup(String familyName, Account leader) {
         Family newerGroup = new Family();
         newerGroup.account = leader;
+        newerGroup.familyName = familyName;
         newerGroup.role = "GROUP";
         newerGroup.parant = null;
         newerGroup.familyKey = null;
