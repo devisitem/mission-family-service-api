@@ -19,6 +19,9 @@ public class FamilyModel {
     @JsonInclude(Include.NON_NULL)
     private int order;
 
+    @JsonInclude(Include.NON_NULL)
+    private Long key;
+
     @JsonInclude(Include.NON_EMPTY)
     @JsonProperty("name")
     private String familyName;

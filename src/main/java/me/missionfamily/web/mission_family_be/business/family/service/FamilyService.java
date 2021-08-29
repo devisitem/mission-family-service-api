@@ -99,6 +99,7 @@ public class FamilyService {
                 .map(member ->
                         FamilyModel.builder()
                                 .order(index.incrementAndGet())
+                                .key(member.getParant().getFamilyId())
                                 .familyName(member.getParant().getFamilyName())
                                 .joinDate(member.getParant().getJoinDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
                                 .deleteYn(member.getParant().getDeleteYn())
