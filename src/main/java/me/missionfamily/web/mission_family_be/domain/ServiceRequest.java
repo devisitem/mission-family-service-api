@@ -9,5 +9,7 @@ public class ServiceRequest {
 
     @Id @GeneratedValue
     private Long id;
+    private String message;
+
 
 }
