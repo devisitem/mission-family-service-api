@@ -1,9 +1,11 @@
 package me.missionfamily.web.mission_family_be.common.service_enum;
 
 public enum ServiceProperties {
-    NOTICE_ALL("APP", 1, "공지사항 메세지"),
-    INVITE_FAMILIES("APP", 2, "패밀리 멤버로 초대"),
-    NOTICE_FAMILIES("APP", 3, "패밀리 공지"),
+    INVITE_MEMBER("APP", "IVT01", "패밀리 멤버로 초대"),
+
+    NOTICE_ALL("APP", "NTC01", "전체 공지사항"),
+    NOTICE_FAMILIES("APP", "NTC02", "패밀리 공지사항"),
+
 
     ;
 
@@ -13,12 +15,16 @@ public enum ServiceProperties {
 
 
     String serviceType;
-    int code;
-    String rage;
+    String code;
+    String description;
 
-    ServiceProperties(String serviceType, int code, String range){
+    ServiceProperties(String serviceType, String code, String description){
         this.serviceType = serviceType;
         this.code = code;
-        this.rage = range;
+        this.description = description;
+    }
+
+    public String getDescriptions(){
+        return this.description;
     }
 }
