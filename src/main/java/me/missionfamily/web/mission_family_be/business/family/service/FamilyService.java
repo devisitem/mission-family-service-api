@@ -61,6 +61,8 @@ public class FamilyService {
 
         Family member = Family.createFamilyMember(familyGroup, leader);
         familyRepository.save(member);
+        member.setDefaultName(Long.valueOf(familyGroup.getFamilyMembers().size()));
+
 
         log.info("Created new family group by [{}]",leader.getUserId());
 

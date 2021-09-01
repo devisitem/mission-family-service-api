@@ -8,6 +8,7 @@ import me.missionfamily.web.mission_family_be.business.family.service.FamilyServ
 import me.missionfamily.web.mission_family_be.common.aop.LoginService;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionResponse;
 import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
+import me.missionfamily.web.mission_family_be.domain.Account;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +41,15 @@ public class FamilyController {
         MissionResponse response = familyService.findFamiliesAsAccount(account);
 
         return ResponseEntity.ok(response);
+    }
+
+    @LoginService
+    @PostMapping("/invite-member")
+    public ResponseEntity<MissionResponse> sendInviteMessage(@RequestBody @Valid FamilyDxo. Request request) throws ServiceException {
+
+        AccountModel account = request.getAccount();
+
+        return null;
     }
 
 

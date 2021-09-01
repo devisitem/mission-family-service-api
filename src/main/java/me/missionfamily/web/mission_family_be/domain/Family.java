@@ -3,6 +3,7 @@ package me.missionfamily.web.mission_family_be.domain;
 import io.jsonwebtoken.lang.Assert;
 import lombok.Getter;
 import lombok.ToString;
+import me.missionfamily.web.mission_family_be.domain.service_request.NoticeMessage;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -55,6 +56,12 @@ public class Family {
     @OneToMany(mappedBy = "parant", cascade = CascadeType.ALL)
     private List<Family> familyMembers = new ArrayList<>();
 
+    @OneToMany(mappedBy = "messageTarget", cascade = CascadeType.ALL)
+    private List<NoticeMessage> sentMessage = new ArrayList<>();
+
+    @OneToMany(mappedBy = "messageSender", cascade = CascadeType.ALL)
+    private List<NoticeMessage> receivedMessage = new ArrayList<>();
+
     public void addMember(Family member){
         Assert.isTrue(member.getFamilyKey() == null,"멤버만 추가가 가능합니다.");
         this.familyMembers.add(member);
@@ -95,5 +102,9 @@ public class Family {
         newerMember.joinDate = LocalDateTime.now();
 
         return newerMember;
+    }
+
+    public void setDefaultName(Long index) {
+        this.familyName = "패밀리" + index;
     }
 }
