@@ -46,5 +46,5 @@ public abstract class ServiceRequest {
      * @param typeClass
      * @return
      */
-    abstract ServiceRequest createRequest(Family messageSender, Family messageTarget, String title, String message, ServiceProperties typeClass);
+    abstract ServiceRequest createRequest(Object messageSender, Object messageTarget, String title, String content, ServiceProperties typeClass);
 }

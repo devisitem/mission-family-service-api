@@ -27,7 +27,6 @@ class FamilyRepositoryTest {
     @Autowired
     private AccountRepository accountRepository;
 
-    private Family
 
     @BeforeEach
     public void init(){
@@ -49,8 +48,12 @@ class FamilyRepositoryTest {
     @Test
     public void 멤버_초대메세지_등록() throws Exception {
         /* Given */
+        String userId = "Kimchi-dev";
 
         /* When */
+        UserInfo user = accountRepository.findUserInfoByUserId(userId);
+
+
 
         /* Then */
 
