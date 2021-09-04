@@ -2,6 +2,7 @@ package me.missionfamily.web.mission_family_be.domain;
 
 import lombok.*;
 import me.missionfamily.web.mission_family_be.business.account.dxo.AccountDxo;
+import me.missionfamily.web.mission_family_be.domain.service_request.InviteMessage;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ import java.util.List;
 @Getter
 @Table(name = "mf_account")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Account {
+public class Account implements MissionDomain{
 
 
     @Id
@@ -41,6 +42,9 @@ public class Account {
 
     @OneToMany(mappedBy = "familyKey",cascade = CascadeType.ALL)
     private List<Family> belongFamily = new ArrayList<>();
+
+    @OneToMany(mappedBy = "inviteTargetAccount", cascade = CascadeType.ALL)
+    private List<InviteMessage> receivedInvite = new ArrayList<>();
 
     private boolean activated;
 

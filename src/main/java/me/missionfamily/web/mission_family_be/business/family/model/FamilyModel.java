@@ -34,4 +34,6 @@ public class FamilyModel {
     @JsonProperty("delete_yn")
     private String deleteYn;
 
+
+
 }

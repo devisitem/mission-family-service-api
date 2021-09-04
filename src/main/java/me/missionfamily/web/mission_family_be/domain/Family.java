@@ -3,6 +3,7 @@ package me.missionfamily.web.mission_family_be.domain;
 import io.jsonwebtoken.lang.Assert;
 import lombok.Getter;
 import lombok.ToString;
+import me.missionfamily.web.mission_family_be.domain.service_request.InviteMessage;
 import me.missionfamily.web.mission_family_be.domain.service_request.NoticeMessage;
 
 import javax.persistence.*;
@@ -14,7 +15,7 @@ import java.util.List;
 @Entity
 @Getter
 @Table(name = "mf_family")
-public class Family {
+public class Family implements MissionDomain{
 
     @Id @GeneratedValue
     @Column(name = "mf_family_id")
@@ -22,7 +23,7 @@ public class Family {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mf_parent_family")
-    private Family parant;
+    private Family parent;
 
     @Column(name = "mf_role",length = 50)
     private String role;
@@ -56,16 +57,19 @@ public class Family {
     @OneToMany(mappedBy = "parant", cascade = CascadeType.ALL)
     private List<Family> familyMembers = new ArrayList<>();
 
-    @OneToMany(mappedBy = "messageTarget", cascade = CascadeType.ALL)
-    private List<NoticeMessage> sentMessage = new ArrayList<>();
+    @OneToMany(mappedBy = "noticeSenderFamily", cascade = CascadeType.ALL)
+    private List<NoticeMessage> receivedNotice = new ArrayList<>();
 
-    @OneToMany(mappedBy = "messageSender", cascade = CascadeType.ALL)
-    private List<NoticeMessage> receivedMessage = new ArrayList<>();
+    @OneToMany(mappedBy = "noticeTargetFamily", cascade = CascadeType.ALL)
+    private List<NoticeMessage> sentNotice = new ArrayList<>();
+
+    @OneToMany(mappedBy = "inviteSenderFamily", cascade = CascadeType.ALL)
+    private List<InviteMessage> sentInvite = new ArrayList<>();
 
     public void addMember(Family member){
         Assert.isTrue(member.getFamilyKey() == null,"멤버만 추가가 가능합니다.");
         this.familyMembers.add(member);
-        member.parant = this;
+        member.parent = this;
     }
 
     /**
@@ -79,7 +83,7 @@ public class Family {
         newerGroup.account = leader;
         newerGroup.familyName = familyName;
         newerGroup.role = "GROUP";
-        newerGroup.parant = null;
+        newerGroup.parent = null;
         newerGroup.familyKey = null;
         newerGroup.deleteYn = "N";
         newerGroup.joinDate = LocalDateTime.now();
@@ -96,7 +100,7 @@ public class Family {
     public static Family createFamilyMember(Family group, Account member) {
         Family newerMember = new Family();
         newerMember.familyKey = member;
-        newerMember.parant = group;
+        newerMember.parent = group;
         newerMember.role = "MEMBER";
         newerMember.deleteYn = "N";
         newerMember.joinDate = LocalDateTime.now();

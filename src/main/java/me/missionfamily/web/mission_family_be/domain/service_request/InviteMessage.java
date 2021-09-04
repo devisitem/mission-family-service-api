@@ -1,9 +1,11 @@
 package me.missionfamily.web.mission_family_be.domain.service_request;
 
+import lombok.Builder;
 import lombok.Getter;
 import me.missionfamily.web.mission_family_be.common.service_enum.ServiceProperties;
 import me.missionfamily.web.mission_family_be.domain.Account;
 import me.missionfamily.web.mission_family_be.domain.Family;
+import me.missionfamily.web.mission_family_be.domain.MissionDomain;
 
 import javax.persistence.*;
 
@@ -11,28 +13,25 @@ import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
-@DiscriminatorColumn(name = "INVITE")
+@DiscriminatorColumn(name = "FAMILY_INVITE")
 public class InviteMessage extends ServiceRequest{
-
-    @Id @GeneratedValue
-    private Long id;
-
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "mf_family_id")
-    private Family messageSender;
+    private Family inviteSenderFamily;
 
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "account_key")
-    private Account messageTarget;
+    private Account inviteTargetAccount;
+
 
 
     @Override
-    public ServiceRequest createRequest(Object messageSender, Object messageTarget, String title, String content, ServiceProperties typeClass) {
+    public ServiceRequest createRequest(MissionDomain messageSender, MissionDomain messageTarget, String title, String content, ServiceProperties typeClass) {
     super.setMessage(title, content, typeClass);
-    this.messageSender = (Family) messageSender;
-    this.messageTarget = (Account) messageTarget;
+    this.inviteSenderFamily = (Family) messageSender;
+    this.inviteTargetAccount = (Account) messageTarget;
 
     return this;
     }

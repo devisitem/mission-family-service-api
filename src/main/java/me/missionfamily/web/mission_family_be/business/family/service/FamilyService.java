@@ -101,10 +101,10 @@ public class FamilyService {
                 .map(member ->
                         FamilyModel.builder()
                                 .order(index.incrementAndGet())
-                                .key(member.getParant().getFamilyId())
-                                .familyName(member.getParant().getFamilyName())
-                                .joinDate(member.getParant().getJoinDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
-                                .deleteYn(member.getParant().getDeleteYn())
+                                .key(member.getParent().getFamilyId())
+                                .familyName(member.getParent().getFamilyName())
+                                .joinDate(member.getParent().getJoinDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                                .deleteYn(member.getParent().getDeleteYn())
                                 .build()
                 )
                 .collect(Collectors.toList());
@@ -115,5 +115,16 @@ public class FamilyService {
                         .build())
                 .myFamilies(groupFamilies)
                 .build();
+    }
+
+    public MissionResponse inviteMemberByUserId(String memberId, FamilyModel familyModel) throws ServiceException {
+        Account accountById = accountRepository.findAccountById(memberId);
+
+        if(MissionUtil.isNull(accountById)){
+            log.info("There is no User that, which be registered by login identification. [ {} ]", memberId);
+            throw new ServiceException(HttpResponseStatus.NOT_FOUND_USER);
+        }
+
+        familyRepository
     }
 }

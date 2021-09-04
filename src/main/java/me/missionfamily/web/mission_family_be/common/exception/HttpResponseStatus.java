@@ -9,6 +9,7 @@ public enum HttpResponseStatus {
     NO_ACCOUNT_DATA_FOUNDS(400,202, "등록된 계정이 없거나, 정보가 일치하지 않습니다."),
     AUTHKEY_MUST_BE_NON_NULL(403, 203, "인증키는 빈값 일 수 없습니다."),
     FAILED_AUTHENTICATE_PROCESS(403, 204, "인증에 실패하였습니다."),
+    NOT_FOUND_USER(500, 205, "존재하지 않는 유저 입니다."),
     ;
 
 

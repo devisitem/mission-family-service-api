@@ -9,6 +9,8 @@ import me.missionfamily.web.mission_family_be.common.util.MissionUtil;
 import me.missionfamily.web.mission_family_be.domain.Account;
 import me.missionfamily.web.mission_family_be.domain.Family;
 import me.missionfamily.web.mission_family_be.domain.QFamily;
+import me.missionfamily.web.mission_family_be.domain.service_request.InviteMessage;
+import me.missionfamily.web.mission_family_be.domain.service_request.NoticeMessage;
 import me.missionfamily.web.mission_family_be.domain.service_request.ServiceRequest;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -52,11 +54,28 @@ public class FamilyRepository {
         return null;
     }
 
-    public void save(ServiceRequest message){
+    public void saveNotice(NoticeMessage message){
 
         entityManager.persist(message);
 
     }
+
+    public void saveInvite(InviteMessage message){
+
+        entityManager.persist(message);
+
+    }
+
+    public Family findFamilyGroupByKey(Family group){
+
+        queryFactory
+                .selectFrom(family)
+                .where(family.familyId.eq(group.getFamilyId()),
+                        eqRole("GROUP"))
+                .fetchOne();
+
+    }
+
 
     private BooleanExpression eqRole(String role){
         if(MissionUtil.isEmptyOrNull(role)){

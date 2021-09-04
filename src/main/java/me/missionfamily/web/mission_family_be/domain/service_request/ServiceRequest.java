@@ -1,12 +1,15 @@
 package me.missionfamily.web.mission_family_be.domain.service_request;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import me.missionfamily.web.mission_family_be.common.service_enum.ServiceProperties;
 import me.missionfamily.web.mission_family_be.domain.Family;
+import me.missionfamily.web.mission_family_be.domain.MissionDomain;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -26,25 +29,28 @@ public abstract class ServiceRequest {
     @Enumerated(EnumType.STRING)
     private ServiceProperties typeClass;
 
+    private LocalDateTime sentTime;
+
     /**
      * 메세지 셋팅
      * @param title
      * @param content
      * @param typeClass
      */
-    protected void setMessage(String title, String content, ServiceProperties typeClass ){
+    protected final void setMessage(String title, String content, ServiceProperties typeClass ){
         this.title = title;
         this.content = content;
         this.typeClass = typeClass;
+        this.sentTime = LocalDateTime.now();
     }
 
 
     /**
      * 하위클래스 메세지 셋팅용
      * @param title
-     * @param message
+     * @param content
      * @param typeClass
      * @return
      */
-    abstract ServiceRequest createRequest(Object messageSender, Object messageTarget, String title, String content, ServiceProperties typeClass);
+    abstract ServiceRequest createRequest(MissionDomain messageSender, MissionDomain messageTarget, String title, String content, ServiceProperties typeClass);
 }

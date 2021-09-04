@@ -57,6 +57,10 @@ public class FamilyDxo {
         @JsonProperty("my_families")
         private List<FamilyModel> myFamilies;
 
+        @JsonInclude(Include.NON_NULL)
+        @JsonProperty("member_to_be_invited")
+        private String memberToBeInvited;
+
         @Override
         public int code() {
             return result.getCode();
