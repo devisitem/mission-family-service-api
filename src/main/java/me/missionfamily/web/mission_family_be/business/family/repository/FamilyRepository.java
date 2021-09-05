@@ -66,11 +66,11 @@ public class FamilyRepository {
 
     }
 
-    public Family findFamilyGroupByKey(Family group){
+    public Family findFamilyGroupByKey(Long familyId){
 
-        queryFactory
+        return queryFactory
                 .selectFrom(family)
-                .where(family.familyId.eq(group.getFamilyId()),
+                .where(family.familyId.eq(familyId),
                         eqRole("GROUP"))
                 .fetchOne();
 

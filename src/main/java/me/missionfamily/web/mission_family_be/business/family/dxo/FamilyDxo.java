@@ -36,6 +36,10 @@ public class FamilyDxo {
         @JsonProperty("account")
         private AccountModel account;
 
+        @JsonInclude(Include.NON_NULL)
+        @JsonProperty("target_member_id")
+        private String memberId;
+
         @Override
         public AccountModel account() {
             return this.account;

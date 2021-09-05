@@ -11,11 +11,13 @@ import me.missionfamily.web.mission_family_be.common.data_transfer.MissionRespon
 import me.missionfamily.web.mission_family_be.business.family.repository.FamilyRepository;
 import me.missionfamily.web.mission_family_be.common.data_transfer.ResponseModel;
 import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
+import me.missionfamily.web.mission_family_be.common.service_enum.ServiceProperties;
 import me.missionfamily.web.mission_family_be.common.util.MissionUtil;
 import me.missionfamily.web.mission_family_be.domain.Account;
 import me.missionfamily.web.mission_family_be.domain.Family;
 import me.missionfamily.web.mission_family_be.domain.Mission;
 import me.missionfamily.web.mission_family_be.domain.UserInfo;
+import me.missionfamily.web.mission_family_be.domain.service_request.InviteMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -117,14 +119,30 @@ public class FamilyService {
                 .build();
     }
 
+    @Transactional
     public MissionResponse inviteMemberByUserId(String memberId, FamilyModel familyModel) throws ServiceException {
-        Account accountById = accountRepository.findAccountById(memberId);
+        Account foundUser = accountRepository.findAccountById(memberId);
 
-        if(MissionUtil.isNull(accountById)){
+        if(MissionUtil.isNull(foundUser)){
             log.info("There is no User that, which be registered by login identification. [ {} ]", memberId);
             throw new ServiceException(HttpResponseStatus.NOT_FOUND_USER);
         }
+        Family senderGroup = familyRepository.findFamilyGroupByKey(familyModel.getKey());
 
-        familyRepository
+        if(MissionUtil.isNull(senderGroup)){
+            log.error("Not found Group. by key is [ {} ]", familyModel.getKey());
+        }
+
+        InviteMessage inviteMessage = new InviteMessage();
+        inviteMessage.createRequest(senderGroup, foundUser,senderGroup.getFamilyName()+" 패밀리로 부터 초대","새로운 초대", ServiceProperties.INVITE_MEMBER);
+
+        familyRepository.saveInvite(inviteMessage);
+
+        return FamilyDxo.Response.builder()
+                .result(ResponseModel.builder()
+                        .code(0)
+                        .build())
+                .memberToBeInvited(foundUser.getUserId())
+                .build();
     }
 }

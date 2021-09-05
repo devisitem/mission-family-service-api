@@ -45,11 +45,14 @@ public class FamilyController {
 
     @LoginService
     @PostMapping("/invite-member")
-    public ResponseEntity<MissionResponse> sendInviteMessage(@RequestBody @Valid FamilyDxo. Request request) throws ServiceException {
+    public ResponseEntity<MissionResponse> sendInviteMessage(@RequestBody @Valid FamilyDxo.Request request) throws ServiceException {
 
         AccountModel account = request.getAccount();
+        FamilyModel family = request.getFamily();
 
-        return null;
+        MissionResponse response = familyService.inviteMemberByUserId(account.getLoginId(), family);
+
+        return ResponseEntity.ok(response);
     }
 
 

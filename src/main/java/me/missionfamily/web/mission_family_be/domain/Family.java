@@ -51,10 +51,10 @@ public class Family implements MissionDomain{
     @OneToMany(mappedBy = "belongFamily",cascade = CascadeType.ALL)
     private List<Mission> belongMissions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "creater",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "creator",cascade = CascadeType.ALL)
     private List<Mission> myMissions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "parant", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     private List<Family> familyMembers = new ArrayList<>();
 
     @OneToMany(mappedBy = "noticeSenderFamily", cascade = CascadeType.ALL)
@@ -107,6 +107,7 @@ public class Family implements MissionDomain{
 
         return newerMember;
     }
+
 
     public void setDefaultName(Long index) {
         this.familyName = "패밀리" + index;

@@ -41,7 +41,7 @@ public class Mission {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mf_creater")
-    private Family creater;
+    private Family creator;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "mf_mission_status",length = 30)
