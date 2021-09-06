@@ -7,6 +7,7 @@ import me.missionfamily.web.mission_family_be.domain.Account;
 import me.missionfamily.web.mission_family_be.domain.Family;
 import me.missionfamily.web.mission_family_be.domain.MissionDomain;
 
+import javax.jdo.annotations.Join;
 import javax.persistence.*;
 
 import static javax.persistence.FetchType.LAZY;
@@ -17,12 +18,11 @@ import static javax.persistence.FetchType.LAZY;
 public class InviteMessage extends ServiceRequest{
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "mf_family_id")
+    @JoinColumn(name = "sender_family_key")
     private Family inviteSenderFamily;
 
-
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "account_key")
+    @JoinColumn(name = "receiver_account_key")
     private Account inviteTargetAccount;
 
 
@@ -30,9 +30,18 @@ public class InviteMessage extends ServiceRequest{
     @Override
     public ServiceRequest createRequest(MissionDomain messageSender, MissionDomain messageTarget, String title, String content, ServiceProperties typeClass) {
     super.setMessage(title, content, typeClass);
-    this.inviteSenderFamily = (Family) messageSender;
-    this.inviteTargetAccount = (Account) messageTarget;
-
+    this.setInviteSenderFamily((Family) messageSender);
+    this.setInviteTargetAccount((Account) messageTarget);
     return this;
+    }
+
+    public void setInviteSenderFamily(Family inviteSenderFamily) {
+        this.inviteSenderFamily = inviteSenderFamily;
+        inviteSenderFamily.getSentInvite().add(this);
+    }
+
+    public void setInviteTargetAccount(Account inviteTargetAccount){
+        this.inviteTargetAccount = inviteTargetAccount;
+        inviteTargetAccount.getReceivedInvite().add(this);
     }
 }

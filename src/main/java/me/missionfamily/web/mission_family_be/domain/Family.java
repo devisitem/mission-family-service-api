@@ -66,11 +66,6 @@ public class Family implements MissionDomain{
     @OneToMany(mappedBy = "inviteSenderFamily", cascade = CascadeType.ALL)
     private List<InviteMessage> sentInvite = new ArrayList<>();
 
-    public void addMember(Family member){
-        Assert.isTrue(member.getFamilyKey() == null,"멤버만 추가가 가능합니다.");
-        this.familyMembers.add(member);
-        member.parent = this;
-    }
 
     /**
      * 패밀리 "그룹" 생성

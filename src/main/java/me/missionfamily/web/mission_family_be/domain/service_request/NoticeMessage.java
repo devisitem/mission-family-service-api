@@ -18,12 +18,13 @@ public class NoticeMessage extends ServiceRequest{
 
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "mf_family_id")
+    @JoinColumn(name = "sender_family_key")
     private Family noticeSenderFamily;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "mf_family_id")
+    @JoinColumn(name = "receiver_family_key")
     private Family noticeTargetFamily;
+
 
     /**
      * 메세지를 보내는 패밀리는 멤버이어만하고,

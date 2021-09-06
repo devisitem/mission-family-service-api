@@ -114,6 +114,7 @@ public class AccountService {
                         .code(0)
                         .build())
                 .account(AccountModel.builder()
+                        .loginId(foundUser.getAccount().getUserId())
                         .missionSignature(missionKey)
                         .build())
                 .build();

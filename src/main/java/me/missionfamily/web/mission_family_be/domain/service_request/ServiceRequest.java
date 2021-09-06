@@ -13,13 +13,14 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "MESSAGE_TYPE")
 @Table(name = "mf_request")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class ServiceRequest {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String title;

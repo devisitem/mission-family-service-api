@@ -72,6 +72,9 @@ public class FamilyService {
                 .result(ResponseModel.builder()
                         .code(0)
                         .build())
+                .family(FamilyModel.builder()
+                        .key(familyGroup.getFamilyId())
+                        .build())
                 .build();
     }
 
