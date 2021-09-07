@@ -127,7 +127,7 @@ public class FamilyService {
         Account foundUser = accountRepository.findAccountById(memberId);
 
         if(MissionUtil.isNull(foundUser)){
-            log.info("There is no User that, which be registered by login identification. [ {} ]", memberId);
+            log.info("There is no User that, which be registered With login identification. [ {} ]", memberId);
             throw new ServiceException(HttpResponseStatus.NOT_FOUND_USER);
         }
         Family senderGroup = familyRepository.findFamilyGroupByKey(familyModel.getKey());

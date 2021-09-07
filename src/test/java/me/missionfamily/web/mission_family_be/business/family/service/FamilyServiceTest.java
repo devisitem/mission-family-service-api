@@ -114,4 +114,24 @@ class FamilyServiceTest {
 
     }
 
+    @Test
+    public void 패밀리_멤버_초대실패_유저가_없는경우() throws Exception {
+        /* Given */
+
+        String target = "non-user";
+
+        /* When */
+        FamilyDxo.Response familyResponse = (FamilyDxo.Response) familyService.createFamilyGroup(FamilyModel.builder()
+                        .familyName("테스트 봉사단.")
+                        .build(),
+                "Kimchi-dev");
+        ServiceException thrown = assertThrows(ServiceException.class, () -> familyService.inviteMemberByUserId(target, FamilyModel.builder()
+                .key(familyResponse.getFamily().getKey())
+                .build()));
+
+        /* Then */
+        assertEquals(205, thrown.getResultCode());
+        assertEquals("존재하지 않는 유저 입니다.", thrown.getMessage());
+    }
+
 }
