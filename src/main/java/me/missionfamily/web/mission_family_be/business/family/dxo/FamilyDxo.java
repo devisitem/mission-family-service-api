@@ -8,7 +8,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.missionfamily.web.mission_family_be.business.account.model.AccountModel;
+import me.missionfamily.web.mission_family_be.business.family.model.ConfirmModel;
 import me.missionfamily.web.mission_family_be.business.family.model.FamilyModel;
+import me.missionfamily.web.mission_family_be.business.family.model.InvitationModel;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionRequest;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionResponse;
 import me.missionfamily.web.mission_family_be.common.data_transfer.ResponseModel;
@@ -36,6 +38,10 @@ public class FamilyDxo {
         @JsonProperty("account")
         private AccountModel account;
 
+        @Valid
+        @JsonInclude(Include.NON_NULL)
+        private ConfirmModel confirm;
+
         @JsonInclude(Include.NON_NULL)
         @JsonProperty("target_member_id")
         private String memberId;
@@ -57,9 +63,12 @@ public class FamilyDxo {
         private ResponseModel result;
 
         @JsonInclude(Include.NON_NULL)
-
         @JsonProperty("my_families")
         private List<FamilyModel> myFamilies;
+
+        @JsonInclude(Include.NON_NULL)
+        @JsonProperty("invitations")
+        private List<InvitationModel> invitations;
 
         @Valid
         @JsonInclude(Include.NON_NULL)

@@ -133,5 +133,21 @@ class FamilyServiceTest {
         assertEquals(205, thrown.getResultCode());
         assertEquals("존재하지 않는 유저 입니다.", thrown.getMessage());
     }
+    
+    @Test
+    public void 패밀리_멤버_초대실패_초대한_그룹이_없는경우() throws Exception {
+        /* Given */
+        String target = "Kimchi-dev";
+
+        /* When */
+        ServiceException thrown = assertThrows(ServiceException.class, () -> familyService.inviteMemberByUserId(target, FamilyModel.builder()
+                .key(0L)
+                .build()));
+
+        /* Then */
+        assertEquals(206,thrown.getResultCode());
+        assertEquals("패밀리를 찾을수 없습니다.", thrown.getMessage());
+    
+    }
 
 }

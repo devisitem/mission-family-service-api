@@ -38,22 +38,6 @@ public class FamilyRepository {
         return newerFamily.getFamilyId();
     }
 
-    /**
-     *
-     * @param foundAccount
-     * @return
-     */
-    public List<Family> findFamiliesByAccount(Account foundAccount) {
-
-        queryFactory
-                .selectFrom(family)
-                .where(family.familyKey.eq(foundAccount),
-                        eqRole("MEMBER"))
-                .fetch();
-
-        return null;
-    }
-
     public void saveNotice(NoticeMessage message){
 
         entityManager.persist(message);

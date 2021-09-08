@@ -30,6 +30,8 @@ public abstract class ServiceRequest {
     @Enumerated(EnumType.STRING)
     private ServiceProperties typeClass;
 
+    private Boolean isConfirmed;
+
     private LocalDateTime sentTime;
 
     /**
@@ -42,6 +44,7 @@ public abstract class ServiceRequest {
         this.title = title;
         this.content = content;
         this.typeClass = typeClass;
+        this.isConfirmed = false;
         this.sentTime = LocalDateTime.now();
     }
 

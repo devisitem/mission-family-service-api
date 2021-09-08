@@ -66,8 +66,6 @@ class FamilyRepositoryTest {
         familyService.createFamilyGroup(FamilyModel.builder()
                 .familyName("사랑의 봉사단")
                 .build(), userId);
-        Family member = familyRepository.findFamiliesByAccount(foundAccount).get(0);
-        Family parent = member.getParent();
 
         /* Then */
     }

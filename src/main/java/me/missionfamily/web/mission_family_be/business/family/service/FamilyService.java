@@ -6,6 +6,7 @@ import me.missionfamily.web.mission_family_be.business.account.model.AccountMode
 import me.missionfamily.web.mission_family_be.business.account.repository.AccountRepository;
 import me.missionfamily.web.mission_family_be.business.family.dxo.FamilyDxo;
 import me.missionfamily.web.mission_family_be.business.family.model.FamilyModel;
+import me.missionfamily.web.mission_family_be.business.family.model.InvitationModel;
 import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatus;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionResponse;
 import me.missionfamily.web.mission_family_be.business.family.repository.FamilyRepository;
@@ -126,14 +127,11 @@ public class FamilyService {
     public MissionResponse inviteMemberByUserId(String memberId, FamilyModel familyModel) throws ServiceException {
         Account foundUser = accountRepository.findAccountById(memberId);
 
-        if(MissionUtil.isNull(foundUser)){
-            log.info("There is no User that, which be registered With login identification. [ {} ]", memberId);
-            throw new ServiceException(HttpResponseStatus.NOT_FOUND_USER);
-        }
         Family senderGroup = familyRepository.findFamilyGroupByKey(familyModel.getKey());
 
         if(MissionUtil.isNull(senderGroup)){
             log.error("Not found Group. by key is [ {} ]", familyModel.getKey());
+            throw new ServiceException(HttpResponseStatus.NOT_FOUND_FAMILIES);
         }
 
         InviteMessage inviteMessage = new InviteMessage();
@@ -147,5 +145,45 @@ public class FamilyService {
                         .build())
                 .memberToBeInvited(foundUser.getUserId())
                 .build();
+    }
+
+    public MissionResponse collectInvitations(String memberId) throws ServiceException {
+        UserInfo userInfo = accountRepository.findUserInfoByUserId(memberId);
+
+        List<InviteMessage> invitations = userInfo.getAccount().getReceivedInvite();
+
+        if(MissionUtil.isNull(invitations) || invitations.size() == 0){
+
+            log.info("There are no invitations.");
+        } else {
+
+            List<InvitationModel> list = invitations.stream()
+                    .filter(req ->  req.getIsConfirmed() == false)
+                    .map(req -> InvitationModel.builder()
+                    .key(req.getId())
+                    .title(req.getTitle())
+                    .content(req.getContent())
+                    .sender(req.getInviteSenderFamily().getFamilyName())
+                    .sentTime(req.getSentTime())
+                    .build()).collect(Collectors.toList());
+
+            return FamilyDxo.Response.builder()
+                    .result(ResponseModel.builder()
+                            .code(0)
+                            .build())
+                    .invitations(list)
+                    .build();
+        }
+
+        return FamilyDxo.Response.builder()
+                .result(ResponseModel.builder()
+                        .code(0)
+                        .build())
+                .invitations(null)
+                .build();
+    }
+
+    public MissionResponse acceptInviation(String loginId, Long familyKey) {
+        return null;
     }
 }

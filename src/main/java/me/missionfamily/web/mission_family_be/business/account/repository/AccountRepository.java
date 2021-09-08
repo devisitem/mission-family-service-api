@@ -4,6 +4,10 @@ import com.querydsl.core.QueryFactory;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatus;
+import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
+import me.missionfamily.web.mission_family_be.common.util.MissionUtil;
 import me.missionfamily.web.mission_family_be.domain.Account;
 import me.missionfamily.web.mission_family_be.domain.QAccount;
 import me.missionfamily.web.mission_family_be.domain.QUserInfo;
@@ -17,6 +21,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class AccountRepository {
@@ -49,6 +54,11 @@ public class AccountRepository {
                 .where(this.account.userId.eq(loginId))
                 .fetchOne();
 
+        if(MissionUtil.isNull(account)){
+            log.info("There is no User that, which be registered With login identification. [ {} ]", loginId);
+            throw new ServiceException(HttpResponseStatus.NOT_FOUND_USER);
+        }
+
         return account;
     }
 
@@ -62,6 +72,11 @@ public class AccountRepository {
                 .selectFrom(this.userInfo)
                 .where(this.userInfo.account.userId.eq(loginId))
                 .fetchOne();
+
+        if(MissionUtil.isNull(userInfo)){
+            log.info("There is no User that, which be registered With login identification. [ {} ]", loginId);
+            throw new ServiceException(HttpResponseStatus.NOT_FOUND_USER);
+        }
 
         return userInfo;
     }

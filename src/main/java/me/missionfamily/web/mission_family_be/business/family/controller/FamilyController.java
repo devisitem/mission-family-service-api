@@ -6,10 +6,15 @@ import me.missionfamily.web.mission_family_be.business.family.dxo.FamilyDxo;
 import me.missionfamily.web.mission_family_be.business.family.model.FamilyModel;
 import me.missionfamily.web.mission_family_be.business.family.service.FamilyService;
 import me.missionfamily.web.mission_family_be.common.aop.LoginService;
+import me.missionfamily.web.mission_family_be.common.aop.ServiceDescriptions;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionResponse;
 import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
+import me.missionfamily.web.mission_family_be.common.util.MissionUtil;
 import me.missionfamily.web.mission_family_be.domain.Account;
+import me.missionfamily.web.mission_family_be.domain.Mission;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,7 +26,9 @@ public class FamilyController {
 
     private final FamilyService familyService;
 
+
     @LoginService
+    @ServiceDescriptions("패밀리 그룹생성")
     @PostMapping("/create")
     public ResponseEntity<MissionResponse> createNewFamily(@RequestBody @Valid FamilyDxo.Request request) throws ServiceException {
 
@@ -33,6 +40,7 @@ public class FamilyController {
     }
 
     @LoginService
+    @ServiceDescriptions("내가 속한 패밀리 찾기")
     @GetMapping("/find")
     public ResponseEntity<MissionResponse> findMyFamilies(@RequestBody @Valid FamilyDxo.Request request) throws ServiceException {
 
@@ -44,6 +52,7 @@ public class FamilyController {
     }
 
     @LoginService
+    @ServiceDescriptions("우리 패밀리로 멤버 초대하기")
     @PostMapping("/invite-member")
     public ResponseEntity<MissionResponse> sendInviteMessage(@RequestBody @Valid FamilyDxo.Request request) throws ServiceException {
 
@@ -51,6 +60,38 @@ public class FamilyController {
         FamilyModel family = request.getFamily();
 
         MissionResponse response = familyService.inviteMemberByUserId(memberId, family);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @LoginService
+    @ServiceDescriptions("나에게 온 패밀리 초대목록 조회")
+    @GetMapping("/invitations")
+    public ResponseEntity<MissionResponse> selectInvitationsCameToMe(@RequestBody @Valid FamilyDxo.Request request) throws ServiceException {
+        String memberId = request.getMemberId();
+
+        MissionResponse response = familyService.collectInvitations(memberId);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @LoginService
+    @ServiceDescriptions("초대 승낙 또는 거절")
+    @PostMapping("/confirm")
+    public ResponseEntity<MissionResponse> confirmInvitations (@RequestBody @Valid FamilyDxo.Request request) throws ServiceException {
+
+        Long familyKey = request.getConfirm().getFamilyKey();
+        Boolean opinion = request.getConfirm().getOpinion();
+        String loginId = request.getAccount().getLoginId();
+
+        MissionResponse response = null;
+        if(opinion) {
+            response = familyService.acceptInviation(loginId, familyKey);
+        }
+        else {
+
+        }
+
 
         return ResponseEntity.ok(response);
     }
