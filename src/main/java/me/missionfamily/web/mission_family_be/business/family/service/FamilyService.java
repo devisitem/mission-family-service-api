@@ -186,4 +186,8 @@ public class FamilyService {
     public MissionResponse acceptInviation(String loginId, Long familyKey) {
         return null;
     }
+
+    public MissionResponse denyInvitation(String loginId, Long familyKey) {
+        return null;
+    }
 }

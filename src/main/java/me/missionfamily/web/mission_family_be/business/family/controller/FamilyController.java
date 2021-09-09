@@ -89,7 +89,7 @@ public class FamilyController {
             response = familyService.acceptInviation(loginId, familyKey);
         }
         else {
-
+            familyService.denyInvitation(loginId, familyKey);
         }
 
 
