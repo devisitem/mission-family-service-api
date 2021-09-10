@@ -2,6 +2,9 @@ package me.missionfamily.web.mission_family_be.domain;
 
 import lombok.*;
 import me.missionfamily.web.mission_family_be.business.account.dxo.AccountDxo;
+import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatus;
+import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
+import me.missionfamily.web.mission_family_be.common.util.MissionUtil;
 import me.missionfamily.web.mission_family_be.domain.service_request.InviteMessage;
 
 import javax.persistence.*;
@@ -61,13 +64,34 @@ public class Account implements MissionDomain{
         this.signUpDate = LocalDateTime.now();
     }
 
+    //==== Association Mapping ====//
+
     public void addUserInfo(UserInfo userInfo){
         this.userInfo = userInfo;
         userInfo.setAccount(this);
     }
 
 
+    //==== Business Logic ====//
 
+    /**
+     *  패밀리 초대 수락
+     * @param familyId
+     * @return
+     */
+    public void acceptInvitation(final Long familyId) {
+        InviteMessage inviteMessage = this.receivedInvite.stream().filter(msg -> msg.getIsConfirmed()).filter(msg -> msg.getInviteSenderFamily().getFamilyId() == familyId)
+                .sorted((ivt1, ivt2) -> ivt2.getSentTime().compareTo(ivt1.getSentTime()))
+                .findFirst()
+                .orElse(null);
+
+        if(MissionUtil.isNull(inviteMessage)) {
+            throw new ServiceException(HttpResponseStatus.NON_EXIST_MESSAGE);
+        }
+
+        inviteMessage.confirmMessage();
+
+    }
 
 
 

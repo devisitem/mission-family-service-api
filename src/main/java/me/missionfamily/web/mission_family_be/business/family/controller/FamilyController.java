@@ -86,7 +86,7 @@ public class FamilyController {
 
         MissionResponse response = null;
         if(opinion) {
-            response = familyService.acceptInviation(loginId, familyKey);
+            response = familyService.acceptInvitation(loginId, familyKey);
         }
         else {
             familyService.denyInvitation(loginId, familyKey);

@@ -57,4 +57,11 @@ public abstract class ServiceRequest {
      * @return
      */
     abstract ServiceRequest createRequest(MissionDomain messageSender, MissionDomain messageTarget, String title, String content, ServiceProperties typeClass);
+
+
+    //==== Business Logic ====//
+
+    public void confirmMessage(){
+        this.isConfirmed = true;
+    }
 }

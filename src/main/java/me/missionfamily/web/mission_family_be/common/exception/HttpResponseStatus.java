@@ -11,6 +11,7 @@ public enum HttpResponseStatus {
     FAILED_AUTHENTICATE_PROCESS(403, 204, "인증에 실패하였습니다."),
     NOT_FOUND_USER(500, 205, "존재하지 않는 유저 입니다."),
     NOT_FOUND_FAMILIES(500, 206, "패밀리를 찾을수 없습니다."),
+    NON_EXIST_MESSAGE(500, 207 , "존재하지 않는 메세지입니다."),
     ;
 
 

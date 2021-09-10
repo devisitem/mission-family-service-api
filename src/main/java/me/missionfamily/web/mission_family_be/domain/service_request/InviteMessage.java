@@ -35,6 +35,9 @@ public class InviteMessage extends ServiceRequest{
     return this;
     }
 
+
+    //==== Association Mapping ====//
+
     public void setInviteSenderFamily(Family inviteSenderFamily) {
         this.inviteSenderFamily = inviteSenderFamily;
         inviteSenderFamily.getSentInvite().add(this);
@@ -44,4 +47,8 @@ public class InviteMessage extends ServiceRequest{
         this.inviteTargetAccount = inviteTargetAccount;
         inviteTargetAccount.getReceivedInvite().add(this);
     }
+
+
+    //==== Business Logic ====//
+
 }

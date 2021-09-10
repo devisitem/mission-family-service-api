@@ -183,11 +183,23 @@ public class FamilyService {
                 .build();
     }
 
-    public MissionResponse acceptInviation(String loginId, Long familyKey) {
-        return null;
+    @Transactional
+    public MissionResponse acceptInvitation(String loginId, Long familyId) throws ServiceException {
+        UserInfo userInfo = accountRepository.findUserInfoByUserId(loginId);
+        userInfo.getAccount().acceptInvitation(familyId);
+
+        Family familyGroup = familyRepository.findFamilyGroupByKey(familyId);
+
+        familyRepository.save(Family.createFamilyMember(familyGroup, userInfo.getAccount()));
+
+        //신규 멤버 환영 푸시이벤트 발행 로직
+
     }
 
     public MissionResponse denyInvitation(String loginId, Long familyKey) {
+
         return null;
     }
+
+
 }
