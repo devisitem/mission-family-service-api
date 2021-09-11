@@ -193,7 +193,11 @@ public class FamilyService {
         familyRepository.save(Family.createFamilyMember(familyGroup, userInfo.getAccount()));
 
         //신규 멤버 환영 푸시이벤트 발행 로직
-
+        return FamilyDxo.Response.builder()
+                .result(ResponseModel.builder()
+                        .code(0)
+                        .build())
+                .build();
     }
 
     public MissionResponse denyInvitation(String loginId, Long familyKey) {
