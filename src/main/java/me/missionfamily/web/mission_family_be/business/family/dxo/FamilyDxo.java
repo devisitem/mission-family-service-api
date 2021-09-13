@@ -72,6 +72,10 @@ public class FamilyDxo {
 
         @Valid
         @JsonInclude(Include.NON_NULL)
+        private ConfirmModel confirm;
+
+        @Valid
+        @JsonInclude(Include.NON_NULL)
         @JsonProperty("family")
         private FamilyModel family;
 

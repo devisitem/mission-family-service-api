@@ -80,17 +80,11 @@ public class FamilyController {
     @PostMapping("/confirm")
     public ResponseEntity<MissionResponse> confirmInvitations (@RequestBody @Valid FamilyDxo.Request request) throws ServiceException {
 
-        Long familyKey = request.getConfirm().getFamilyKey();
+        Long messageKey = request.getConfirm().getMessageKey();
         Boolean opinion = request.getConfirm().getOpinion();
         String loginId = request.getAccount().getLoginId();
 
-        MissionResponse response = null;
-        if(opinion) {
-            response = familyService.acceptInvitation(loginId, familyKey);
-        }
-        else {
-            familyService.denyInvitation(loginId, familyKey);
-        }
+        MissionResponse response = familyService.checkInvitation(loginId, messageKey, opinion);
 
 
         return ResponseEntity.ok(response);

@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.missionfamily.web.mission_family_be.business.account.model.AccountModel;
 import me.missionfamily.web.mission_family_be.business.account.repository.AccountRepository;
 import me.missionfamily.web.mission_family_be.business.family.dxo.FamilyDxo;
+import me.missionfamily.web.mission_family_be.business.family.model.ConfirmModel;
 import me.missionfamily.web.mission_family_be.business.family.model.FamilyModel;
 import me.missionfamily.web.mission_family_be.business.family.model.InvitationModel;
 import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatus;
@@ -184,15 +185,21 @@ public class FamilyService {
     }
 
     @Transactional
-    public MissionResponse acceptInvitation(String loginId, Long familyId) throws ServiceException {
+    public MissionResponse checkInvitation(String loginId, Long messageKey, Boolean opinion) throws ServiceException {
         UserInfo userInfo = accountRepository.findUserInfoByUserId(loginId);
-        userInfo.getAccount().acceptInvitation(familyId);
 
-        Family familyGroup = familyRepository.findFamilyGroupByKey(familyId);
+        Long groupKey = userInfo.getAccount().checkInvitation(messageKey);
 
-        familyRepository.save(Family.createFamilyMember(familyGroup, userInfo.getAccount()));
+        if(opinion) {
 
-        //신규 멤버 환영 푸시이벤트 발행 로직
+            Family familyGroup = familyRepository.findFamilyGroupByKey(groupKey);
+
+            familyRepository.save(Family.createFamilyMember(familyGroup, userInfo.getAccount()));
+
+            //신규 멤버 환영 푸시이벤트 발행 로직
+        }
+
+
         return FamilyDxo.Response.builder()
                 .result(ResponseModel.builder()
                         .code(0)
@@ -200,11 +207,6 @@ public class FamilyService {
                 .build();
     }
 
-    public MissionResponse denyInvitation(String loginId, Long familyKey) {
-
-
-        return null;
-    }
 
 
 }

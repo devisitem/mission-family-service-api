@@ -79,11 +79,10 @@ public class Account implements MissionDomain{
      * @param familyId
      * @return
      */
-    public void acceptInvitation(final Long familyId) {
-        InviteMessage inviteMessage = this.receivedInvite.stream().filter(msg -> msg.getIsConfirmed()).filter(msg -> msg.getInviteSenderFamily().getFamilyId() == familyId)
-                .sorted((ivt1, ivt2) -> ivt2.getSentTime().compareTo(ivt1.getSentTime()))
-                .findFirst()
-                .orElse(null);
+    public Long checkInvitation(final Long familyId) {
+        InviteMessage inviteMessage = this.receivedInvite.stream().filter(msg -> ! msg.getIsConfirmed())
+                .filter(msg -> msg.getId() == familyId)
+                .findFirst().orElse(null);
 
         if(MissionUtil.isNull(inviteMessage)) {
             throw new ServiceException(HttpResponseStatus.NON_EXIST_MESSAGE);
@@ -91,6 +90,7 @@ public class Account implements MissionDomain{
 
         inviteMessage.confirmMessage();
 
+        return inviteMessage.getInviteSenderFamily().getFamilyId();
     }
 
 
