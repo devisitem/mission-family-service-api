@@ -150,4 +150,14 @@ class FamilyServiceTest {
     
     }
 
+    @Test
+    public void 멤버초대_승낙() throws Exception {
+        /* Given */
+
+        /* When */
+
+        /* Then */
+
+    }
+
 }
