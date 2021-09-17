@@ -9,6 +9,7 @@ import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatu
 import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
 import me.missionfamily.web.mission_family_be.common.service_enum.ServiceProperties;
 import me.missionfamily.web.mission_family_be.domain.Account;
+import me.missionfamily.web.mission_family_be.domain.Family;
 import me.missionfamily.web.mission_family_be.domain.UserInfo;
 import me.missionfamily.web.mission_family_be.domain.service_request.InviteMessage;
 import org.junit.jupiter.api.BeforeEach;
@@ -153,10 +154,35 @@ class FamilyServiceTest {
     @Test
     public void 멤버초대_승낙() throws Exception {
         /* Given */
+        Account account = Account.builder()
+                .dxo(AccountDxo.Request.builder()
+                        .userId("kimchidev")
+                        .password("1q2w3e4r")
+                        .build())
+                .build();
+        UserInfo userInfo = UserInfo.builder()
+                .userBirth("1994-02-11")
+                .account(account)
+                .userName("김깍뚝")
+                .userPhone("010-000-0001")
+                .build();
+        String target = "Kimchi-dev";
 
         /* When */
+        accountRepository.save(userInfo);
+        FamilyDxo.Response familyResponse = (FamilyDxo.Response) familyService.createFamilyGroup(FamilyModel.builder()
+                        .familyName("테스트 봉사단.")
+                        .build(),
+                userInfo.getAccount().getUserId());
+        familyService.inviteMemberByUserId(target, FamilyModel.builder().key(familyResponse.getFamily().getKey()).build());
+        UserInfo user = accountRepository.findUserInfoByUserId(target);
+        InviteMessage inviteMessage = user.getAccount().getReceivedInvite().get(0);
+        familyService.checkInvitation(target, inviteMessage.getId(), true);
 
         /* Then */
+        Family family = user.getAccount().getBelongFamily().get(0);
+
+        assertEquals("테스트 봉사단.", family.getFamilyName());
 
     }
 
