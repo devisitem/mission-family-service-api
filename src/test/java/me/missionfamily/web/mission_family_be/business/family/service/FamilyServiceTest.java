@@ -180,9 +180,6 @@ class FamilyServiceTest {
         familyService.checkInvitation(target, inviteMessage.getId(), true);
 
         /* Then */
-        Family family = user.getAccount().getBelongFamily().get(0);
-
-        assertEquals("테스트 봉사단.", family.getFamilyName());
 
     }
 
