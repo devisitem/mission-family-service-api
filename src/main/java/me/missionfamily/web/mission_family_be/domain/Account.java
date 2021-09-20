@@ -76,12 +76,12 @@ public class Account implements MissionDomain{
 
     /**
      *  패밀리 초대 수락
-     * @param familyId
+     * @param messageKeyg
      * @return
      */
-    public Long checkInvitation(final Long familyId) {
+    public Long checkInvitation(final Long messageKey) {
         InviteMessage inviteMessage = this.receivedInvite.stream().filter(msg -> ! msg.getIsConfirmed())
-                .filter(msg -> msg.getId() == familyId)
+                .filter(msg -> msg.getId().equals(messageKey))
                 .findFirst().orElse(null);
 
         if(MissionUtil.isNull(inviteMessage)) {

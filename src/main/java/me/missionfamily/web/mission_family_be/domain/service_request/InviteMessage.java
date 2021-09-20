@@ -2,6 +2,7 @@ package me.missionfamily.web.mission_family_be.domain.service_request;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 import me.missionfamily.web.mission_family_be.common.service_enum.ServiceProperties;
 import me.missionfamily.web.mission_family_be.domain.Account;
 import me.missionfamily.web.mission_family_be.domain.Family;
@@ -14,6 +15,7 @@ import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
+@ToString
 @DiscriminatorColumn(name = "FAMILY_INVITE")
 public class InviteMessage extends ServiceRequest{
 

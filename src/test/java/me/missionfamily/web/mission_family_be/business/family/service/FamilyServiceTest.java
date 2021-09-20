@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -175,11 +177,14 @@ class FamilyServiceTest {
                         .build(),
                 userInfo.getAccount().getUserId());
         familyService.inviteMemberByUserId(target, FamilyModel.builder().key(familyResponse.getFamily().getKey()).build());
-        UserInfo user = accountRepository.findUserInfoByUserId(target);
-        InviteMessage inviteMessage = user.getAccount().getReceivedInvite().get(0);
-        familyService.checkInvitation(target, inviteMessage.getId(), true);
 
+        UserInfo user = accountRepository.findUserInfoByUserId(target);
+        List<InviteMessage> receivedInvite = user.getAccount().getReceivedInvite();
+        InviteMessage message = receivedInvite.stream().findFirst().orElse(null);
+        familyService.checkInvitation()
         /* Then */
+        assertEquals(1, receivedInvite.size());
+
 
     }
 
