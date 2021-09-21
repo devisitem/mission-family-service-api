@@ -181,9 +181,10 @@ class FamilyServiceTest {
         UserInfo user = accountRepository.findUserInfoByUserId(target);
         List<InviteMessage> receivedInvite = user.getAccount().getReceivedInvite();
         InviteMessage message = receivedInvite.stream().findFirst().orElse(null);
-        familyService.checkInvitation()
+        familyService.checkInvitation(user.getAccount().getUserId(), message.getId(), true);
+
         /* Then */
-        assertEquals(1, receivedInvite.size());
+        assertEquals(0, user.getAccount().getReceivedInvite().size());
 
 
     }

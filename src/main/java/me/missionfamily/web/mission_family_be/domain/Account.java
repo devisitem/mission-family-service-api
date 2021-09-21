@@ -76,7 +76,7 @@ public class Account implements MissionDomain{
 
     /**
      *  패밀리 초대 수락
-     * @param messageKeyg
+     * @param messageKey
      * @return
      */
     public Long checkInvitation(final Long messageKey) {
