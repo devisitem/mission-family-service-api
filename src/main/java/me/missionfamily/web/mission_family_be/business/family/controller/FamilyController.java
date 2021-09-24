@@ -90,5 +90,13 @@ public class FamilyController {
         return ResponseEntity.ok(response);
     }
 
+    @LoginService
+    @ServiceDescriptions("패밀리 내보내기")
+    @DeleteMapping("/kick")
+    public ResponseEntity<MissionResponse> kickMemberInFamily(@RequestBody @Valid FamilyDxo.Request request) throws ServiceException {
+
+        familyService.kickFamilyMember();
+    }
+
 
 }
