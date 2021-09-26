@@ -208,5 +208,8 @@ public class FamilyService {
     }
 
 
+    public MissionResponse kickFamilyMember(Long groupKey, Long targetMember) throws ServiceException {
 
+        Family familyGroup = familyRepository.findFamilyGroupByKey(groupKey);
+    }
 }
