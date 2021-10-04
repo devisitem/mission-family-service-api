@@ -26,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -207,9 +208,18 @@ public class FamilyService {
                 .build();
     }
 
-
+    @Transactional
     public MissionResponse kickFamilyMember(Long groupKey, Long targetMember) throws ServiceException {
 
         Family familyGroup = familyRepository.findFamilyGroupByKey(groupKey);
+        List<Family> familyMembers = familyGroup.getFamilyMembers();
+
+        Optional<Family> foundMember = familyMembers.stream().filter(member -> member.getFamilyId().longValue() == targetMember.longValue())
+                .findFirst();
+
+        foundMember.orElseThrow();
+        familyMembers.remove(foundMember);
+
+        return null;
     }
 }

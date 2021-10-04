@@ -95,6 +95,8 @@ public class FamilyController {
     @DeleteMapping("/kick")
     public ResponseEntity<MissionResponse> kickMemberInFamily(@RequestBody @Valid FamilyDxo.Request request) throws ServiceException {
 
+
+
         familyService.kickFamilyMember();
     }
 
