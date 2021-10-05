@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.missionfamily.web.mission_family_be.business.account.model.AccountModel;
 import me.missionfamily.web.mission_family_be.business.family.dxo.FamilyDxo;
 import me.missionfamily.web.mission_family_be.business.family.model.FamilyModel;
+import me.missionfamily.web.mission_family_be.business.family.model.KickMemberModel;
 import me.missionfamily.web.mission_family_be.business.family.service.FamilyService;
 import me.missionfamily.web.mission_family_be.common.aop.LoginService;
 import me.missionfamily.web.mission_family_be.common.aop.ServiceDescriptions;
@@ -95,9 +96,11 @@ public class FamilyController {
     @DeleteMapping("/kick")
     public ResponseEntity<MissionResponse> kickMemberInFamily(@RequestBody @Valid FamilyDxo.Request request) throws ServiceException {
 
+        KickMemberModel kickModel = request.getKickModel();
 
+        MissionResponse response = familyService.kickFamilyMember(kickModel.getFamilyGroupKey(), kickModel.getFamilyMemberKey());
 
-        familyService.kickFamilyMember();
+        return ResponseEntity.ok(response);
     }
 
 

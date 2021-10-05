@@ -12,6 +12,7 @@ public enum HttpResponseStatus {
     NOT_FOUND_USER(500, 205, "존재하지 않는 유저 입니다."),
     NOT_FOUND_FAMILIES(500, 206, "패밀리를 찾을수 없습니다."),
     NON_EXIST_MESSAGE(500, 207 , "존재하지 않는 메세지입니다."),
+    ALREADY_KICKED_OR_LEAVE(500, 208, "이미 강퇴당한 회원이거나 탈퇴한 회원입니다.")
     ;
 
 

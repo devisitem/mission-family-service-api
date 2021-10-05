@@ -107,4 +107,12 @@ public class Family implements MissionDomain{
     public void setDefaultName(Long index) {
         this.familyName = "패밀리" + index;
     }
+
+
+    public boolean deleteMember(){
+        Assert.isTrue(this.role != "MEMBER" || this.deleteYn == "Y", "해당 패밀리는 멤버가 아니거나 이미삭제된 멤버입니다.");
+
+        this.deleteYn = "Y";
+        return true;
+    }
 }

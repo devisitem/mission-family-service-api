@@ -11,6 +11,7 @@ import me.missionfamily.web.mission_family_be.business.account.model.AccountMode
 import me.missionfamily.web.mission_family_be.business.family.model.ConfirmModel;
 import me.missionfamily.web.mission_family_be.business.family.model.FamilyModel;
 import me.missionfamily.web.mission_family_be.business.family.model.InvitationModel;
+import me.missionfamily.web.mission_family_be.business.family.model.KickMemberModel;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionRequest;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionResponse;
 import me.missionfamily.web.mission_family_be.common.data_transfer.ResponseModel;
@@ -45,6 +46,10 @@ public class FamilyDxo {
         @JsonInclude(Include.NON_NULL)
         @JsonProperty("target_member_id")
         private String memberId;
+
+        @JsonInclude(Include.NON_NULL)
+        @JsonProperty("kick")
+        private KickMemberModel kickModel;
 
         @Override
         public AccountModel account() {

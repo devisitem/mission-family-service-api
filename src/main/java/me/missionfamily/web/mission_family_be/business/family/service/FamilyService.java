@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Slf4j
@@ -209,17 +210,26 @@ public class FamilyService {
     }
 
     @Transactional
-    public MissionResponse kickFamilyMember(Long groupKey, Long targetMember) throws ServiceException {
+    public MissionResponse kickFamilyMember(final Long groupKey,final Long targetMember) throws ServiceException {
 
         Family familyGroup = familyRepository.findFamilyGroupByKey(groupKey);
         List<Family> familyMembers = familyGroup.getFamilyMembers();
 
-        Optional<Family> foundMember = familyMembers.stream().filter(member -> member.getFamilyId().longValue() == targetMember.longValue())
-                .findFirst();
+        Family toBeKickedMember = familyMembers.stream().filter(member ->
+                member.getFamilyId().longValue() == targetMember.longValue())
+                .findFirst().orElseThrow(() -> new ServiceException(HttpResponseStatus.ALREADY_KICKED_OR_LEAVE));
 
-        foundMember.orElseThrow();
-        familyMembers.remove(foundMember);
+        boolean isDeleted = toBeKickedMember.deleteMember();
 
-        return null;
+        //멤버 강퇴 푸시이벤트 발행 로직
+        if(isDeleted) {
+
+        }
+
+        return FamilyDxo.Response.builder()
+                .result(ResponseModel.builder()
+                        .code(0)
+                        .build())
+                .build();
     }
 }
