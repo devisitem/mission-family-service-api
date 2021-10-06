@@ -189,4 +189,15 @@ class FamilyServiceTest {
 
     }
 
+    @Test
+    public void 멤버_강퇴() throws Exception {
+        /* Given */
+
+        /* When */
+
+        /* Then */
+
+    }
+
+
 }
