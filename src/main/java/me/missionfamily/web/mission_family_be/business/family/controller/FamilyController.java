@@ -103,5 +103,12 @@ public class FamilyController {
         return ResponseEntity.ok(response);
     }
 
+    @LoginService
+    @ServiceDescriptions("멤버 정보 조회")
+    @GetMapping("/member")
+    public ResponseEntity<MissionResponse> findMemberInformation(@RequestBody @Valid FamilyDxo.Request request) throws ServiceException {
+
+
+    }
 
 }
