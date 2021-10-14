@@ -108,7 +108,10 @@ public class FamilyController {
     @GetMapping("/member")
     public ResponseEntity<MissionResponse> findMemberInformation(@RequestBody @Valid FamilyDxo.Request request) throws ServiceException {
 
+        Long memberKey = request.getFamily().getKey();
+        MissionResponse response = familyService.findFamilyMember(memberKey);
 
+        return ResponseEntity.ok(response);
     }
 
 }

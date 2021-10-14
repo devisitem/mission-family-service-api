@@ -232,4 +232,8 @@ public class FamilyService {
                         .build())
                 .build();
     }
+
+    public MissionResponse findFamilyMember(Long memberKey) {
+        return null;
+    }
 }
