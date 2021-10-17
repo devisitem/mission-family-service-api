@@ -209,7 +209,7 @@ public class FamilyService {
                 .build();
     }
 
-    @Transactional
+    @Transactional(rollbackFor = ServiceException.class)
     public MissionResponse kickFamilyMember(final Long groupKey,final Long targetMember) throws ServiceException {
 
         Family familyGroup = familyRepository.findFamilyGroupByKey(groupKey);
@@ -233,7 +233,10 @@ public class FamilyService {
                 .build();
     }
 
-    public MissionResponse findFamilyMember(Long memberKey) {
+    public MissionResponse findFamilyMember(Long memberKey) throws ServiceException {
+
+        familyRepository.findFamilyMemberByKey(memberKey);
+
         return null;
     }
 }
