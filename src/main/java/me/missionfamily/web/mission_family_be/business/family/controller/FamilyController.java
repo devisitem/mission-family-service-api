@@ -29,7 +29,6 @@ public class FamilyController {
 
 
     @LoginService
-    @ServiceDescriptions("패밀리 그룹생성")
     @PostMapping("/create")
     public ResponseEntity<MissionResponse> createNewFamily(@RequestBody @Valid FamilyDxo.Request request) throws ServiceException {
 
@@ -41,7 +40,6 @@ public class FamilyController {
     }
 
     @LoginService
-    @ServiceDescriptions("내가 속한 패밀리 찾기")
     @GetMapping("/find")
     public ResponseEntity<MissionResponse> findMyFamilies(@RequestBody @Valid FamilyDxo.Request request) throws ServiceException {
 
@@ -53,7 +51,6 @@ public class FamilyController {
     }
 
     @LoginService
-    @ServiceDescriptions("우리 패밀리로 멤버 초대하기")
     @PostMapping("/invite-member")
     public ResponseEntity<MissionResponse> sendInviteMessage(@RequestBody @Valid FamilyDxo.Request request) throws ServiceException {
 
@@ -66,7 +63,6 @@ public class FamilyController {
     }
 
     @LoginService
-    @ServiceDescriptions("나에게 온 패밀리 초대목록 조회")
     @GetMapping("/invitations")
     public ResponseEntity<MissionResponse> selectInvitationsCameToMe(@RequestBody @Valid FamilyDxo.Request request) throws ServiceException {
         String memberId = request.getMemberId();
@@ -77,7 +73,6 @@ public class FamilyController {
     }
 
     @LoginService
-    @ServiceDescriptions("초대 승낙 또는 거절")
     @PostMapping("/confirm")
     public ResponseEntity<MissionResponse> confirmInvitations (@RequestBody @Valid FamilyDxo.Request request) throws ServiceException {
 
@@ -92,7 +87,6 @@ public class FamilyController {
     }
 
     @LoginService
-    @ServiceDescriptions("패밀리 내보내기")
     @DeleteMapping("/kick")
     public ResponseEntity<MissionResponse> kickMemberInFamily(@RequestBody @Valid FamilyDxo.Request request) throws ServiceException {
 
@@ -104,10 +98,9 @@ public class FamilyController {
     }
 
     @LoginService
-    @ServiceDescriptions("멤버 정보 조회")
     @GetMapping("/member")
     public ResponseEntity<MissionResponse> findMemberInformation(@RequestBody @Valid FamilyDxo.Request request) throws ServiceException {
-
+    
         Long memberKey = request.getFamily().getKey();
         MissionResponse response = familyService.findFamilyMember(memberKey);
 

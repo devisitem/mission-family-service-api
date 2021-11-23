@@ -48,7 +48,7 @@ public class AccountRepository {
      * @param loginId
      * @return account
      */
-    public Account findAccountById(String loginId) {
+    public Account findAccountById(String loginId) throws ServiceException {
         Account account = queryFactory
                 .selectFrom(this.account)
                 .where(this.account.userId.eq(loginId))
