@@ -1,7 +1,6 @@
 package me.missionfamily.web.mission_family_be.common.logging;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Marker;
 import org.springframework.stereotype.Component;
 
 @Slf4j

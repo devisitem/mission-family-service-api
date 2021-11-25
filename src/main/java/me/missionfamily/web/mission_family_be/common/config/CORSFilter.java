@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/api/**"}, description = "API 필터")
+@WebFilter(urlPatterns = {"/api/**"}, description = "API CORS 필터")
 @Component("CorsFilter")
 @Slf4j
 public class CORSFilter implements Filter {
@@ -26,6 +26,7 @@ public class CORSFilter implements Filter {
 
         req.setCharacterEncoding("utf-8");
 
+        //== 프록시 서버 Origin 정보 ==//
         res.setHeader("Access-Control-Allow-Origin","*");
         res.setHeader("Access-Control-Allow-Methods","POST, GET, DELETE, PUT, PATCH, OPTION");
 

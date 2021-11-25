@@ -11,7 +11,6 @@ import javax.persistence.EntityManager;
 @Configuration
 public class DatabaseConfig {
 
-
     @Bean
     public JPAQueryFactory jpaQueryFactory(EntityManager em){
         return new JPAQueryFactory(em);

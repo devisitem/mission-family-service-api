@@ -1,28 +1,26 @@
 package me.missionfamily.web.mission_family_be.business.account.service;
 
-import com.sun.xml.internal.xsom.impl.scd.Step;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.java.Log;
 import me.missionfamily.web.mission_family_be.business.account.dxo.AccountDxo;
 import me.missionfamily.web.mission_family_be.business.account.model.AccountModel;
+import me.missionfamily.web.mission_family_be.business.account.repository.AccountRepository;
 import me.missionfamily.web.mission_family_be.common.aop.ServiceDescriptions;
-import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatus;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionResponse;
 import me.missionfamily.web.mission_family_be.common.data_transfer.ResponseModel;
+import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatus;
 import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
 import me.missionfamily.web.mission_family_be.common.logging.StepLogger;
 import me.missionfamily.web.mission_family_be.common.service_enum.LogStep;
 import me.missionfamily.web.mission_family_be.common.util.MissionUtil;
 import me.missionfamily.web.mission_family_be.domain.Account;
 import me.missionfamily.web.mission_family_be.domain.UserInfo;
-import me.missionfamily.web.mission_family_be.business.account.repository.AccountRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.UUID;
 
 @Service
 @Transactional(readOnly = true)
@@ -33,12 +31,19 @@ public class AccountService {
     private final AccountRepository accountRepo;
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * <b>아이디 중복체크</b>
+     * <hr>
+     * @param checkId
+     * @return
+     * @throws ServiceException
+     */
     @ServiceDescriptions(LogStep.DUPCHECK)
     public MissionResponse dupCheckById(String checkId) throws ServiceException{
         Account foundAccount = null;
         try {
             foundAccount = accountRepo.findAccountById(checkId);
-            step.info("optionalAccount = [{}]", foundAccount);
+            step.info("foundAccount = [{}]", foundAccount);
 
         } catch(ServiceException e) {
             step.info("Success to check for id.");
@@ -65,6 +70,7 @@ public class AccountService {
      * @return serviceCode
      */
     @Transactional
+    @ServiceDescriptions(LogStep.REGISTER_USER)
     public MissionResponse registerForAccount (AccountDxo.Request accountDxo) throws ServiceException {
         Account foundAccount = null;
 
@@ -106,14 +112,10 @@ public class AccountService {
     }
 
     @Transactional
+    @ServiceDescriptions(LogStep.SIGN_IN_USER)
     public MissionResponse signInForAccount(AccountDxo.Request accountDxo) throws ServiceException {
 
         UserInfo foundUser = accountRepo.findUserInfoByUserId(accountDxo.getUserId());
-        if(MissionUtil.isNull(foundUser)){
-
-            step.info("no account data founds ,which is be registered. id = [{}]", accountDxo.getUserId());
-            throw new ServiceException(HttpResponseStatus.NO_ACCOUNT_DATA_FOUNDS);
-        }
 
         if( ! passwordEncoder.matches(accountDxo.getPassword(), foundUser.getAccount().getUserPassword())){
             step.info("found 1 account and proceeded verification but It didn't matched with password.");
@@ -123,8 +125,6 @@ public class AccountService {
         String missionKey = foundUser.generateAndRefreshAuthKey();
 
         step.info("create auth key for sign-in this service. auth-key = [{}]",missionKey);
-
-
 
         return AccountDxo.Response.builder()
                 .result(ResponseModel.builder()
