@@ -29,8 +29,8 @@ public class AccountRepository {
     @PersistenceContext
     private final EntityManager entityManager;
     private final JPAQueryFactory queryFactory;
-    QUserInfo userInfo = QUserInfo.userInfo;
-    QAccount account = QAccount.account;
+    private QUserInfo userInfo = QUserInfo.userInfo;
+    private QAccount account = QAccount.account;
 
     /**
      *
@@ -48,17 +48,24 @@ public class AccountRepository {
      * @param loginId
      * @return account
      */
-    public Account findAccountById(String loginId) throws ServiceException {
-        Account account = queryFactory
-                .selectFrom(this.account)
-                .where(this.account.userId.eq(loginId))
-                .fetchOne();
+    public Account findAccountById(String loginId, boolean isThrow) throws ServiceException {
 
-        if(MissionUtil.isNull(account)){
-            log.info("There is no User that, which be registered With login identification. [ {} ]", loginId);
-            throw new ServiceException(HttpResponseStatus.NOT_FOUND_USER);
+        Account account = null;
+
+        try {
+            account = queryFactory
+                    .selectFrom(this.account)
+                    .where(this.account.userId.eq(loginId))
+                    .fetchOne();
+        } catch (Exception e) {
+
+            if (MissionUtil.isNull(account)) {
+                log.info("There is no User that, which be registered With login identification. [ {} ]", loginId);
+                if(isThrow) {
+                    throw new ServiceException(HttpResponseStatus.NOT_FOUND_USER);
+                }
+            }
         }
-
         return account;
     }
 

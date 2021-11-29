@@ -26,7 +26,7 @@ public class AccountController {
     public ResponseEntity<MissionResponse> dupCheck (@RequestBody @Valid AccountDxo.Request request) throws ServiceException {
         String userId = request.getUserId();
 
-        MissionResponse missionResponse = accountService.dupCheckById(userId);
+        MissionResponse missionResponse = accountService.dupCheckById(request);
 
         return ResponseEntity.ok().body(missionResponse);
     }

@@ -13,6 +13,8 @@ import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
 import me.missionfamily.web.mission_family_be.common.logging.StepLogger;
 import me.missionfamily.web.mission_family_be.common.service_enum.LogStep;
 import me.missionfamily.web.mission_family_be.common.util.MissionUtil;
+import me.missionfamily.web.mission_family_be.common.validator.DeclaredClassification;
+import me.missionfamily.web.mission_family_be.common.validator.MissionValidator;
 import me.missionfamily.web.mission_family_be.domain.Account;
 import me.missionfamily.web.mission_family_be.domain.UserInfo;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,6 +32,7 @@ public class AccountService {
     private final StepLogger step;
     private final AccountRepository accountRepo;
     private final PasswordEncoder passwordEncoder;
+    private final MissionValidator validator;
 
     /**
      * <b>아이디 중복체크</b>
@@ -39,28 +42,24 @@ public class AccountService {
      * @throws ServiceException
      */
     @ServiceDescriptions(LogStep.DUPCHECK)
-    public MissionResponse dupCheckById(String checkId) throws ServiceException{
-        Account foundAccount = null;
-        try {
-            foundAccount = accountRepo.findAccountById(checkId);
-            step.info("foundAccount = [{}]", foundAccount);
+    public MissionResponse dupCheckById(final AccountDxo.Request request) throws ServiceException{
+        final String toBeChecked = request.getUserId();
+        final Account foundAccount = accountRepo.findAccountById(toBeChecked, false);
 
-        } catch(ServiceException e) {
-            step.info("Success to check for id.");
-        }
+        step.info("foundAccount = [{}]", foundAccount);
 
         if(MissionUtil.isNotNull(foundAccount)) {
-            step.error("This Login ID is Already registered. ID = [ {} ]", checkId);
-            throw new ServiceException(HttpResponseStatus.USER_ID_DUPLICATE);
+            step.error("This Login ID is Already registered. ID = [ {} ]", toBeChecked);
+            throw new ServiceException(HttpResponseStatus.USER_ID_DUPLICATED);
         }
 
-        step.info("there is no this identification. usable identification = [{}]", checkId);
+        step.info("there is no this identification. usable identification = [{}]", toBeChecked);
 
         return AccountDxo.Response.builder()
                 .result(ResponseModel.builder()
                         .code(0)
                         .build())
-                .checkedId(checkId)
+                .checkedId(toBeChecked)
                 .build();
     }
 
@@ -72,21 +71,14 @@ public class AccountService {
     @Transactional
     @ServiceDescriptions(LogStep.REGISTER_USER)
     public MissionResponse registerForAccount (AccountDxo.Request accountDxo) throws ServiceException {
-        Account foundAccount = null;
 
-        try {
-
-            foundAccount = accountRepo.findAccountById(accountDxo.getUserId());
-        } catch (ServiceException e) {
-            step.info("Success to check for id.");
-        }
+        Account foundAccount = accountRepo.findAccountById(accountDxo.getUserId(), false);
 
         if(MissionUtil.isNotNull(foundAccount)) {
             step.info("this id is already exist. id = [{}]",accountDxo.getUserId());
-            throw new ServiceException(HttpResponseStatus.USER_ID_DUPLICATE);
+            throw new ServiceException(HttpResponseStatus.USER_ID_DUPLICATED);
         }
         step.info("there is no id founds, which is duplicated. by = [{}]", accountDxo.getUserId());
-        step.info("encoding this password = [{}]",accountDxo.getPassword());
         accountDxo.setPassword(passwordEncoder.encode(accountDxo.getPassword()));
         foundAccount = Account.builder()
                 .dxo(accountDxo)

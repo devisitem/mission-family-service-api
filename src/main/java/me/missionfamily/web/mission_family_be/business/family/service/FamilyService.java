@@ -54,7 +54,7 @@ public class FamilyService {
     public MissionResponse createFamilyGroup(FamilyModel family, String loginId) throws ServiceException {
 
         String groupName = family.getFamilyName();
-        Account leader = accountRepository.findAccountById(loginId);
+        Account leader = accountRepository.findAccountById(loginId, true);
 
         if(MissionUtil.isNull(leader)){
             log.error("found user can't be null");
@@ -92,7 +92,7 @@ public class FamilyService {
      */
     public MissionResponse findFamiliesAsAccount(AccountModel account) throws ServiceException {
 
-        Account foundAccount = accountRepository.findAccountById(account.getLoginId());
+        Account foundAccount = accountRepository.findAccountById(account.getLoginId(), true);
         log.info("found 1 account is = [ {} ]", foundAccount);
 
         List<Family> belongFamily = foundAccount.getBelongFamily();
@@ -128,7 +128,7 @@ public class FamilyService {
 
     @Transactional
     public MissionResponse inviteMemberByUserId(String memberId, FamilyModel familyModel) throws ServiceException {
-        Account foundUser = accountRepository.findAccountById(memberId);
+        Account foundUser = accountRepository.findAccountById(memberId, true);
 
         Family senderGroup = familyRepository.findFamilyGroupByKey(familyModel.getKey());
 

@@ -47,7 +47,7 @@ class AccountRepositoryTest {
 
         //when
         accountRepository.save(userInfo);
-        Account account = accountRepository.findAccountById("Kimchi-dev");
+        Account account = accountRepository.findAccountById("Kimchi-dev", true);
 
         //then
         assertEquals("Kimchi-dev",account.getUserId());

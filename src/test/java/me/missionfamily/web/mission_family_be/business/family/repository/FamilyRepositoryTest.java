@@ -60,7 +60,7 @@ class FamilyRepositoryTest {
     public void 멤버_초대메세지_등록() throws Exception {
         /* Given */
         String userId = "Kimchi-dev";
-        Account foundAccount = accountRepository.findAccountById(userId);
+        Account foundAccount = accountRepository.findAccountById(userId, true);
 
         /* When */
         familyService.createFamilyGroup(FamilyModel.builder()
