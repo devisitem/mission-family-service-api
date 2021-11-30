@@ -7,6 +7,7 @@ import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatu
 import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
 import me.missionfamily.web.mission_family_be.domain.Account;
 import me.missionfamily.web.mission_family_be.domain.UserInfo;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ class AccountServiceTest {
 
     private UserInfo testInfo;
 
+    @BeforeAll
     public AccountServiceTest 피클이(){
         Account account = Account.builder()
                 .dxo(AccountDxo.Request.builder()
@@ -48,7 +50,8 @@ class AccountServiceTest {
         return this;
     }
 
-    public AccountServiceTest 아이디_중복체크_성공하고() throws Exception {
+    @Test
+    public void 아이디_중복체크_성공하고() throws Exception {
         /* Given */
         AccountDxo.Request dto = AccountDxo.Request.builder()
                 .userId(this.testInfo.getAccount().getUserId())
@@ -60,10 +63,10 @@ class AccountServiceTest {
         /* Then*/
         assertEquals(response.code(), HttpResponseStatus.SUCCESS.getCode());
 
-        return this;
     }
 
-    public AccountServiceTest 아이디_중복체크_실패() throws Exception {
+    @Test
+    public void 아이디_중복체크_실패() throws Exception {
         /* Given */
         AccountDxo.Request dto = AccountDxo.Request.builder()
                 .userId(this.testInfo.getAccount().getUserId())
@@ -75,21 +78,6 @@ class AccountServiceTest {
 
         /* Then*/
         assertEquals(HttpResponseStatus.USER_ID_DUPLICATED.getCode(), thrown.getResultCode());
-
-        return this;
-
-    }
-
-    @Test
-    public void 중복체크_시나리오() throws Exception {
-        /* Given */
-
-        피클이().아이디_중복체크_성공하고();
-        피클이().아이디_중복체크_실패();
-
-        /* When */
-
-        /* Then */
 
     }
 

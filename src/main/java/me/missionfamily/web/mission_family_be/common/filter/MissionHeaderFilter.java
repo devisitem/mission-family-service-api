@@ -4,8 +4,6 @@ package me.missionfamily.web.mission_family_be.common.filter;
 import lombok.RequiredArgsConstructor;
 import me.missionfamily.web.mission_family_be.common.logging.StepLogger;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.servlet.support.RequestContext;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +36,6 @@ public class MissionHeaderFilter implements Filter {
         step.info("[MissionHeaderFilter][token : {}]", appToken);
 
         //== 헤더 검증로직 구현 ==//
-        RequestContext requestContext = (RequestContext) RequestContextHolder.currentRequestAttributes();
 
 
         filterChain.doFilter(req, res);
