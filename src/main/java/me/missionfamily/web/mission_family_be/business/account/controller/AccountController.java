@@ -9,6 +9,7 @@ import me.missionfamily.web.mission_family_be.business.account.service.AccountSe
 import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
 import me.missionfamily.web.mission_family_be.common.service_enum.LogStep;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,7 +22,6 @@ import javax.validation.Valid;
 public class AccountController {
 
     private final AccountService accountService;
-
     @GetMapping("/duplicateCheck")
     public ResponseEntity<MissionResponse> dupCheck (@RequestBody @Valid AccountDxo.Request request) throws ServiceException {
         String userId = request.getUserId();
