@@ -6,6 +6,7 @@ import me.missionfamily.web.mission_family_be.business.account.model.AccountMode
 import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatus;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionRequest;
 import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
+import me.missionfamily.web.mission_family_be.common.logging.StepLogger;
 import me.missionfamily.web.mission_family_be.common.util.MissionUtil;
 import me.missionfamily.web.mission_family_be.domain.UserInfo;
 import me.missionfamily.web.mission_family_be.business.account.repository.AccountRepository;
@@ -14,14 +15,13 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
-@Slf4j
 @Aspect
 @Component
 @RequiredArgsConstructor
 public class MissionAuthAop {
 
     private final AccountRepository accountRepository;
-
+    private final StepLogger step;
     @Around("@annotation(LoginService)")
     public Object checkLoginService(ProceedingJoinPoint joinPoint) throws Throwable {
 
@@ -46,7 +46,7 @@ public class MissionAuthAop {
                     return joinPoint.proceed();
                 }else {
 
-                    log.error("Failed Authorization. Please check your token. login");
+                    step.error("Failed Authorization. Please check your token. login");
                     throw new ServiceException(HttpResponseStatus.FAILED_AUTHENTICATE_PROCESS);
                 }
             }

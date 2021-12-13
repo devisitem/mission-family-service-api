@@ -22,6 +22,7 @@ import javax.validation.Valid;
 public class AccountController {
 
     private final AccountService accountService;
+
     @GetMapping("/duplicateCheck")
     public ResponseEntity<MissionResponse> dupCheck (@RequestBody @Valid AccountDxo.Request request) throws ServiceException {
         String userId = request.getUserId();
