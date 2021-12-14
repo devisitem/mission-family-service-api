@@ -42,14 +42,14 @@ class AccountRepositoryTest {
     @Test
     @Transactional
     public void 유저_저장후_아이디로_계정조회() throws Exception {
-        //given
+        /* Given */
         UserInfo userInfo = testUser;
 
-        //when
+        /* When */
         accountRepository.save(userInfo);
         Account account = accountRepository.findAccountById("Kimchi-dev", true);
 
-        //then
+        /* Then */
         assertEquals("Kimchi-dev",account.getUserId());
         assertThrows(NullPointerException.class, () -> account.getUserInfo().getAccount());
 
@@ -58,16 +58,16 @@ class AccountRepositoryTest {
     @Test
     @Transactional
     public void 유저_저장후_아이디로_회원정보조회() throws Exception {
-        //given
+        /* Given */
         UserInfo userInfo = testUser;
         UserInfo secondUserInfo = testUser;
         secondUserInfo.getAccount().setPassword("wqeqw21312");
 
-        //when
+        /* When */
         accountRepository.save(userInfo);
         UserInfo user = accountRepository.findUserInfoByUserId("Kimchi-dev");
 
-        //then
+        /* Then */
         assertEquals("Kimchi-dev",user.getAccount().getUserId());
         assertEquals("010-0000-0000", userInfo.getUserPhone());
 
