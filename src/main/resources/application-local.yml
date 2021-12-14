@@ -2,6 +2,9 @@ server:
   port: 8364
 
 spring:
+  profiles:
+    active: local
+
   datasource:
     url: jdbc:mysql://localhost:3302/missiondb?serverTimezone=UTC&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -27,6 +30,11 @@ spring:
       enabled: true
 
 logging:
+  call:
+    multiline: true
   level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
+  file:
+    path: ./logs
+  config: file:./src/main/resources/logback-spring-local.xml

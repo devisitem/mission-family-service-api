@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOG_ROOT" value="${LOG_PATH}"/>
+    <property name="STEP_LOG_PATH" value="${LOG_ROOT}/stepLog"/>
+
+    <property name="STEP_LEVEL" value="INFO" />
+
+    <appender name="STEP_LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${STEP_LOG_PATH}/step.log</file>
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="me.missionfamily.web.mission_family_be.common.logging.layout.StepLogLayout" />
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${STEP_LOG_PATH}/%d{yyyy/MM/dd}/step.log.%i</fileNamePattern>
+            <maxFileSize>5MB</maxFileSize>
+            <maxHistory>3</maxHistory>
+            <totalSizeCap>50MB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <logger name="me.missionfamily.web.mission_family_be.common.logging.StepLogger" level="${STEP_LEVEL}">
+        <appender-ref ref="STEP_LOG_FILE"></appender-ref>
+    </logger>
+</configuration>

@@ -1,0 +1,482 @@
+2021-12-14 22:40:08.208  INFO 4061 --- [restartedMain] m.m.w.m.MissionFamilyBeApplication       : Starting MissionFamilyBeApplication using Java 1.8.0_281 on JASONui-MacBookPro.local with PID 4061 (/Users/jason/Documents/mission_family/Mission_Family_BE/out/production/classes started by jason in /Users/jason/Documents/mission_family/Mission_Family_BE)
+2021-12-14 22:40:08.210  INFO 4061 --- [restartedMain] m.m.w.m.MissionFamilyBeApplication       : The following profiles are active: local
+2021-12-14 22:40:08.263  INFO 4061 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-12-14 22:40:08.263  INFO 4061 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-12-14 22:40:09.186  INFO 4061 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-12-14 22:40:09.225  INFO 4061 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 34 ms. Found 0 JPA repository interfaces.
+2021-12-14 22:40:09.896  INFO 4061 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8364 (http)
+2021-12-14 22:40:09.902  INFO 4061 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-12-14 22:40:09.903  INFO 4061 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-12-14 22:40:09.967  INFO 4061 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-12-14 22:40:09.967  INFO 4061 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1703 ms
+2021-12-14 22:40:10.117  INFO 4061 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-12-14 22:40:10.566  INFO 4061 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-12-14 22:40:10.571  INFO 4061 --- [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:mysql://localhost:3302/missiondb?serverTimezone=UTC&characterEncoding=UTF-8'
+2021-12-14 22:40:10.650  INFO 4061 --- [restartedMain] m.m.w.m.common.config.CORSFilter         : CORSFilter --> ApplicationFilterConfig[name=CorsFilter, filterClass=me.missionfamily.web.mission_family_be.common.config.CORSFilter]
+2021-12-14 22:40:10.742  INFO 4061 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-12-14 22:40:10.767  INFO 4061 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.29.Final
+2021-12-14 22:40:10.845  INFO 4061 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-12-14 22:40:10.860 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration boolean -> org.hibernate.type.BooleanType@6b7f51cb
+2021-12-14 22:40:10.860 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration boolean -> org.hibernate.type.BooleanType@6b7f51cb
+2021-12-14 22:40:10.860 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Boolean -> org.hibernate.type.BooleanType@6b7f51cb
+2021-12-14 22:40:10.860 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration numeric_boolean -> org.hibernate.type.NumericBooleanType@7c5b6d20
+2021-12-14 22:40:10.861 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration true_false -> org.hibernate.type.TrueFalseType@1e084084
+2021-12-14 22:40:10.861 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration yes_no -> org.hibernate.type.YesNoType@517cf0d4
+2021-12-14 22:40:10.862 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration byte -> org.hibernate.type.ByteType@2c2e0b05
+2021-12-14 22:40:10.862 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration byte -> org.hibernate.type.ByteType@2c2e0b05
+2021-12-14 22:40:10.862 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Byte -> org.hibernate.type.ByteType@2c2e0b05
+2021-12-14 22:40:10.862 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration character -> org.hibernate.type.CharacterType@316b53f4
+2021-12-14 22:40:10.862 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration char -> org.hibernate.type.CharacterType@316b53f4
+2021-12-14 22:40:10.862 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Character -> org.hibernate.type.CharacterType@316b53f4
+2021-12-14 22:40:10.863 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration short -> org.hibernate.type.ShortType@2dbc8c63
+2021-12-14 22:40:10.863 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration short -> org.hibernate.type.ShortType@2dbc8c63
+2021-12-14 22:40:10.863 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Short -> org.hibernate.type.ShortType@2dbc8c63
+2021-12-14 22:40:10.863 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration integer -> org.hibernate.type.IntegerType@1c2a15a5
+2021-12-14 22:40:10.864 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration int -> org.hibernate.type.IntegerType@1c2a15a5
+2021-12-14 22:40:10.864 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Integer -> org.hibernate.type.IntegerType@1c2a15a5
+2021-12-14 22:40:10.864 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration long -> org.hibernate.type.LongType@56965067
+2021-12-14 22:40:10.865 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration long -> org.hibernate.type.LongType@56965067
+2021-12-14 22:40:10.865 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Long -> org.hibernate.type.LongType@56965067
+2021-12-14 22:40:10.866 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration float -> org.hibernate.type.FloatType@3ee101a2
+2021-12-14 22:40:10.866 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration float -> org.hibernate.type.FloatType@3ee101a2
+2021-12-14 22:40:10.866 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Float -> org.hibernate.type.FloatType@3ee101a2
+2021-12-14 22:40:10.866 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration double -> org.hibernate.type.DoubleType@123e8c53
+2021-12-14 22:40:10.867 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration double -> org.hibernate.type.DoubleType@123e8c53
+2021-12-14 22:40:10.867 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Double -> org.hibernate.type.DoubleType@123e8c53
+2021-12-14 22:40:10.867 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration big_decimal -> org.hibernate.type.BigDecimalType@4b9a2c87
+2021-12-14 22:40:10.867 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.math.BigDecimal -> org.hibernate.type.BigDecimalType@4b9a2c87
+2021-12-14 22:40:10.868 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration big_integer -> org.hibernate.type.BigIntegerType@47aff82a
+2021-12-14 22:40:10.869 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.math.BigInteger -> org.hibernate.type.BigIntegerType@47aff82a
+2021-12-14 22:40:10.870 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration string -> org.hibernate.type.StringType@3f5dc3
+2021-12-14 22:40:10.870 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.String -> org.hibernate.type.StringType@3f5dc3
+2021-12-14 22:40:10.870 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration nstring -> org.hibernate.type.StringNVarcharType@1cdc947e
+2021-12-14 22:40:10.870 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration ncharacter -> org.hibernate.type.CharacterNCharType@2cf856d
+2021-12-14 22:40:10.871 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration url -> org.hibernate.type.UrlType@59f90707
+2021-12-14 22:40:10.871 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.net.URL -> org.hibernate.type.UrlType@59f90707
+2021-12-14 22:40:10.871 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration Duration -> org.hibernate.type.DurationType@1d781729
+2021-12-14 22:40:10.871 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.Duration -> org.hibernate.type.DurationType@1d781729
+2021-12-14 22:40:10.872 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration Instant -> org.hibernate.type.InstantType@63f769ac
+2021-12-14 22:40:10.874 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.Instant -> org.hibernate.type.InstantType@63f769ac
+2021-12-14 22:40:10.876 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration LocalDateTime -> org.hibernate.type.LocalDateTimeType@5a2c24d1
+2021-12-14 22:40:10.876 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.LocalDateTime -> org.hibernate.type.LocalDateTimeType@5a2c24d1
+2021-12-14 22:40:10.876 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration LocalDate -> org.hibernate.type.LocalDateType@48533840
+2021-12-14 22:40:10.877 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.LocalDate -> org.hibernate.type.LocalDateType@48533840
+2021-12-14 22:40:10.878 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration LocalTime -> org.hibernate.type.LocalTimeType@48e0a060
+2021-12-14 22:40:10.879 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.LocalTime -> org.hibernate.type.LocalTimeType@48e0a060
+2021-12-14 22:40:10.879 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration OffsetDateTime -> org.hibernate.type.OffsetDateTimeType@536fcc05
+2021-12-14 22:40:10.879 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.OffsetDateTime -> org.hibernate.type.OffsetDateTimeType@536fcc05
+2021-12-14 22:40:10.880 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration OffsetTime -> org.hibernate.type.OffsetTimeType@621a8685
+2021-12-14 22:40:10.880 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.OffsetTime -> org.hibernate.type.OffsetTimeType@621a8685
+2021-12-14 22:40:10.882 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration ZonedDateTime -> org.hibernate.type.ZonedDateTimeType@795917ac
+2021-12-14 22:40:10.882 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.ZonedDateTime -> org.hibernate.type.ZonedDateTimeType@795917ac
+2021-12-14 22:40:10.883 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration date -> org.hibernate.type.DateType@7da77fcc
+2021-12-14 22:40:10.883 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Date -> org.hibernate.type.DateType@7da77fcc
+2021-12-14 22:40:10.884 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration time -> org.hibernate.type.TimeType@705f0bb2
+2021-12-14 22:40:10.884 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Time -> org.hibernate.type.TimeType@705f0bb2
+2021-12-14 22:40:10.885 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration timestamp -> org.hibernate.type.TimestampType@38cc19d8
+2021-12-14 22:40:10.885 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Timestamp -> org.hibernate.type.TimestampType@38cc19d8
+2021-12-14 22:40:10.885 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Date -> org.hibernate.type.TimestampType@38cc19d8
+2021-12-14 22:40:10.886 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration dbtimestamp -> org.hibernate.type.DbTimestampType@774a30ab
+2021-12-14 22:40:10.887 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration calendar -> org.hibernate.type.CalendarType@527af933
+2021-12-14 22:40:10.887 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Calendar -> org.hibernate.type.CalendarType@527af933
+2021-12-14 22:40:10.887 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.GregorianCalendar -> org.hibernate.type.CalendarType@527af933
+2021-12-14 22:40:10.887 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration calendar_date -> org.hibernate.type.CalendarDateType@f1da432
+2021-12-14 22:40:10.888 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration calendar_time -> org.hibernate.type.CalendarTimeType@cc9cf0
+2021-12-14 22:40:10.888 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration locale -> org.hibernate.type.LocaleType@3b09170c
+2021-12-14 22:40:10.889 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Locale -> org.hibernate.type.LocaleType@3b09170c
+2021-12-14 22:40:10.889 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration currency -> org.hibernate.type.CurrencyType@288e8a02
+2021-12-14 22:40:10.889 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Currency -> org.hibernate.type.CurrencyType@288e8a02
+2021-12-14 22:40:10.890 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration timezone -> org.hibernate.type.TimeZoneType@74aed98
+2021-12-14 22:40:10.890 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.TimeZone -> org.hibernate.type.TimeZoneType@74aed98
+2021-12-14 22:40:10.890 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration class -> org.hibernate.type.ClassType@398840b8
+2021-12-14 22:40:10.890 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Class -> org.hibernate.type.ClassType@398840b8
+2021-12-14 22:40:10.891 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration uuid-binary -> org.hibernate.type.UUIDBinaryType@5af6345d
+2021-12-14 22:40:10.891 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.UUID -> org.hibernate.type.UUIDBinaryType@5af6345d
+2021-12-14 22:40:10.891 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration uuid-char -> org.hibernate.type.UUIDCharType@7d7b5fba
+2021-12-14 22:40:10.892 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration binary -> org.hibernate.type.BinaryType@60095811
+2021-12-14 22:40:10.892 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration byte[] -> org.hibernate.type.BinaryType@60095811
+2021-12-14 22:40:10.892 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration [B -> org.hibernate.type.BinaryType@60095811
+2021-12-14 22:40:10.893 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration wrapper-binary -> org.hibernate.type.WrapperBinaryType@f3bb689
+2021-12-14 22:40:10.893 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration Byte[] -> org.hibernate.type.WrapperBinaryType@f3bb689
+2021-12-14 22:40:10.893 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration [Ljava.lang.Byte; -> org.hibernate.type.WrapperBinaryType@f3bb689
+2021-12-14 22:40:10.894 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration row_version -> org.hibernate.type.RowVersionType@2c38e5c6
+2021-12-14 22:40:10.894 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration image -> org.hibernate.type.ImageType@5495c7d3
+2021-12-14 22:40:10.894 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration characters -> org.hibernate.type.CharArrayType@65097ecc
+2021-12-14 22:40:10.894 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration char[] -> org.hibernate.type.CharArrayType@65097ecc
+2021-12-14 22:40:10.894 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration [C -> org.hibernate.type.CharArrayType@65097ecc
+2021-12-14 22:40:10.895 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration wrapper-characters -> org.hibernate.type.CharacterArrayType@5e6c0605
+2021-12-14 22:40:10.895 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration [Ljava.lang.Character; -> org.hibernate.type.CharacterArrayType@5e6c0605
+2021-12-14 22:40:10.895 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration Character[] -> org.hibernate.type.CharacterArrayType@5e6c0605
+2021-12-14 22:40:10.895 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration text -> org.hibernate.type.TextType@3842ddeb
+2021-12-14 22:40:10.895 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration ntext -> org.hibernate.type.NTextType@20170df
+2021-12-14 22:40:10.896 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration blob -> org.hibernate.type.BlobType@4e8029af
+2021-12-14 22:40:10.896 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Blob -> org.hibernate.type.BlobType@4e8029af
+2021-12-14 22:40:10.896 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_blob -> org.hibernate.type.MaterializedBlobType@1028aee
+2021-12-14 22:40:10.897 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration clob -> org.hibernate.type.ClobType@5cdfa9ca
+2021-12-14 22:40:10.897 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Clob -> org.hibernate.type.ClobType@5cdfa9ca
+2021-12-14 22:40:10.898 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration nclob -> org.hibernate.type.NClobType@464312ad
+2021-12-14 22:40:10.898 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.NClob -> org.hibernate.type.NClobType@464312ad
+2021-12-14 22:40:10.898 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_clob -> org.hibernate.type.MaterializedClobType@26ca01bf
+2021-12-14 22:40:10.898 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_nclob -> org.hibernate.type.MaterializedNClobType@236f22a7
+2021-12-14 22:40:10.899 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration serializable -> org.hibernate.type.SerializableType@13e02f6a
+2021-12-14 22:40:10.901 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration object -> org.hibernate.type.ObjectType@7f9f1940
+2021-12-14 22:40:10.902 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Object -> org.hibernate.type.ObjectType@7f9f1940
+2021-12-14 22:40:10.903 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_date -> org.hibernate.type.AdaptedImmutableType@67d2fec1
+2021-12-14 22:40:10.903 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_time -> org.hibernate.type.AdaptedImmutableType@6080ae62
+2021-12-14 22:40:10.904 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_timestamp -> org.hibernate.type.AdaptedImmutableType@3a38d97f
+2021-12-14 22:40:10.904 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_dbtimestamp -> org.hibernate.type.AdaptedImmutableType@7bfcc96a
+2021-12-14 22:40:10.904 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_calendar -> org.hibernate.type.AdaptedImmutableType@ba80422
+2021-12-14 22:40:10.904 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_calendar_date -> org.hibernate.type.AdaptedImmutableType@6ebe588b
+2021-12-14 22:40:10.905 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_binary -> org.hibernate.type.AdaptedImmutableType@12318702
+2021-12-14 22:40:10.907 DEBUG 4061 --- [restartedMain] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_serializable -> org.hibernate.type.AdaptedImmutableType@f9babb7
+2021-12-14 22:40:10.933  INFO 4061 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2021-12-14 22:40:10.972 DEBUG 4061 --- [restartedMain] o.h.type.spi.TypeConfiguration$Scope     : Scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration@3eb6ba0f] to MetadataBuildingContext [org.hibernate.boot.internal.MetadataBuildingContextRootImpl@7701ae32]
+2021-12-14 22:40:11.079  WARN 4061 --- [restartedMain] org.hibernate.cfg.AnnotationBinder       : HHH000457: Joined inheritance hierarchy [me.missionfamily.web.mission_family_be.domain.service_request.ServiceRequest] defined explicit @DiscriminatorColumn.  Legacy Hibernate behavior was to ignore the @DiscriminatorColumn.  However, as part of issue HHH-6911 we now apply the explicit @DiscriminatorColumn.  If you would prefer the legacy behavior, enable the `hibernate.discriminator.ignore_explicit_for_joined` setting (hibernate.discriminator.ignore_explicit_for_joined=true)
+2021-12-14 22:40:11.081  WARN 4061 --- [restartedMain] org.hibernate.cfg.AnnotationBinder       : HHH000133: Discriminator column has to be defined in the root entity, it will be ignored in subclass: me.missionfamily.web.mission_family_be.domain.service_request.InviteMessage
+2021-12-14 22:40:11.083  WARN 4061 --- [restartedMain] org.hibernate.cfg.AnnotationBinder       : HHH000133: Discriminator column has to be defined in the root entity, it will be ignored in subclass: me.missionfamily.web.mission_family_be.domain.service_request.NoticeMessage
+2021-12-14 22:40:11.224 DEBUG 4061 --- [restartedMain] org.hibernate.type.EnumType              : Using NAMED-based conversion for Enum me.missionfamily.web.mission_family_be.common.service_enum.ServiceProperties
+2021-12-14 22:40:11.226 DEBUG 4061 --- [restartedMain] org.hibernate.type.EnumType              : Using NAMED-based conversion for Enum me.missionfamily.web.mission_family_be.domain.MissionStatus
+2021-12-14 22:40:11.226 DEBUG 4061 --- [restartedMain] o.h.type.spi.TypeConfiguration$Scope     : Scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration@3eb6ba0f] to SessionFactoryImpl [org.hibernate.internal.SessionFactoryImpl@7074a830]
+2021-12-14 22:40:11.548 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table invite_message 
+       drop 
+       foreign key FKgp1aaxcg6dkp3eqfa8vh9oj3d
+2021-12-14 22:40:11.623 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table invite_message 
+       drop 
+       foreign key FK8a4avcwqspabnkqmt4xutfbf8
+2021-12-14 22:40:11.659 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table invite_message 
+       drop 
+       foreign key FKqu5seugwesrlccwa13so0mrom
+2021-12-14 22:40:11.685 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table mf_clear_proof 
+       drop 
+       foreign key FKupjptp2n81v7jkiird7niomi
+2021-12-14 22:40:11.722 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table mf_clear_proof 
+       drop 
+       foreign key FKeerqxo5ay4f5mpm9qsxrqypk4
+2021-12-14 22:40:11.759 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table mf_family 
+       drop 
+       foreign key FKmr8gywrd9hrs3efqv601dtk5x
+2021-12-14 22:40:11.796 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table mf_family 
+       drop 
+       foreign key FKm04fgwf5c93yjvr6008rq214f
+2021-12-14 22:40:11.828 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table mf_family 
+       drop 
+       foreign key FK67nxuayl826y5whu7xkr52079
+2021-12-14 22:40:11.860 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table mf_mission 
+       drop 
+       foreign key FK45qs97y5jcbnrmnr6yi8kmdtd
+2021-12-14 22:40:11.898 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table mf_mission 
+       drop 
+       foreign key FKictwo3963chdp5ncdx6vj809c
+2021-12-14 22:40:11.940 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table mf_mission 
+       drop 
+       foreign key FK6o44le2hb6ugy9g083gsvlxlq
+2021-12-14 22:40:11.979 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table mf_user_info 
+       drop 
+       foreign key FKbct7ru6puosgfi4unrysw5xbr
+2021-12-14 22:40:12.017 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table notice_message 
+       drop 
+       foreign key FKf6khaqvrg2po0xg6y8adqjcq4
+2021-12-14 22:40:12.046 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table notice_message 
+       drop 
+       foreign key FKsyc322l3jc1i8piytnvutfyrh
+2021-12-14 22:40:12.079 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table notice_message 
+       drop 
+       foreign key FKrynsajx3vdos47smr6w6ldwao
+2021-12-14 22:40:12.106 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    drop table if exists hibernate_sequence
+2021-12-14 22:40:12.124 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    drop table if exists invite_message
+2021-12-14 22:40:12.137 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    drop table if exists mf_account
+2021-12-14 22:40:12.152 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    drop table if exists mf_clear_proof
+2021-12-14 22:40:12.164 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    drop table if exists mf_family
+2021-12-14 22:40:12.177 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    drop table if exists mf_mission
+2021-12-14 22:40:12.192 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    drop table if exists mf_request
+2021-12-14 22:40:12.206 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    drop table if exists mf_user_info
+2021-12-14 22:40:12.221 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    drop table if exists notice_message
+2021-12-14 22:40:12.236 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    create table hibernate_sequence (
+       next_val bigint
+    ) engine=InnoDB
+2021-12-14 22:40:12.272 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    insert into hibernate_sequence values ( 1 )
+2021-12-14 22:40:12.280 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    create table invite_message (
+       id bigint not null,
+        sender_family_key bigint,
+        receiver_account_key bigint,
+        primary key (id)
+    ) engine=InnoDB
+2021-12-14 22:40:12.316 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    create table mf_account (
+       account_key bigint not null auto_increment,
+        activated bit not null,
+        mf_delete_yn varchar(1),
+        mf_signup_date datetime(6),
+        mf_user_id varchar(50) not null,
+        mf_user_password varchar(800),
+        primary key (account_key)
+    ) engine=InnoDB
+2021-12-14 22:40:12.353 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    create table mf_clear_proof (
+       mf_proof_id bigint not null,
+        mf_delete_yn varchar(1),
+        mf_proof_filesize integer,
+        mf_proof_filetype varchar(20),
+        mf_order_number integer,
+        mf_proof_content varchar(1000),
+        mf_proof_path varchar(200),
+        mf_proof_type varchar(30),
+        mf_upload_date datetime(6),
+        mf_creater bigint,
+        mf_parent_mission bigint,
+        primary key (mf_proof_id)
+    ) engine=InnoDB
+2021-12-14 22:40:12.399 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    create table mf_family (
+       mf_family_id bigint not null,
+        mf_delete_yn varchar(1),
+        mf_family_name varchar(200),
+        mf_join_date datetime(6),
+        mf_role varchar(50),
+        mf_family_leader bigint,
+        account_key bigint,
+        mf_parent_family bigint,
+        primary key (mf_family_id)
+    ) engine=InnoDB
+2021-12-14 22:40:12.441 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    create table mf_mission (
+       mf_mission_id bigint not null,
+        mf_content varchar(1000),
+        mf_create_date datetime(6),
+        mf_delete_yn varchar(1),
+        mf_end_date datetime(6),
+        mf_mission_name varchar(200),
+        mf_mission_status varchar(30),
+        mf_type varchar(50),
+        mf_start_date datetime(6),
+        mf_belong_family bigint,
+        mf_creater bigint,
+        mf_parent_mission bigint,
+        primary key (mf_mission_id)
+    ) engine=InnoDB
+2021-12-14 22:40:12.487 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    create table mf_request (
+       message_type varchar(31) not null,
+        id bigint not null auto_increment,
+        content varchar(255),
+        is_confirmed bit,
+        sent_time datetime(6),
+        title varchar(255),
+        type_class varchar(255),
+        primary key (id)
+    ) engine=InnoDB
+2021-12-14 22:40:12.528 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    create table mf_user_info (
+       user_info_key bigint not null auto_increment,
+        mf_auth_key varchar(500),
+        mf_user_birth varchar(12),
+        mf_user_name varchar(30),
+        mf_user_phone varchar(30),
+        account_key bigint,
+        primary key (user_info_key)
+    ) engine=InnoDB
+2021-12-14 22:40:12.565 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    create table notice_message (
+       id bigint not null,
+        sender_family_key bigint,
+        receiver_family_key bigint,
+        primary key (id)
+    ) engine=InnoDB
+2021-12-14 22:40:12.604 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table mf_account 
+       add constraint UK_mqppbx845penccnsh9dvsrbm1 unique (mf_user_id)
+2021-12-14 22:40:12.643 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table mf_user_info 
+       add constraint UK_k8uns2gltofq0lwa5yir57o6o unique (mf_user_phone)
+2021-12-14 22:40:12.681 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table invite_message 
+       add constraint FKgp1aaxcg6dkp3eqfa8vh9oj3d 
+       foreign key (sender_family_key) 
+       references mf_family (mf_family_id)
+2021-12-14 22:40:12.747 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table invite_message 
+       add constraint FK8a4avcwqspabnkqmt4xutfbf8 
+       foreign key (receiver_account_key) 
+       references mf_account (account_key)
+2021-12-14 22:40:12.810 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table invite_message 
+       add constraint FKqu5seugwesrlccwa13so0mrom 
+       foreign key (id) 
+       references mf_request (id)
+2021-12-14 22:40:12.876 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table mf_clear_proof 
+       add constraint FKupjptp2n81v7jkiird7niomi 
+       foreign key (mf_creater) 
+       references mf_family (mf_family_id)
+2021-12-14 22:40:12.948 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table mf_clear_proof 
+       add constraint FKeerqxo5ay4f5mpm9qsxrqypk4 
+       foreign key (mf_parent_mission) 
+       references mf_mission (mf_mission_id)
+2021-12-14 22:40:13.026 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table mf_family 
+       add constraint FKmr8gywrd9hrs3efqv601dtk5x 
+       foreign key (mf_family_leader) 
+       references mf_account (account_key)
+2021-12-14 22:40:13.090 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table mf_family 
+       add constraint FKm04fgwf5c93yjvr6008rq214f 
+       foreign key (account_key) 
+       references mf_account (account_key)
+2021-12-14 22:40:13.188 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table mf_family 
+       add constraint FK67nxuayl826y5whu7xkr52079 
+       foreign key (mf_parent_family) 
+       references mf_family (mf_family_id)
+2021-12-14 22:40:13.263 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table mf_mission 
+       add constraint FK45qs97y5jcbnrmnr6yi8kmdtd 
+       foreign key (mf_belong_family) 
+       references mf_family (mf_family_id)
+2021-12-14 22:40:13.335 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table mf_mission 
+       add constraint FKictwo3963chdp5ncdx6vj809c 
+       foreign key (mf_creater) 
+       references mf_family (mf_family_id)
+2021-12-14 22:40:13.409 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table mf_mission 
+       add constraint FK6o44le2hb6ugy9g083gsvlxlq 
+       foreign key (mf_parent_mission) 
+       references mf_mission (mf_mission_id)
+2021-12-14 22:40:13.490 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table mf_user_info 
+       add constraint FKbct7ru6puosgfi4unrysw5xbr 
+       foreign key (account_key) 
+       references mf_account (account_key)
+2021-12-14 22:40:13.556 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table notice_message 
+       add constraint FKf6khaqvrg2po0xg6y8adqjcq4 
+       foreign key (sender_family_key) 
+       references mf_family (mf_family_id)
+2021-12-14 22:40:13.620 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table notice_message 
+       add constraint FKsyc322l3jc1i8piytnvutfyrh 
+       foreign key (receiver_family_key) 
+       references mf_family (mf_family_id)
+2021-12-14 22:40:13.686 DEBUG 4061 --- [restartedMain] org.hibernate.SQL                        : 
+    
+    alter table notice_message 
+       add constraint FKrynsajx3vdos47smr6w6ldwao 
+       foreign key (id) 
+       references mf_request (id)
+2021-12-14 22:40:13.757  INFO 4061 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-12-14 22:40:13.763 TRACE 4061 --- [restartedMain] o.h.type.spi.TypeConfiguration$Scope     : Handling #sessionFactoryCreated from [org.hibernate.internal.SessionFactoryImpl@7074a830] for TypeConfiguration
+2021-12-14 22:40:13.765  INFO 4061 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-12-14 22:40:13.830  INFO 4061 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-12-14 22:40:14.066  WARN 4061 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-12-14 22:40:14.290  INFO 4061 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: b52c07c0-f004-4587-85da-d05f3180b31a
+
+2021-12-14 22:40:14.315  INFO 4061 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/favicon.ico'] with []
+2021-12-14 22:40:14.337  INFO 4061 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@12215fec, org.springframework.security.web.context.SecurityContextPersistenceFilter@2b2987a5, org.springframework.security.web.header.HeaderWriterFilter@2eb6cec0, org.springframework.security.web.authentication.logout.LogoutFilter@51eefd5b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@15d0e2c5, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@102186de, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3f87d152, org.springframework.security.web.session.SessionManagementFilter@4688dbe5, org.springframework.security.web.access.ExceptionTranslationFilter@d864dd3, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4277d1b5]
+2021-12-14 22:40:14.460  INFO 4061 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-12-14 22:40:14.968  INFO 4061 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8364 (http) with context path ''
+2021-12-14 22:40:14.988  INFO 4061 --- [restartedMain] m.m.w.m.MissionFamilyBeApplication       : Started MissionFamilyBeApplication in 7.245 seconds (JVM running for 8.028)
+2021-12-14 22:40:29.484  INFO 4061 --- [http-nio-8364-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-12-14 22:40:29.486  INFO 4061 --- [http-nio-8364-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-12-14 22:40:29.491  INFO 4061 --- [http-nio-8364-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2021-12-14 22:40:29.513  INFO 4061 --- [http-nio-8364-exec-2] m.m.w.m.common.logging.StepLogger        : [MissionHeaderFilter][token : TEST_TOKEN]
+2021-12-14 22:40:29.842 DEBUG 4061 --- [http-nio-8364-exec-2] org.hibernate.SQL                        : 
+    select
+        account0_.account_key as account_1_1_,
+        account0_.activated as activate2_1_,
+        account0_.mf_delete_yn as mf_delet3_1_,
+        account0_.mf_signup_date as mf_signu4_1_,
+        account0_.mf_user_id as mf_user_5_1_,
+        account0_.mf_user_password as mf_user_6_1_ 
+    from
+        mf_account account0_ 
+    where
+        account0_.mf_user_id=?
+2021-12-14 22:40:29.855 TRACE 4061 --- [http-nio-8364-exec-2] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [Kimchi-dev1]
+2021-12-14 22:40:29.864  INFO 4061 --- [http-nio-8364-exec-2] m.m.w.m.common.logging.StepLogger        : foundAccount = [null]
+2021-12-14 22:40:29.866  INFO 4061 --- [http-nio-8364-exec-2] m.m.w.m.common.logging.StepLogger        : there is no this identification. usable identification = [Kimchi-dev1]
+2021-12-14 22:43:05.921  INFO 4061 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-12-14 22:43:05.926  INFO 4061 --- [SpringContextShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-12-14 22:43:05.927 TRACE 4061 --- [SpringContextShutdownHook] o.h.type.spi.TypeConfiguration$Scope     : Handling #sessionFactoryClosed from [org.hibernate.internal.SessionFactoryImpl@7074a830] for TypeConfiguration
+2021-12-14 22:43:05.929 DEBUG 4061 --- [SpringContextShutdownHook] o.h.type.spi.TypeConfiguration$Scope     : Un-scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration$Scope@5e690a6d] from SessionFactory [org.hibernate.internal.SessionFactoryImpl@7074a830]
+2021-12-14 22:43:05.944  INFO 4061 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-12-14 22:43:05.952  INFO 4061 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

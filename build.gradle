@@ -63,6 +63,7 @@ test {
 	useJUnitPlatform()
 }
 
+
 //querydsl 추가시작
 def querydslDir = "$buildDir/generated/querydsl"
 

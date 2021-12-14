@@ -1,14 +1,13 @@
 package me.missionfamily.web.mission_family_be.domain;
 
-import com.sun.javafx.geom.transform.Identity;
-import javassist.bytecode.ByteArray;
-import lombok.*;
-import me.missionfamily.web.mission_family_be.common.util.MissionUtil;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
-import java.util.Base64;
 import java.util.UUID;
 
 @Entity
@@ -19,7 +18,7 @@ import java.util.UUID;
 public class UserInfo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_info_key")
     private Long infoId;
 

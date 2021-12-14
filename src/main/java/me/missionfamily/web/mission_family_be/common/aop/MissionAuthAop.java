@@ -1,18 +1,23 @@
 package me.missionfamily.web.mission_family_be.common.aop;
 
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.ConsoleAppender;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import me.missionfamily.web.mission_family_be.business.account.model.AccountModel;
-import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatus;
+import me.missionfamily.web.mission_family_be.business.account.repository.AccountRepository;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionRequest;
+import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatus;
 import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
 import me.missionfamily.web.mission_family_be.common.logging.StepLogger;
 import me.missionfamily.web.mission_family_be.common.util.MissionUtil;
 import me.missionfamily.web.mission_family_be.domain.UserInfo;
-import me.missionfamily.web.mission_family_be.business.account.repository.AccountRepository;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Aspect
@@ -22,6 +27,7 @@ public class MissionAuthAop {
 
     private final AccountRepository accountRepository;
     private final StepLogger step;
+
     @Around("@annotation(LoginService)")
     public Object checkLoginService(ProceedingJoinPoint joinPoint) throws Throwable {
 
@@ -54,4 +60,5 @@ public class MissionAuthAop {
 
         return joinPoint.proceed();
     }
+
 }

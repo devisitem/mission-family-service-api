@@ -29,13 +29,15 @@ public class StepLogLayout extends LayoutBase<ILoggingEvent> {
         StringBuilder builder = new StringBuilder();
         long timeStamp = event.getTimeStamp();
         builder
+                .append("[").append(event.getTimeStamp() - event.getLoggerContextVO().getBirthTime()).append("]")
                 .append("[").append(formatter.format(timeStamp)).append("]")
                 .append("[").append(event.getLevel()).append("]");
 
         if(MissionUtil.isNotNull(logger)) {
+            builder.append(event.getFormattedMessage());
         }
-
-        return null;
+        System.out.println("로거 수행 메세지는? = "+event.getFormattedMessage());
+        return builder.toString();
     }
 }
 
