@@ -1,7 +1,7 @@
-server:
-  port: 8364
-
 spring:
+
+  main:
+    lazy-initialization: true
   profiles:
     active: local
 
@@ -16,11 +16,10 @@ spring:
 #    username: sa
 #    password:
   jpa:
+    generate-ddl: true
+
     hibernate:
       ddl-auto: create
-    properties:
-      hibernate:
-        format_sql: true
 #    defer-datasource-initialization: true
 #    database-platform: org.hibernate.dialect.H2Dialect
 #   database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
@@ -29,12 +28,4 @@ spring:
     livereload:
       enabled: true
 
-logging:
-  call:
-    multiline: true
-  level:
-    org.hibernate.SQL: debug
-    org.hibernate.type: trace
-  file:
-    path: ./logs
-  config: file:./src/main/resources/logback-spring-local.xml
+

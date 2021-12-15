@@ -1,0 +1,30 @@
+server:
+  port: 8364
+
+application:
+  title: mission-family-api
+  version: 1.0.0-SNAPSHOT
+
+
+spring:
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+  banner:
+    location: config/banner.txt
+  config:
+    import: "optional:file:./local.yml"
+
+logging:
+  call:
+    multiline: true
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
+
+  file:
+    path: ./logs
+    name: standard.log
+  config: classpath:logback-spring-${spring.profiles.active}.xml
+
