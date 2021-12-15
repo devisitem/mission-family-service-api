@@ -1,15 +1,26 @@
 package me.missionfamily.web.mission_family_be.common.logging;
 
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
+import me.missionfamily.web.mission_family_be.common.service_enum.LogStep;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
 public class StepLogger {
     String ROOT_LOGGER_NAME = "STEP_LOGGER";
+    private LogStep step;
 
     public String getName(){
         return this.ROOT_LOGGER_NAME;
+    }
+
+    public void setServiceStep(LogStep step) {
+        this.step = step;
+    }
+
+    public LogStep getStep() {
+        return this.step;
     }
 
     public void trace(String message) {

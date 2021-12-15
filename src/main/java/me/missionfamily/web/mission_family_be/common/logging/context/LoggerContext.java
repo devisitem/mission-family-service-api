@@ -22,10 +22,10 @@ public class LoggerContext {
     private static final InheritableThreadLocal<LoggerAttribute> inHeritableLoggerAttributes = new InheritableThreadLocal<LoggerAttribute>();
 
     public static void applyLogObject(StepLogger step) {
-
+        applyLogObject(step, false);
     }
 
-    public static void applyLogObjct(StepLogger step, boolean inhertiable) {
+    public static void applyLogObject(StepLogger step, boolean inhertiable) {
         if(inhertiable) {
             loggerAttribute.remove();
 
@@ -39,13 +39,14 @@ public class LoggerContext {
             }
         } else {
             inHeritableLoggerAttributes.remove();
-            if(MissionUtil.isNull(inHeritableLoggerAttributes.get())) {
+            if(MissionUtil.isNull(loggerAttribute.get())) {
 
                 LoggerAttribute attribute = new LoggerAttribute(step);
-
+                loggerAttribute.set(attribute);
             } else {
                 LoggerAttribute attribute = loggerAttribute.get();
                 attribute.setLogObject(step);
+                loggerAttribute.set(attribute);
             }
         }
     }

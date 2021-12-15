@@ -17,6 +17,15 @@ public enum LogStep {
         this.descriptions = descriptions;
     }
 
+    public String getCode() {
+        return this.code;
+    }
+
+    public String getDescriptions() {
+        return this.descriptions;
+    }
+
+
     public static LogStep getLogStepByCode(String code) throws ServiceException {
 
         LogStep[] values = LogStep.values();

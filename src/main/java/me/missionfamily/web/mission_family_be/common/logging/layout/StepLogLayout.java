@@ -8,6 +8,7 @@ import ch.qos.logback.core.LayoutBase;
 import ch.qos.logback.core.util.CachingDateFormatter;
 import lombok.RequiredArgsConstructor;
 import me.missionfamily.web.mission_family_be.common.logging.StepLogger;
+import me.missionfamily.web.mission_family_be.common.logging.context.LoggerContext;
 import me.missionfamily.web.mission_family_be.common.util.MissionUtil;
 import org.springframework.stereotype.Component;
 
@@ -26,20 +27,27 @@ public class StepLogLayout extends LayoutBase<ILoggingEvent> {
 
     @Override
     public String doLayout(ILoggingEvent event) {
-        if( ! isStarted()) {
-            return CoreConstants.EMPTY_STRING;
-        }
-
         StringBuilder builder = new StringBuilder();
-        long timeStamp = event.getTimeStamp();
-        builder
-                .append(formatter.format(timeStamp))
-                .append(" ").append(String.format("%5s", event.getLevel().toString())).append(" - ");
 
-        IThrowableProxy proxy = event.getThrowableProxy();
-        builder.append(event.getFormattedMessage()).append(CoreConstants.LINE_SEPARATOR);
-        if(MissionUtil.isNotNull(proxy)) {
-            builder.append(converter.convert(event));
+        try {
+            System.out.println("Start Logging");
+            if (!isStarted()) {
+                return CoreConstants.EMPTY_STRING;
+            }
+            StepLogger stepLogger = LoggerContext.getStepLogger();
+            long timeStamp = event.getTimeStamp();
+            builder
+                    .append(formatter.format(timeStamp))
+                    .append(" ").append(String.format("%5s", event.getLevel().toString())).append(" - ")
+                    .append("[").append(stepLogger.getStep()).append("]");
+
+            IThrowableProxy proxy = event.getThrowableProxy();
+            builder.append(event.getFormattedMessage()).append(CoreConstants.LINE_SEPARATOR);
+            if (MissionUtil.isNotNull(proxy)) {
+                builder.append(converter.convert(event));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return builder.toString();
     }
