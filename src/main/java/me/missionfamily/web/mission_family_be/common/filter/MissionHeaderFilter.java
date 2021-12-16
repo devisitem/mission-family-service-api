@@ -33,7 +33,6 @@ public class MissionHeaderFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) servletResponse;
 
         String appToken = req.getHeader("MISSION_APP_TOKEN");
-        step.info("[MissionHeaderFilter][token : {}]", appToken);
 
         //== 헤더 검증로직 구현 ==//
 

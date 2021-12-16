@@ -29,28 +29,27 @@ public class StepLogLayout extends LayoutBase<ILoggingEvent> {
     public String doLayout(ILoggingEvent event) {
         StringBuilder builder = new StringBuilder();
 
-        try {
-            System.out.println("Start Logging");
-            if (!isStarted()) {
-                return CoreConstants.EMPTY_STRING;
-            }
-            StepLogger stepLogger = LoggerContext.getStepLogger();
-            long timeStamp = event.getTimeStamp();
-            builder
-                    .append(formatter.format(timeStamp))
-                    .append(" ").append(String.format("%5s", event.getLevel().toString())).append(" - ")
-                    .append("[").append(stepLogger.getStep()).append("]");
+        System.out.println("Start Logging");
+        if (!isStarted()) {
+            return CoreConstants.EMPTY_STRING;
+        }
+        StepLogger stepLogger = LoggerContext.getStepLogger();
+        StepLogger step = LoggerContext.getAttribute().getStep();
+        long timeStamp = event.getTimeStamp();
+        builder
+                .append(formatter.format(timeStamp))
+                .append(" ").append(String.format("%5s", event.getLevel().toString())).append(" - ")
+                .append("[").append(stepLogger.getStep()).append("]");
 
-            IThrowableProxy proxy = event.getThrowableProxy();
-            builder.append(event.getFormattedMessage()).append(CoreConstants.LINE_SEPARATOR);
-            if (MissionUtil.isNotNull(proxy)) {
-                builder.append(converter.convert(event));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        IThrowableProxy proxy = event.getThrowableProxy();
+        builder.append(event.getFormattedMessage()).append(CoreConstants.LINE_SEPARATOR);
+        if (MissionUtil.isNotNull(proxy)) {
+            builder.append(converter.convert(event));
         }
         return builder.toString();
     }
+
+
 }
 
 

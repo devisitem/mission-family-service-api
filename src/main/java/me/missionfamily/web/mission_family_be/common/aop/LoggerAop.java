@@ -20,7 +20,7 @@ public class LoggerAop {
     @Around("execution(* me.missionfamily.web.mission_family_be..*Controller.*(..))")
     public Object initRequestLog(ProceedingJoinPoint joinPoint) throws Throwable {
         LoggerContext.applyLogObject(step);
-
+        StepLogger logger= LoggerContext.getStepLogger();
         return joinPoint.proceed();
     }
 
