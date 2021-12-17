@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class MissionExceptionHandler {
 
     @ExceptionHandler(ServiceException.class)
-    protected ResponseEntity<MissionErrorResponse> handleServiceException(ServiceException e) {
+    public ResponseEntity<MissionErrorResponse> handleServiceException(ServiceException e) {
         log.error("The error occurred, which message is = [{}]", e.getMessage());
 
         return ResponseEntity.status(e.getStatus().getStatus()).body(MissionErrorResponse.builder()

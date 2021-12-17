@@ -7,8 +7,6 @@ import org.slf4j.LoggerFactory;
 
 public class LoggerContext {
 
-    static Logger log = LoggerFactory.getLogger(LoggerContext.class);
-
     private LoggerContext(){}
 
     private static final ThreadLocal<LoggerAttribute> loggerAttribute = new ThreadLocal<LoggerAttribute>() {
@@ -25,29 +23,33 @@ public class LoggerContext {
         applyLogObject(step, false);
     }
 
-    public static void applyLogObject(StepLogger step, boolean inhertiable) {
-        if(inhertiable) {
-            loggerAttribute.remove();
+    public static void applyLogObject(StepLogger step, boolean inheritable) {
+        try {
+            if (inheritable) {
+                loggerAttribute.remove();
 
-            if(MissionUtil.isNull(inHeritableLoggerAttributes.get())) {
+                if (MissionUtil.isNull(inHeritableLoggerAttributes.get())) {
 
-                LoggerAttribute attribute = new LoggerAttribute(step);
-                inHeritableLoggerAttributes.set(attribute);
+                    LoggerAttribute attribute = new LoggerAttribute(step);
+                    inHeritableLoggerAttributes.set(attribute);
+                } else {
+                    LoggerAttribute attribute = inHeritableLoggerAttributes.get();
+                    attribute.setLogObject(step);
+                }
             } else {
-                LoggerAttribute attribute = inHeritableLoggerAttributes.get();
-                attribute.setLogObject(step);
-            }
-        } else {
-            inHeritableLoggerAttributes.remove();
-            if(MissionUtil.isNull(loggerAttribute.get())) {
+                inHeritableLoggerAttributes.remove();
+                if (MissionUtil.isNull(loggerAttribute.get())) {
 
-                LoggerAttribute attribute = new LoggerAttribute(step);
-                loggerAttribute.set(attribute);
-            } else {
-                LoggerAttribute attribute = loggerAttribute.get();
-                attribute.setLogObject(step);
-                loggerAttribute.set(attribute);
+                    LoggerAttribute attribute = new LoggerAttribute(step);
+                    loggerAttribute.set(attribute);
+                } else {
+                    LoggerAttribute attribute = loggerAttribute.get();
+                    attribute.setLogObject(step);
+                    loggerAttribute.set(attribute);
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -57,10 +59,6 @@ public class LoggerContext {
             return inHeritableLoggerAttributes.get();
         }
         return attribute;
-    }
-
-    public static void setAttribute(LoggerAttribute attribute) {
-        setAttribute(attribute, false);
     }
 
     private static void setAttribute(LoggerAttribute attribute, boolean inheritable) {
@@ -87,7 +85,6 @@ public class LoggerContext {
         if(MissionUtil.isNull(loggerAttribute.get().getStep())) {
             return inHeritableLoggerAttributes.get().getStep();
         }
-
         return loggerAttribute.get().getStep();
     }
 }

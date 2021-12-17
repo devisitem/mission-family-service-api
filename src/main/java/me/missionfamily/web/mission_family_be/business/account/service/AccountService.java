@@ -54,7 +54,7 @@ public class AccountService {
             throw new ServiceException(HttpResponseStatus.USER_ID_DUPLICATED);
         }
 
-        step.info("there is no this identification. usable identification = [{}]", toBeChecked);
+        step.info("There is no this identification. usable identification = [{}]", toBeChecked);
 
         return AccountDxo.Response.builder()
                 .result(ResponseModel.builder()

@@ -15,12 +15,11 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class LoggerAop {
 
-    private final StepLogger step;
+    private final StepLogger stepLogger;
 
     @Around("execution(* me.missionfamily.web.mission_family_be..*Controller.*(..))")
     public Object initRequestLog(ProceedingJoinPoint joinPoint) throws Throwable {
-        LoggerContext.applyLogObject(step);
-        StepLogger logger= LoggerContext.getStepLogger();
+        System.out.println("Controller - Log");
         return joinPoint.proceed();
     }
 
@@ -30,7 +29,6 @@ public class LoggerAop {
         ServiceDescriptions checker = signature.getMethod().getAnnotation(ServiceDescriptions.class);
         LogStep step = checker.value();
 
-        StepLogger stepLogger = LoggerContext.getStepLogger();
         stepLogger.setServiceStep(step);
         LoggerContext.applyLogObject(stepLogger);
 
