@@ -28,3 +28,6 @@ logging:
     name: standard.log
   config: classpath:logback-spring-${spring.profiles.active}.xml
 
+mission:
+  logging:
+    strategy: MODE_GLOBAL
