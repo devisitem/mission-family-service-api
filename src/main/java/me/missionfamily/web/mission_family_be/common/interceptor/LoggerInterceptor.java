@@ -2,7 +2,7 @@ package me.missionfamily.web.mission_family_be.common.interceptor;
 
 import lombok.RequiredArgsConstructor;
 import me.missionfamily.web.mission_family_be.common.logging.StepLogger;
-import me.missionfamily.web.mission_family_be.common.logging.context.LoggerContext;
+import me.missionfamily.web.mission_family_be.common.logging.context.LoggerContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,7 +28,6 @@ public class LoggerInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        LoggerContext.resetAttributes();
         HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
     }
 }

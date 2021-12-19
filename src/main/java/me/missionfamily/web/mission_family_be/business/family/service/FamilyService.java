@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import me.missionfamily.web.mission_family_be.business.account.model.AccountModel;
 import me.missionfamily.web.mission_family_be.business.account.repository.AccountRepository;
 import me.missionfamily.web.mission_family_be.business.family.dxo.FamilyDxo;
-import me.missionfamily.web.mission_family_be.business.family.model.ConfirmModel;
 import me.missionfamily.web.mission_family_be.business.family.model.FamilyModel;
 import me.missionfamily.web.mission_family_be.business.family.model.InvitationModel;
 import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatus;
@@ -14,10 +13,9 @@ import me.missionfamily.web.mission_family_be.business.family.repository.FamilyR
 import me.missionfamily.web.mission_family_be.common.data_transfer.ResponseModel;
 import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
 import me.missionfamily.web.mission_family_be.common.service_enum.ServiceProperties;
-import me.missionfamily.web.mission_family_be.common.util.MissionUtil;
+import me.missionfamily.web.mission_family_be.common.util.Utils;
 import me.missionfamily.web.mission_family_be.domain.Account;
 import me.missionfamily.web.mission_family_be.domain.Family;
-import me.missionfamily.web.mission_family_be.domain.Mission;
 import me.missionfamily.web.mission_family_be.domain.UserInfo;
 import me.missionfamily.web.mission_family_be.domain.service_request.InviteMessage;
 import org.springframework.stereotype.Service;
@@ -26,10 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @Slf4j
@@ -56,7 +52,7 @@ public class FamilyService {
         String groupName = family.getFamilyName();
         Account leader = accountRepository.findAccountById(loginId, true);
 
-        if(MissionUtil.isNull(leader)){
+        if(Utils.isNull(leader)){
             log.error("found user can't be null");
             throw new ServiceException(HttpResponseStatus.NO_ACCOUNT_DATA_FOUNDS);
         }
@@ -97,7 +93,7 @@ public class FamilyService {
 
         List<Family> belongFamily = foundAccount.getBelongFamily();
 
-        if(MissionUtil.isNull(belongFamily)){
+        if(Utils.isNull(belongFamily)){
             belongFamily = new ArrayList<>();
             log.info("there are no your families. [ {} ]", belongFamily);
         } else {
@@ -132,7 +128,7 @@ public class FamilyService {
 
         Family senderGroup = familyRepository.findFamilyGroupByKey(familyModel.getKey());
 
-        if(MissionUtil.isNull(senderGroup)){
+        if(Utils.isNull(senderGroup)){
             log.error("Not found Group. by key is [ {} ]", familyModel.getKey());
             throw new ServiceException(HttpResponseStatus.NOT_FOUND_FAMILIES);
         }
@@ -155,7 +151,7 @@ public class FamilyService {
 
         List<InviteMessage> invitations = userInfo.getAccount().getReceivedInvite();
 
-        if(MissionUtil.isNull(invitations) || invitations.size() == 0){
+        if(Utils.isNull(invitations) || invitations.size() == 0){
 
             log.info("There are no invitations.");
         } else {

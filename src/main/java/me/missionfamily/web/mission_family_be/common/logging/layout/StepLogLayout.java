@@ -6,11 +6,10 @@ import ch.qos.logback.classic.spi.IThrowableProxy;
 import ch.qos.logback.core.CoreConstants;
 import ch.qos.logback.core.LayoutBase;
 import ch.qos.logback.core.util.CachingDateFormatter;
-import lombok.RequiredArgsConstructor;
 import me.missionfamily.web.mission_family_be.common.logging.StepLogger;
-import me.missionfamily.web.mission_family_be.common.logging.context.LoggerContext;
-import me.missionfamily.web.mission_family_be.common.util.MissionUtil;
-import org.springframework.stereotype.Component;
+import me.missionfamily.web.mission_family_be.common.logging.context.LoggerAttribute;
+import me.missionfamily.web.mission_family_be.common.logging.context.LoggerContextHolder;
+import me.missionfamily.web.mission_family_be.common.util.Utils;
 
 
 public class StepLogLayout extends LayoutBase<ILoggingEvent> {
@@ -32,8 +31,8 @@ public class StepLogLayout extends LayoutBase<ILoggingEvent> {
             if (!isStarted()) {
                 return CoreConstants.EMPTY_STRING;
             }
-            StepLogger stepLogger = LoggerContext.getStepLogger();
-            StepLogger step = LoggerContext.getAttribute().getStep();
+            StepLogger stepLogger = (StepLogger) LoggerContextHolder.getContext().getLogger();
+
             long timeStamp = event.getTimeStamp();
             builder
                     .append(formatter.format(timeStamp))
@@ -42,7 +41,7 @@ public class StepLogLayout extends LayoutBase<ILoggingEvent> {
 
             IThrowableProxy proxy = event.getThrowableProxy();
             builder.append(event.getFormattedMessage()).append(CoreConstants.LINE_SEPARATOR);
-            if (MissionUtil.isNotNull(proxy)) {
+            if (Utils.isNotNull(proxy)) {
                 builder.append(converter.convert(event));
             }
         } catch (Exception e) {
@@ -50,9 +49,6 @@ public class StepLogLayout extends LayoutBase<ILoggingEvent> {
         }
         return builder.toString();
     }
-
-
-
 
 }
 

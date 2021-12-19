@@ -1,6 +1,6 @@
 package me.missionfamily.web.mission_family_be.common.util;
 
-public class MissionUtil {
+public class Utils {
     /**
      *
      * @param object

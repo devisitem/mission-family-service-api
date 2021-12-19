@@ -1,8 +1,6 @@
 package me.missionfamily.web.mission_family_be.business.account.service;
 
-import javafx.scene.control.Pagination;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import me.missionfamily.web.mission_family_be.business.account.dxo.AccountDxo;
 import me.missionfamily.web.mission_family_be.business.account.model.AccountModel;
 import me.missionfamily.web.mission_family_be.business.account.repository.AccountRepository;
@@ -13,8 +11,7 @@ import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatu
 import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
 import me.missionfamily.web.mission_family_be.common.logging.StepLogger;
 import me.missionfamily.web.mission_family_be.common.service_enum.LogStep;
-import me.missionfamily.web.mission_family_be.common.util.MissionUtil;
-import me.missionfamily.web.mission_family_be.common.validator.DeclaredClassification;
+import me.missionfamily.web.mission_family_be.common.util.Utils;
 import me.missionfamily.web.mission_family_be.common.validator.MissionValidator;
 import me.missionfamily.web.mission_family_be.domain.Account;
 import me.missionfamily.web.mission_family_be.domain.UserInfo;
@@ -49,7 +46,7 @@ public class AccountService {
 
         step.info("foundAccount = [{}]", foundAccount);
 
-        if(MissionUtil.isNotNull(foundAccount)) {
+        if(Utils.isNotNull(foundAccount)) {
             step.error("This Login ID is Already registered. ID = [ {} ]", toBeChecked);
             throw new ServiceException(HttpResponseStatus.USER_ID_DUPLICATED);
         }
@@ -75,7 +72,7 @@ public class AccountService {
 
         Account foundAccount = accountRepo.findAccountById(accountDxo.getUserId(), false);
 
-        if(MissionUtil.isNotNull(foundAccount)) {
+        if(Utils.isNotNull(foundAccount)) {
             step.info("this id is already exist. id = [{}]",accountDxo.getUserId());
             throw new ServiceException(HttpResponseStatus.USER_ID_DUPLICATED);
         }
@@ -142,7 +139,7 @@ public class AccountService {
 
         String signature = account.getMissionSignature();
 
-        if(MissionUtil.isNotEmptyAndNull(signature)){
+        if(Utils.isNotEmptyAndNull(signature)){
             step.error("the auth key is null in request");
             throw new ServiceException(HttpResponseStatus.AUTHKEY_MUST_BE_NON_NULL);
         }

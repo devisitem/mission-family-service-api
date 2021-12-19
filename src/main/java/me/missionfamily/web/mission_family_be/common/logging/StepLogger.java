@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class StepLogger {
+public class StepLogger implements MissionLogger{
     String ROOT_LOGGER_NAME = "STEP_LOGGER";
     private LogStep step;
 

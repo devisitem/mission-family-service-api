@@ -28,4 +28,6 @@ spring:
     livereload:
       enabled: true
 
-
+mission:
+  logger:
+    strategy: MODE_GLOBAL

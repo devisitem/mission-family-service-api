@@ -1,25 +1,19 @@
 package me.missionfamily.web.mission_family_be.business.account.repository;
 
-import com.querydsl.core.QueryFactory;
-import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatus;
 import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
-import me.missionfamily.web.mission_family_be.common.util.MissionUtil;
+import me.missionfamily.web.mission_family_be.common.util.Utils;
 import me.missionfamily.web.mission_family_be.domain.Account;
 import me.missionfamily.web.mission_family_be.domain.QAccount;
 import me.missionfamily.web.mission_family_be.domain.QUserInfo;
 import me.missionfamily.web.mission_family_be.domain.UserInfo;
-import org.springframework.data.jpa.repository.EntityGraph;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Repository
@@ -59,7 +53,7 @@ public class AccountRepository {
                     .fetchOne();
         } catch (Exception e) {
 
-            if (MissionUtil.isNull(account)) {
+            if (Utils.isNull(account)) {
                 log.info("There is no User that, which be registered With login identification. [ {} ]", loginId);
                 if(isThrow) {
                     throw new ServiceException(HttpResponseStatus.NOT_FOUND_USER);
@@ -80,7 +74,7 @@ public class AccountRepository {
                 .where(this.userInfo.account.userId.eq(loginId))
                 .fetchOne();
 
-        if(MissionUtil.isNull(userInfo)){
+        if(Utils.isNull(userInfo)){
             log.info("There is no User that, which be registered With login identification. [ {} ]", loginId);
             throw new ServiceException(HttpResponseStatus.NOT_FOUND_USER);
         }

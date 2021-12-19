@@ -4,7 +4,7 @@ import lombok.*;
 import me.missionfamily.web.mission_family_be.business.account.dxo.AccountDxo;
 import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatus;
 import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
-import me.missionfamily.web.mission_family_be.common.util.MissionUtil;
+import me.missionfamily.web.mission_family_be.common.util.Utils;
 import me.missionfamily.web.mission_family_be.domain.service_request.InviteMessage;
 
 import javax.persistence.*;
@@ -84,7 +84,7 @@ public class Account implements MissionDomain{
                 .filter(msg -> msg.getId().equals(messageKey))
                 .findFirst().orElse(null);
 
-        if(MissionUtil.isNull(inviteMessage)) {
+        if(Utils.isNull(inviteMessage)) {
             throw new ServiceException(HttpResponseStatus.NON_EXIST_MESSAGE);
         }
 
