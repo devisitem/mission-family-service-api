@@ -69,7 +69,6 @@ public class TrackerContextHolder {
     }
 
     public static void setStrategyName(String strategyName) {
-        System.out.println("전략명 설정");
         TrackerContextHolder.strategyName = strategyName;
         initialize();
     }

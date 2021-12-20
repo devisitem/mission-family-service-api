@@ -9,6 +9,8 @@ import ch.qos.logback.core.util.CachingDateFormatter;
 import me.missionfamily.web.mission_family_be.common.logging.context.TrackerContextHolder;
 import me.missionfamily.web.mission_family_be.common.logging.tracker.StepLogTracker;
 import me.missionfamily.web.mission_family_be.common.util.Utils;
+import org.slf4j.MDC;
+import org.springframework.stereotype.Component;
 
 
 public class StepLogLayout extends LayoutBase<ILoggingEvent> {
@@ -30,13 +32,14 @@ public class StepLogLayout extends LayoutBase<ILoggingEvent> {
             if (!isStarted()) {
                 return CoreConstants.EMPTY_STRING;
             }
+
             StepLogTracker tracker = TrackerContextHolder.getContext().getTracker();
 
             long timeStamp = event.getTimeStamp();
             builder
                     .append(formatter.format(timeStamp))
                     .append(" ").append(String.format("%5s", event.getLevel().toString())).append(" - ")
-                    .append("[").append(tracker.getAllStepString()).append("]");
+                    .append(tracker.getAllStepString()).append(" ");
 
             IThrowableProxy proxy = event.getThrowableProxy();
             builder.append(event.getFormattedMessage()).append(CoreConstants.LINE_SEPARATOR);

@@ -8,6 +8,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 
 @Aspect
@@ -28,9 +29,9 @@ public class LoggerAop {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         ServiceDescriptions checker = signature.getMethod().getAnnotation(ServiceDescriptions.class);
 
-        Thread current = Thread.currentThread();
-        LogStep step = checker.value();
-        TrackerContextHolder.getContext().getTracker().addStep(step);
+        TrackerContextHolder.getContext()
+                .getTracker()
+                .addStep(checker.value());
 
         return joinPoint.proceed();
     }
