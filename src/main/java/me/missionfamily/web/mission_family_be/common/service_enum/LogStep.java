@@ -35,4 +35,10 @@ public enum LogStep {
                 .findFirst()
                 .get();
     }
+
+
+    @Override
+    public String toString() {
+        return this.getCode();
+    }
 }

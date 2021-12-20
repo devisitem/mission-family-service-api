@@ -2,22 +2,31 @@ package me.missionfamily.web.mission_family_be.common.interceptor;
 
 import lombok.RequiredArgsConstructor;
 import me.missionfamily.web.mission_family_be.common.logging.StepLogger;
-import me.missionfamily.web.mission_family_be.common.logging.context.LoggerContextHolder;
+import me.missionfamily.web.mission_family_be.common.logging.context.TrackerContext;
+import me.missionfamily.web.mission_family_be.common.logging.context.TrackerContextHolder;
+import me.missionfamily.web.mission_family_be.common.logging.tracker.StepLogTracker;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
 public class LoggerInterceptor implements HandlerInterceptor {
 
-    private final StepLogger logger;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        StepLogTracker tracker = new StepLogTracker();
+        String txId = UUID.randomUUID().toString();
+        tracker.init(txId);
+        TrackerContextHolder.clearContext();
+        TrackerContext context = TrackerContextHolder.createEmptyContext();
+        context.setTracker(tracker);
+        TrackerContextHolder.setContext(context);
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }
 

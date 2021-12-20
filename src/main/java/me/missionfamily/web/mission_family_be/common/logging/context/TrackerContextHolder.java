@@ -5,7 +5,7 @@ import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Constructor;
 
-public class LoggerContextHolder {
+public class TrackerContextHolder {
 
     public static final String MODE_THREADLOCAL = "MODE_THREADLOCAL";
 
@@ -13,13 +13,14 @@ public class LoggerContextHolder {
 
     public static final String MODE_GLOBAL = "MODE_GLOBAL";
 
-    public static final String SYSTEM_PROPERTY = "mission.logger.strategy";
+    public static final String SYSTEM_PROPERTY = "mission.tracker.strategy";
 
     private static String strategyName = System.getProperty(SYSTEM_PROPERTY);
 
-    private static LoggerContextHolderStrategy strategy;
+    private static TrackerContextHolderStrategy strategy;
 
     private static int initializeCount = 0;
+
 
     static {
         initialize();
@@ -31,19 +32,19 @@ public class LoggerContextHolder {
         }
 
         if(strategyName.equals(MODE_THREADLOCAL)) {
-            strategy = new ThreadLocalLoggerContextHolderStrategy();
+            strategy = new ThreadLocalTrackerContextHolderStrategy();
         }
         else if (strategyName.equals(MODE_INHERITABLETHREADLOCAL)) {
-            strategy = new InheritableThreadLocalLoggerContextHolderStrategy();
+            strategy = new InheritableThreadLocalTrackerContextHolderStrategy();
         }
         else if (strategyName.equals(MODE_GLOBAL)) {
-            strategy = new GlobalLoggerContextHolderStrategy();
+            strategy = new GlobalTrackerContextHolderStrategy();
         }
         else {
             try {
                 Class<?> clazz = Class.forName(strategyName);
                 Constructor<?> customStrategy = clazz.getConstructor();
-                strategy = (LoggerContextHolderStrategy) customStrategy.newInstance();
+                strategy = (TrackerContextHolderStrategy) customStrategy.newInstance();
             } catch (Exception e) {
                 ReflectionUtils.handleReflectionException(e);
             }
@@ -55,7 +56,7 @@ public class LoggerContextHolder {
         strategy.clearContext();
     }
 
-    public static LoggerContext getContext() {
+    public static TrackerContext getContext() {
         return strategy.getContext();
     }
 
@@ -63,20 +64,21 @@ public class LoggerContextHolder {
         return initializeCount;
     }
 
-    public static void setContext(LoggerContext context) {
+    public static void setContext(TrackerContext context) {
         strategy.setContext(context);
     }
 
     public static void setStrategyName(String strategyName) {
-        LoggerContextHolder.strategyName = strategyName;
+        System.out.println("전략명 설정");
+        TrackerContextHolder.strategyName = strategyName;
         initialize();
     }
 
-    public static LoggerContextHolderStrategy getContextHolderStrategy() {
+    public static TrackerContextHolderStrategy getContextHolderStrategy() {
         return strategy;
     }
 
-    public static LoggerContext createEmptyContext() {
+    public static TrackerContext createEmptyContext() {
         return strategy.createEmptyContext();
     }
 

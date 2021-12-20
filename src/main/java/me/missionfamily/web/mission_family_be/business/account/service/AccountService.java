@@ -10,6 +10,7 @@ import me.missionfamily.web.mission_family_be.common.data_transfer.ResponseModel
 import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatus;
 import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
 import me.missionfamily.web.mission_family_be.common.logging.StepLogger;
+import me.missionfamily.web.mission_family_be.common.logging.context.TrackerContextHolder;
 import me.missionfamily.web.mission_family_be.common.service_enum.LogStep;
 import me.missionfamily.web.mission_family_be.common.util.Utils;
 import me.missionfamily.web.mission_family_be.common.validator.MissionValidator;
@@ -45,7 +46,7 @@ public class AccountService {
         final Account foundAccount = accountRepo.findAccountById(toBeChecked, false);
 
         step.info("foundAccount = [{}]", foundAccount);
-
+        String allStepString = TrackerContextHolder.getContext().getTracker().getAllStepString();
         if(Utils.isNotNull(foundAccount)) {
             step.error("This Login ID is Already registered. ID = [ {} ]", toBeChecked);
             throw new ServiceException(HttpResponseStatus.USER_ID_DUPLICATED);

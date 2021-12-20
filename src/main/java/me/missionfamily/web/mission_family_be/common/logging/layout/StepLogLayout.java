@@ -6,9 +6,8 @@ import ch.qos.logback.classic.spi.IThrowableProxy;
 import ch.qos.logback.core.CoreConstants;
 import ch.qos.logback.core.LayoutBase;
 import ch.qos.logback.core.util.CachingDateFormatter;
-import me.missionfamily.web.mission_family_be.common.logging.StepLogger;
-import me.missionfamily.web.mission_family_be.common.logging.context.LoggerAttribute;
-import me.missionfamily.web.mission_family_be.common.logging.context.LoggerContextHolder;
+import me.missionfamily.web.mission_family_be.common.logging.context.TrackerContextHolder;
+import me.missionfamily.web.mission_family_be.common.logging.tracker.StepLogTracker;
 import me.missionfamily.web.mission_family_be.common.util.Utils;
 
 
@@ -31,13 +30,13 @@ public class StepLogLayout extends LayoutBase<ILoggingEvent> {
             if (!isStarted()) {
                 return CoreConstants.EMPTY_STRING;
             }
-            StepLogger stepLogger = (StepLogger) LoggerContextHolder.getContext().getLogger();
+            StepLogTracker tracker = TrackerContextHolder.getContext().getTracker();
 
             long timeStamp = event.getTimeStamp();
             builder
                     .append(formatter.format(timeStamp))
                     .append(" ").append(String.format("%5s", event.getLevel().toString())).append(" - ")
-                    .append("[").append(stepLogger.getStep()).append("]");
+                    .append("[").append(tracker.getAllStepString()).append("]");
 
             IThrowableProxy proxy = event.getThrowableProxy();
             builder.append(event.getFormattedMessage()).append(CoreConstants.LINE_SEPARATOR);
@@ -46,6 +45,7 @@ public class StepLogLayout extends LayoutBase<ILoggingEvent> {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return "";
         }
         return builder.toString();
     }
