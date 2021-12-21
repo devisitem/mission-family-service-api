@@ -28,6 +28,7 @@ public class LoggerInterceptor implements HandlerInterceptor {
         TrackerContext context = TrackerContextHolder.createEmptyContext();
         context.setTracker(tracker);
         TrackerContextHolder.setContext(context);
+        MDC.put("dsa","Dsa");
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }
 

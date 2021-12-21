@@ -22,9 +22,6 @@ public class TrackerContextHolder {
     private static int initializeCount = 0;
 
 
-    static {
-        initialize();
-    }
 
     private static void initialize() {
         if( ! StringUtils.hasText(strategyName)) {
@@ -53,6 +50,7 @@ public class TrackerContextHolder {
     }
 
     public static void clearContext() {
+        initialize();
         strategy.clearContext();
     }
 
