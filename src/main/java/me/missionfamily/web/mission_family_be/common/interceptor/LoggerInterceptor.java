@@ -1,11 +1,10 @@
 package me.missionfamily.web.mission_family_be.common.interceptor;
 
 import lombok.RequiredArgsConstructor;
-import me.missionfamily.web.mission_family_be.common.logging.StepLogger;
+import me.missionfamily.web.mission_family_be.common.logging.context.StaticContext;
 import me.missionfamily.web.mission_family_be.common.logging.context.TrackerContext;
 import me.missionfamily.web.mission_family_be.common.logging.context.TrackerContextHolder;
 import me.missionfamily.web.mission_family_be.common.logging.tracker.StepLogTracker;
-import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,7 +27,6 @@ public class LoggerInterceptor implements HandlerInterceptor {
         TrackerContext context = TrackerContextHolder.createEmptyContext();
         context.setTracker(tracker);
         TrackerContextHolder.setContext(context);
-        MDC.put("dsa","Dsa");
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }
 

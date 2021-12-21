@@ -41,12 +41,11 @@ public class AccountService {
      * @throws ServiceException
      */
     @ServiceDescriptions(LogStep.DUPCHECK)
-    public MissionResponse dupCheckById(final AccountDxo.Request request) throws ServiceException{
+    public MissionResponse dupCheckById(final AccountDxo.Request request) throws ServiceException {
         final String toBeChecked = request.getUserId();
         final Account foundAccount = accountRepo.findAccountById(toBeChecked, false);
 
         step.info("foundAccount = [{}]", foundAccount);
-        String allStepString = TrackerContextHolder.getContext().getTracker().getAllStepString();
         if(Utils.isNotNull(foundAccount)) {
             step.error("This Login ID is Already registered. ID = [ {} ]", toBeChecked);
             throw new ServiceException(HttpResponseStatus.USER_ID_DUPLICATED);

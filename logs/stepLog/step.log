@@ -1,0 +1,8 @@
+23:00:40.914  INFO - [DUPCHECK] foundAccount = [null]
+23:00:57.853  INFO - [DUPCHECK] There is no this identification. usable identification = [Kimchi-dev1]
+23:16:06.657  INFO - [DUPCHECK] foundAccount = [null]
+23:16:06.658  INFO - [DUPCHECK] There is no this identification. usable identification = [Kimchi-dev1]
+23:16:49.903  INFO - [REGISTER_USER] there is no id founds, which is duplicated. by = [Kimchi-dev1]
+23:16:50.050  INFO - [REGISTER_USER] The saved Id is [1]
+23:16:50.050  INFO - [REGISTER_USER] created new User for id is = [Kimchi-dev1]
+23:17:00.874  INFO - [SIGN_IN_USER] create auth key for sign-in this service. auth-key = [f0306d53cee34022ad177c044a6fda54]

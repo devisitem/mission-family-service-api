@@ -9,7 +9,6 @@ import ch.qos.logback.core.util.CachingDateFormatter;
 import me.missionfamily.web.mission_family_be.common.logging.context.TrackerContextHolder;
 import me.missionfamily.web.mission_family_be.common.logging.tracker.StepLogTracker;
 import me.missionfamily.web.mission_family_be.common.util.Utils;
-import org.slf4j.MDC;
 
 
 public class StepLogLayout extends LayoutBase<ILoggingEvent> {
@@ -32,7 +31,6 @@ public class StepLogLayout extends LayoutBase<ILoggingEvent> {
                 return CoreConstants.EMPTY_STRING;
             }
 
-            String get = MDC.get("dsa");
             StepLogTracker tracker = TrackerContextHolder.getContext().getTracker();
 
             long timeStamp = event.getTimeStamp();
