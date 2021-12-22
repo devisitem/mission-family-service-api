@@ -1,10 +1,7 @@
 package me.missionfamily.web.mission_family_be.common.interceptor;
 
 import lombok.RequiredArgsConstructor;
-import me.missionfamily.web.mission_family_be.common.logging.context.TrackerContext;
-import me.missionfamily.web.mission_family_be.common.logging.context.TrackerContextHolder;
 import me.missionfamily.web.mission_family_be.common.logging.service.LoggerService;
-import me.missionfamily.web.mission_family_be.common.util.RandomStringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;

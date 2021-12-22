@@ -26,7 +26,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 //	implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.7.0")
-	implementation 'org.springframework.boot:spring-boot-devtools'
+	//사용시 스탭로그 안찍힘.
+//	implementation 'org.springframework.boot:spring-boot-devtools'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.security:spring-security-test'
 	//validation

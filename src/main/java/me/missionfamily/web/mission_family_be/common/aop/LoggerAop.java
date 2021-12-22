@@ -2,6 +2,7 @@ package me.missionfamily.web.mission_family_be.common.aop;
 
 import lombok.RequiredArgsConstructor;
 import me.missionfamily.web.mission_family_be.common.logging.StepLogger;
+import me.missionfamily.web.mission_family_be.common.logging.context.StaticContext;
 import me.missionfamily.web.mission_family_be.common.logging.context.TrackerContextHolder;
 import me.missionfamily.web.mission_family_be.common.service_enum.LogStep;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -28,11 +29,10 @@ public class LoggerAop {
     public Object addServiceTracking(ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         ServiceDescriptions checker = signature.getMethod().getAnnotation(ServiceDescriptions.class);
-
         TrackerContextHolder.getContext()
                 .getTracker()
                 .addStep(checker.value());
-
+        StaticContext.setString();
         return joinPoint.proceed();
     }
 }

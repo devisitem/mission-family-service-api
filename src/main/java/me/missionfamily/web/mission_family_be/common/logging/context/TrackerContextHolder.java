@@ -4,8 +4,6 @@ import me.missionfamily.web.mission_family_be.common.logging.tracker.StepLogTrac
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
 
-import java.lang.reflect.Constructor;
-
 public class TrackerContextHolder {
 
     public static final String MODE_THREADLOCAL = "MODE_THREADLOCAL";
@@ -22,37 +20,26 @@ public class TrackerContextHolder {
 
     private static int initializeCount = 0;
 
+    static {
+        initialize();
+        String classLoaderName = TrackerContextHolder.class.getClassLoader().getClass().getName();
+        System.out.println("class loader" + classLoaderName);
+    }
 
+    private TrackerContextHolder(){}
 
     private static void initialize() {
         if( ! StringUtils.hasText(strategyName)) {
             strategyName = MODE_THREADLOCAL;
         }
-
-        if(strategyName.equals(MODE_THREADLOCAL)) {
-            strategy = new ThreadLocalTrackerContextHolderStrategy();
-        }
-        else if (strategyName.equals(MODE_INHERITABLETHREADLOCAL)) {
-            strategy = new InheritableThreadLocalTrackerContextHolderStrategy();
-        }
-        else if (strategyName.equals(MODE_GLOBAL)) {
-            strategy = new GlobalTrackerContextHolderStrategy();
-        }
-        else {
-            try {
-                Class<?> clazz = Class.forName(strategyName);
-                Constructor<?> customStrategy = clazz.getConstructor();
-                strategy = (TrackerContextHolderStrategy) customStrategy.newInstance();
-            } catch (Exception e) {
-                ReflectionUtils.handleReflectionException(e);
-            }
-        }
+        strategy = AppropriateStrategyProvider.provide(strategyName);
         initializeCount++;
+        System.out.println("proceed initialize() with initializeCount ["+initializeCount+"] in the TrackerContextHolder");
     }
 
     public static void clearContext() {
-        initialize();
         strategy.clearContext();
+        System.out.println("clear Context in the TrackerContextHolder");
     }
 
     public static TrackerContext getContext() {
@@ -86,4 +73,5 @@ public class TrackerContextHolder {
     public String toString() {
         return "LoggerContextHolder[strategy='" + strategyName + "'; initializeCount=" + initializeCount + "]";
     }
+
 }
