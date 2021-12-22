@@ -27,4 +27,8 @@ public class StepLogTracker {
     public String getAllStepString() {
         return Arrays.toString(this.serviceStep.stream().toArray());
     }
+
+    public String getTxId() {
+        return this.txId;
+    }
 }

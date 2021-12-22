@@ -1,5 +1,6 @@
 package me.missionfamily.web.mission_family_be.common.logging.context;
 
+import me.missionfamily.web.mission_family_be.common.logging.tracker.StepLogTracker;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -76,7 +77,9 @@ public class TrackerContextHolder {
     }
 
     public static TrackerContext createEmptyContext() {
-        return strategy.createEmptyContext();
+        TrackerContext emptyContext = strategy.createEmptyContext();
+        emptyContext.setTracker(new StepLogTracker());
+        return emptyContext;
     }
 
     @Override

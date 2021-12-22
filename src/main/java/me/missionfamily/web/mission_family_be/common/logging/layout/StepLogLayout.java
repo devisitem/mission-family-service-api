@@ -32,12 +32,11 @@ public class StepLogLayout extends LayoutBase<ILoggingEvent> {
                 return CoreConstants.EMPTY_STRING;
             }
 
-            String get = MDC.get("dsa");
             StepLogTracker tracker = TrackerContextHolder.getContext().getTracker();
 
             long timeStamp = event.getTimeStamp();
             builder
-                    .append(formatter.format(timeStamp))
+                    .append(formatter.format(timeStamp)).append(" [").append(tracker.getTxId()).append("]")
                     .append(" ").append(String.format("%5s", event.getLevel().toString())).append(" - ")
                     .append(tracker.getAllStepString()).append(" ");
 
