@@ -16,10 +16,9 @@ public enum HttpResponseStatus {
     ;
 
 
-    int status;
-    int code;
-    String message;
-
+    private int status;
+    private int code;
+    private String message;
 
     HttpResponseStatus(int status, int code, String message) {
         this.status = status;

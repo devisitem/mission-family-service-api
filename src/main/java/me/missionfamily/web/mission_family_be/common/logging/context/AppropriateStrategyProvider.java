@@ -13,7 +13,7 @@ public class AppropriateStrategyProvider {
         return provider;
     }
 
-    public static TrackerContextHolderStrategy provide(String strategyName) {
+    public TrackerContextHolderStrategy provide(String strategyName) {
         TrackerContextHolderStrategy strategy = null;
 
         if(strategyName.equals(TrackerContextHolder.MODE_THREADLOCAL)) {

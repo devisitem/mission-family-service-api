@@ -32,7 +32,7 @@ public class TrackerContextHolder {
         if( ! StringUtils.hasText(strategyName)) {
             strategyName = MODE_THREADLOCAL;
         }
-        strategy = AppropriateStrategyProvider.provide(strategyName);
+        strategy = AppropriateStrategyProvider.getInstance().provide(strategyName);
         initializeCount++;
         System.out.println("proceed initialize() with initializeCount ["+initializeCount+"] in the TrackerContextHolder");
     }
