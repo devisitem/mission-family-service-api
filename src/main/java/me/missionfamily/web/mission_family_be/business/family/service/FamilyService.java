@@ -150,35 +150,30 @@ public class FamilyService {
         UserInfo userInfo = accountRepository.findUserInfoByUserId(memberId);
 
         List<InviteMessage> invitations = userInfo.getAccount().getReceivedInvite();
-
+        List<InvitationModel> list = null;
         if(Utils.isNull(invitations) || invitations.size() == 0){
 
             log.info("There are no invitations.");
         } else {
 
-            List<InvitationModel> list = invitations.stream()
-                    .filter(req ->  req.getIsConfirmed() == false)
-                    .map(req -> InvitationModel.builder()
-                    .key(req.getId())
-                    .title(req.getTitle())
-                    .content(req.getContent())
-                    .sender(req.getInviteSenderFamily().getFamilyName())
-                    .sentTime(req.getSentTime())
-                    .build()).collect(Collectors.toList());
+            list = invitations.stream().filter(req ->  req.getIsConfirmed() == false)
+                    .map(req ->
+                            InvitationModel.builder()
+                                    .key(req.getId())
+                                    .title(req.getTitle())
+                                    .content(req.getContent())
+                                    .sender(req.getInviteSenderFamily().getFamilyName())
+                                    .sentTime(req.getSentTime())
+                                    .build())
+                    .collect(Collectors.toList());
 
-            return FamilyDxo.Response.builder()
-                    .result(ResponseModel.builder()
-                            .code(0)
-                            .build())
-                    .invitations(list)
-                    .build();
         }
 
         return FamilyDxo.Response.builder()
                 .result(ResponseModel.builder()
                         .code(0)
                         .build())
-                .invitations(null)
+                .invitations(list)
                 .build();
     }
 
