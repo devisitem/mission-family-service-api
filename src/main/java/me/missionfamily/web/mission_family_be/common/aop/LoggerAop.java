@@ -18,7 +18,6 @@ public class LoggerAop {
 
     @Around("execution(* me.missionfamily.web.mission_family_be..*Controller.*(..))")
     public Object initRequestLog(ProceedingJoinPoint joinPoint) throws Throwable {
-        System.out.println("Controller - Log");
         return joinPoint.proceed();
     }
 
@@ -26,9 +25,11 @@ public class LoggerAop {
     public Object addServiceTracking(ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         ServiceDescriptions checker = signature.getMethod().getAnnotation(ServiceDescriptions.class);
+
         TrackerContextHolder.getContext()
                 .getTracker()
                 .addStep(checker.value());
+
         return joinPoint.proceed();
     }
 }

@@ -23,7 +23,6 @@ public class TrackerContextHolder {
     static {
         initialize();
         String classLoaderName = TrackerContextHolder.class.getClassLoader().getClass().getName();
-        System.out.println("class loader" + classLoaderName);
     }
 
     private TrackerContextHolder(){}

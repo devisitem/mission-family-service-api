@@ -41,8 +41,7 @@ public class AccountService {
      * @throws ServiceException
      */
     @ServiceDescriptions(LogStep.DUPCHECK)
-    public MissionResponse dupCheckById(final AccountDxo.Request request) throws ServiceException {
-        final String toBeChecked = request.getUserId();
+    public MissionResponse dupCheckById(final String toBeChecked) throws ServiceException {
         final Account foundAccount = accountRepo.findAccountById(toBeChecked, false);
 
         step.info("foundAccount = [{}]", foundAccount);

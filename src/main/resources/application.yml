@@ -11,6 +11,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  datasource:
+    url: jdbc:mysql://localhost:3302/missiondb?serverTimezone=UTC&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 1111
   banner:
     location: config/banner.txt
   config:

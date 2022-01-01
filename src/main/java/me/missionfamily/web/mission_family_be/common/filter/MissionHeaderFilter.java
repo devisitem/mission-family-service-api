@@ -9,6 +9,7 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Enumeration;
 
 @Component
 @RequiredArgsConstructor
@@ -36,6 +37,10 @@ public class MissionHeaderFilter implements Filter {
 
         //== 헤더 검증로직 구현 ==//
 
+        String userId = req.getParameter("user_id");
+        System.out.println("userId = " + userId);
+        Enumeration<String> parameterNames = req.getParameterNames();
+        System.out.println("parameterNames = " + parameterNames);
 
         filterChain.doFilter(req, res);
     }

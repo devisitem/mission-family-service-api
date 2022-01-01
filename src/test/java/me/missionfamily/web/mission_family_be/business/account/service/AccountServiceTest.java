@@ -53,12 +53,10 @@ class AccountServiceTest {
     @Test
     public void 아이디_중복체크_성공하고() throws Exception {
         /* Given */
-        AccountDxo.Request dto = AccountDxo.Request.builder()
-                .userId(this.testInfo.getAccount().getUserId())
-                .build();
+        String userId = this.testInfo.getAccount().getUserId();
 
         /* When */
-        MissionResponse response = assertDoesNotThrow(() -> accountService.dupCheckById(dto), "");
+        MissionResponse response = assertDoesNotThrow(() -> accountService.dupCheckById(userId), "");
 
         /* Then*/
         assertEquals(response.code(), HttpResponseStatus.SUCCESS.getCode());
@@ -68,13 +66,11 @@ class AccountServiceTest {
     @Test
     public void 아이디_중복체크_실패() throws Exception {
         /* Given */
-        AccountDxo.Request dto = AccountDxo.Request.builder()
-                .userId(this.testInfo.getAccount().getUserId())
-                .build();
+        String userId = this.testInfo.getAccount().getUserId();
 
         /* When */
         accountRepository.save(this.testInfo);
-        ServiceException thrown = assertThrows(ServiceException.class, () -> accountService.dupCheckById(dto));
+        ServiceException thrown = assertThrows(ServiceException.class, () -> accountService.dupCheckById(userId));
 
         /* Then*/
         assertEquals(HttpResponseStatus.USER_ID_DUPLICATED.getCode(), thrown.getResultCode());

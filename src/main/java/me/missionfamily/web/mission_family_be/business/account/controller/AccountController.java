@@ -21,10 +21,9 @@ public class AccountController {
     private final AccountService accountService;
 
     @GetMapping("/duplicateCheck")
-    public ResponseEntity<MissionResponse> dupCheck (@RequestBody @Valid AccountDxo.Request request) throws ServiceException {
-        String userId = request.getUserId();
+    public ResponseEntity<MissionResponse> dupCheck (@RequestParam(value = "user_id") String userId) throws ServiceException {
 
-        MissionResponse missionResponse = accountService.dupCheckById(request);
+        MissionResponse missionResponse = accountService.dupCheckById(userId);
 
         return ResponseEntity.ok().body(missionResponse);
     }
