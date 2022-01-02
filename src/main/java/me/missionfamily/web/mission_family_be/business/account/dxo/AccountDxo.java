@@ -7,6 +7,7 @@ import lombok.*;
 import me.missionfamily.web.mission_family_be.business.account.model.AccountModel;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionRequest;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionResponse;
+import me.missionfamily.web.mission_family_be.common.data_transfer.ResponseData;
 import me.missionfamily.web.mission_family_be.common.data_transfer.ResponseModel;
 import me.missionfamily.web.mission_family_be.domain.Account;
 
@@ -53,9 +54,9 @@ public class AccountDxo {
         @JsonProperty("result")
         private ResponseModel result;
 
-        @JsonProperty("checked_id")
+        @JsonProperty("res_data")
         @JsonInclude(Include.NON_NULL)
-        private String checkedId;
+        private ResponseData data;
 
         @Valid
         @JsonProperty("account")

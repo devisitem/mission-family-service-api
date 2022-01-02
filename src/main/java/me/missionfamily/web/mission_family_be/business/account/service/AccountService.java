@@ -3,6 +3,7 @@ package me.missionfamily.web.mission_family_be.business.account.service;
 import lombok.RequiredArgsConstructor;
 import me.missionfamily.web.mission_family_be.business.account.dxo.AccountDxo;
 import me.missionfamily.web.mission_family_be.business.account.model.AccountModel;
+import me.missionfamily.web.mission_family_be.business.account.model.AccountResponse;
 import me.missionfamily.web.mission_family_be.business.account.repository.AccountRepository;
 import me.missionfamily.web.mission_family_be.common.aop.ServiceDescriptions;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionResponse;
@@ -36,7 +37,7 @@ public class AccountService {
     /**
      * <b>아이디 중복체크</b>
      * <hr>
-     * @param checkId
+     * @param toBeChecked
      * @return
      * @throws ServiceException
      */
@@ -56,7 +57,9 @@ public class AccountService {
                 .result(ResponseModel.builder()
                         .code(0)
                         .build())
-                .checkedId(toBeChecked)
+                .data(AccountResponse.builder()
+                        .checkedId(toBeChecked)
+                        .build())
                 .build();
     }
 
