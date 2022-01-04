@@ -20,7 +20,7 @@ public class AccountController {
 
     private final AccountService accountService;
 
-    @GetMapping("/duplicateCheck")
+    @GetMapping("/check/duplicate")
     public ResponseEntity<MissionResponse> dupCheck (@RequestParam(value = "user_id") String userId) throws ServiceException {
 
         MissionResponse missionResponse = accountService.dupCheckById(userId);

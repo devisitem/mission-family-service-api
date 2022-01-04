@@ -4,7 +4,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatus;
+import me.missionfamily.web.mission_family_be.common.exception.MissionStatus;
 import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
 import me.missionfamily.web.mission_family_be.common.util.Utils;
 import me.missionfamily.web.mission_family_be.domain.Family;
@@ -67,7 +67,7 @@ public class FamilyRepository {
 
         if(Utils.isNull(member)) {
             log.info("can't find family member by member key [ {} ]", memberKey);
-            throw new ServiceException(HttpResponseStatus.NOT_FOUND_FAMILIES);
+            throw new ServiceException(MissionStatus.NOT_FOUND_FAMILIES);
         }
 
         return member;

@@ -3,7 +3,7 @@ package me.missionfamily.web.mission_family_be.business.account.repository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatus;
+import me.missionfamily.web.mission_family_be.common.exception.MissionStatus;
 import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
 import me.missionfamily.web.mission_family_be.common.util.Utils;
 import me.missionfamily.web.mission_family_be.domain.Account;
@@ -56,7 +56,7 @@ public class AccountRepository {
             if (Utils.isNull(account)) {
                 log.info("There is no User that, which be registered With login identification. [ {} ]", loginId);
                 if(isThrow) {
-                    throw new ServiceException(HttpResponseStatus.NOT_FOUND_USER);
+                    throw new ServiceException(MissionStatus.NOT_FOUND_USER);
                 }
             }
         }
@@ -76,7 +76,7 @@ public class AccountRepository {
 
         if(Utils.isNull(userInfo)){
             log.info("There is no User that, which be registered With login identification. [ {} ]", loginId);
-            throw new ServiceException(HttpResponseStatus.NOT_FOUND_USER);
+            throw new ServiceException(MissionStatus.NOT_FOUND_USER);
         }
 
         return userInfo;

@@ -8,10 +8,9 @@ import me.missionfamily.web.mission_family_be.business.account.repository.Accoun
 import me.missionfamily.web.mission_family_be.common.aop.ServiceDescriptions;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionResponse;
 import me.missionfamily.web.mission_family_be.common.data_transfer.ResponseModel;
-import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatus;
+import me.missionfamily.web.mission_family_be.common.exception.MissionStatus;
 import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
 import me.missionfamily.web.mission_family_be.common.logging.StepLogger;
-import me.missionfamily.web.mission_family_be.common.logging.context.TrackerContextHolder;
 import me.missionfamily.web.mission_family_be.common.service_enum.LogStep;
 import me.missionfamily.web.mission_family_be.common.util.Utils;
 import me.missionfamily.web.mission_family_be.common.validator.MissionValidator;
@@ -48,7 +47,7 @@ public class AccountService {
         step.info("foundAccount = [{}]", foundAccount);
         if(Utils.isNotNull(foundAccount)) {
             step.error("This Login ID is Already registered. ID = [ {} ]", toBeChecked);
-            throw new ServiceException(HttpResponseStatus.USER_ID_DUPLICATED);
+            throw new ServiceException(MissionStatus.USER_ID_DUPLICATED);
         }
 
         step.info("There is no this identification. usable identification = [{}]", toBeChecked);
@@ -76,7 +75,7 @@ public class AccountService {
 
         if(Utils.isNotNull(foundAccount)) {
             step.info("this id is already exist. id = [{}]",accountDxo.getUserId());
-            throw new ServiceException(HttpResponseStatus.USER_ID_DUPLICATED);
+            throw new ServiceException(MissionStatus.USER_ID_DUPLICATED);
         }
         step.info("there is no id founds, which is duplicated. by = [{}]", accountDxo.getUserId());
         accountDxo.setPassword(passwordEncoder.encode(accountDxo.getPassword()));
@@ -111,7 +110,7 @@ public class AccountService {
 
         if( ! passwordEncoder.matches(accountDxo.getPassword(), foundUser.getAccount().getUserPassword())){
             step.info("found 1 account and proceeded verification but It didn't matched with password.");
-            throw new ServiceException(HttpResponseStatus.NO_ACCOUNT_DATA_FOUNDS);
+            throw new ServiceException(MissionStatus.NO_ACCOUNT_DATA_FOUNDS);
         }
 
         String missionKey = foundUser.generateAndRefreshAuthKey();
@@ -143,12 +142,12 @@ public class AccountService {
 
         if(Utils.isNotEmptyAndNull(signature)){
             step.error("the auth key is null in request");
-            throw new ServiceException(HttpResponseStatus.AUTHKEY_MUST_BE_NON_NULL);
+            throw new ServiceException(MissionStatus.AUTHKEY_MUST_BE_NON_NULL);
         }
 
         if( ! signature.equals(fountUserInfo.getAuthKey())){
             step.error("failed authenticate to this process.");
-            throw new ServiceException(HttpResponseStatus.FAILED_AUTHENTICATE_PROCESS);
+            throw new ServiceException(MissionStatus.FAILED_AUTHENTICATE_PROCESS);
         }
 
     }

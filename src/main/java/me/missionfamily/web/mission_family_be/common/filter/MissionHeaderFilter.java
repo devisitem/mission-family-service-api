@@ -3,6 +3,7 @@ package me.missionfamily.web.mission_family_be.common.filter;
 
 import lombok.RequiredArgsConstructor;
 import me.missionfamily.web.mission_family_be.common.logging.StepLogger;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;

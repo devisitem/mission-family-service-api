@@ -5,11 +5,10 @@ import me.missionfamily.web.mission_family_be.business.account.repository.Accoun
 import me.missionfamily.web.mission_family_be.business.family.dxo.FamilyDxo;
 import me.missionfamily.web.mission_family_be.business.family.model.FamilyModel;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionResponse;
-import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatus;
+import me.missionfamily.web.mission_family_be.common.exception.MissionStatus;
 import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
 import me.missionfamily.web.mission_family_be.common.service_enum.ServiceProperties;
 import me.missionfamily.web.mission_family_be.domain.Account;
-import me.missionfamily.web.mission_family_be.domain.Family;
 import me.missionfamily.web.mission_family_be.domain.UserInfo;
 import me.missionfamily.web.mission_family_be.domain.service_request.InviteMessage;
 import org.junit.jupiter.api.BeforeEach;
@@ -80,7 +79,7 @@ class FamilyServiceTest {
         MissionResponse response = familyService.createFamilyGroup(familyModel, loginId);
 
         /* Then */
-        assertEquals(HttpResponseStatus.SUCCESS.getCode(), response.code());
+        assertEquals(MissionStatus.SUCCESS.getCode(), response.code());
 
     }
 

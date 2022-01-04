@@ -2,7 +2,7 @@ package me.missionfamily.web.mission_family_be.domain;
 
 import lombok.*;
 import me.missionfamily.web.mission_family_be.business.account.dxo.AccountDxo;
-import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatus;
+import me.missionfamily.web.mission_family_be.common.exception.MissionStatus;
 import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
 import me.missionfamily.web.mission_family_be.common.util.Utils;
 import me.missionfamily.web.mission_family_be.domain.service_request.InviteMessage;
@@ -85,7 +85,7 @@ public class Account implements MissionDomain{
                 .findFirst().orElse(null);
 
         if(Utils.isNull(inviteMessage)) {
-            throw new ServiceException(HttpResponseStatus.NON_EXIST_MESSAGE);
+            throw new ServiceException(MissionStatus.NON_EXIST_MESSAGE);
         }
 
         inviteMessage.confirmMessage();

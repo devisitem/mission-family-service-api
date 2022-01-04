@@ -3,19 +3,14 @@ package me.missionfamily.web.mission_family_be.business.account.service;
 import me.missionfamily.web.mission_family_be.business.account.dxo.AccountDxo;
 import me.missionfamily.web.mission_family_be.business.account.repository.AccountRepository;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionResponse;
-import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatus;
+import me.missionfamily.web.mission_family_be.common.exception.MissionStatus;
 import me.missionfamily.web.mission_family_be.common.exception.ServiceException;
 import me.missionfamily.web.mission_family_be.domain.Account;
 import me.missionfamily.web.mission_family_be.domain.UserInfo;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.support.StaticListableBeanFactory;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationContext;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -59,7 +54,7 @@ class AccountServiceTest {
         MissionResponse response = assertDoesNotThrow(() -> accountService.dupCheckById(userId), "");
 
         /* Then*/
-        assertEquals(response.code(), HttpResponseStatus.SUCCESS.getCode());
+        assertEquals(response.code(), MissionStatus.SUCCESS.getCode());
 
     }
 
@@ -73,7 +68,7 @@ class AccountServiceTest {
         ServiceException thrown = assertThrows(ServiceException.class, () -> accountService.dupCheckById(userId));
 
         /* Then*/
-        assertEquals(HttpResponseStatus.USER_ID_DUPLICATED.getCode(), thrown.getResultCode());
+        assertEquals(MissionStatus.USER_ID_DUPLICATED.getCode(), thrown.getResultCode());
 
     }
 
@@ -166,7 +161,7 @@ class AccountServiceTest {
         MissionResponse signInResponse = accountService.signInForAccount(signIn);
 
         //then
-        assertEquals(HttpResponseStatus.SUCCESS.getCode(), signInResponse.code());
+        assertEquals(MissionStatus.SUCCESS.getCode(), signInResponse.code());
     
     }
     

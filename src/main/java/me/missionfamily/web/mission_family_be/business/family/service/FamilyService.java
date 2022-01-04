@@ -7,7 +7,7 @@ import me.missionfamily.web.mission_family_be.business.account.repository.Accoun
 import me.missionfamily.web.mission_family_be.business.family.dxo.FamilyDxo;
 import me.missionfamily.web.mission_family_be.business.family.model.FamilyModel;
 import me.missionfamily.web.mission_family_be.business.family.model.InvitationModel;
-import me.missionfamily.web.mission_family_be.common.exception.HttpResponseStatus;
+import me.missionfamily.web.mission_family_be.common.exception.MissionStatus;
 import me.missionfamily.web.mission_family_be.common.data_transfer.MissionResponse;
 import me.missionfamily.web.mission_family_be.business.family.repository.FamilyRepository;
 import me.missionfamily.web.mission_family_be.common.data_transfer.ResponseModel;
@@ -54,7 +54,7 @@ public class FamilyService {
 
         if(Utils.isNull(leader)){
             log.error("found user can't be null");
-            throw new ServiceException(HttpResponseStatus.NO_ACCOUNT_DATA_FOUNDS);
+            throw new ServiceException(MissionStatus.NO_ACCOUNT_DATA_FOUNDS);
         }
         log.info("The family group has leader, which id by = [{}]", leader.getUserId());
 
@@ -130,7 +130,7 @@ public class FamilyService {
 
         if(Utils.isNull(senderGroup)){
             log.error("Not found Group. by key is [ {} ]", familyModel.getKey());
-            throw new ServiceException(HttpResponseStatus.NOT_FOUND_FAMILIES);
+            throw new ServiceException(MissionStatus.NOT_FOUND_FAMILIES);
         }
 
         InviteMessage inviteMessage = new InviteMessage();
@@ -208,7 +208,7 @@ public class FamilyService {
 
         Family toBeKickedMember = familyMembers.stream().filter(member ->
                 member.getFamilyId().longValue() == targetMember.longValue())
-                .findFirst().orElseThrow(() -> new ServiceException(HttpResponseStatus.ALREADY_KICKED_OR_LEAVE));
+                .findFirst().orElseThrow(() -> new ServiceException(MissionStatus.ALREADY_KICKED_OR_LEAVE));
 
         boolean isDeleted = toBeKickedMember.deleteMember();
 

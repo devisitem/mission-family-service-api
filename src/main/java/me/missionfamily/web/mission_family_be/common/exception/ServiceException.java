@@ -2,14 +2,14 @@ package me.missionfamily.web.mission_family_be.common.exception;
 
 public class ServiceException  extends RuntimeException{
 
-    HttpResponseStatus status;
+    MissionStatus status;
 
-     public ServiceException(HttpResponseStatus status){
+     public ServiceException(MissionStatus status){
          super(status.getMessage());
          this.status = status;
      }
 
-     public HttpResponseStatus getStatus(){
+     public MissionStatus getStatus(){
          return this.status;
      }
 
